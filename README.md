@@ -8,7 +8,7 @@
 
 <!-- tooling/site/talks.yaml 수정 후 make docs로 갱신 -->
 <!-- talks:start -->
-| 날짜 | 제목 | 행사 | 웹에서 보기 | PDF 다운로드 |
+| 날짜 | 제목 | 행사 | 웹 | PDF |
 |---|---|---|:---:|:---:|
 | 2026-10-28 | Kubernetes 엔지니어가 둘러본 AI Agent 생태계 | Kubernetes Korea Group Meetup 26.10 | [<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://jmnote.github.io/slides/k8s-ai-agent/) | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2026/2026-10-28-k8s-ai-agent.pdf?raw=true) |
 | 2025-09-16 | Ingress Annotator 개발기 | Cloud Native Korea Community Day 2025 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2025/2025-09-16-ingress-annotator.pdf?raw=true) |

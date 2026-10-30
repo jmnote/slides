@@ -33,7 +33,7 @@ test('multiple decks and derived PDF paths keep independent URLs under a shared 
   assert.ok(html.includes('href="/slides/second/"'));
   assert.ok(html.includes('/slides/2025/2025-01-01-older.pdf'));
   assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://example.github.io/slides/second/)'));
-  assert.ok(renderReadmeTable(catalog).startsWith('| 날짜 | 제목 | 행사 | 웹에서 보기 | PDF 다운로드 |'));
+  assert.ok(renderReadmeTable(catalog).startsWith('| 날짜 | 제목 | 행사 | 웹 | PDF |'));
   assert.ok(renderReadmeTable(catalog).includes('| Community Meetup |'));
   data.site.base = '/';
   assert.ok(renderIndex(validateCatalog(data, directory)).includes('href="/second/"'));
