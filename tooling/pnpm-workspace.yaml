@@ -1,0 +1,3 @@
+# Tooling package only; shared pnpm settings.
+overrides:
+  'monaco-editor>dompurify': 3.4.17

@@ -1,0 +1,66 @@
+name: Build and deploy presentations
+
+on:
+  pull_request:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: pages-${{ github.ref }}
+  cancel-in-progress: ${{ github.event_name == 'pull_request' }}
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    timeout-minutes: 15
+    outputs:
+      deploy: ${{ steps.deployment.outputs.enabled }}
+    steps:
+      - name: Determine deployment mode
+        id: deployment
+        env:
+          DEPLOY_ENABLED: ${{ github.ref == 'refs/heads/main' && (github.event_name == 'push' || github.event_name == 'workflow_dispatch') }}
+        run: |
+          echo "enabled=$DEPLOY_ENABLED" >> "$GITHUB_OUTPUT"
+          if [ "$DEPLOY_ENABLED" = "true" ]; then
+            echo "Build and deploy to Pages." >> "$GITHUB_STEP_SUMMARY"
+          else
+            echo "Validation only. Pages deployment runs on main." >> "$GITHUB_STEP_SUMMARY"
+          fi
+      - uses: actions/checkout@v7
+      - uses: pnpm/action-setup@v6
+        with:
+          package_json_file: tooling/package.json
+      - uses: actions/setup-node@v7
+        with:
+          node-version: '24'
+          cache: pnpm
+          cache-dependency-path: tooling/pnpm-lock.yaml
+      - run: pnpm --dir tooling install --frozen-lockfile
+      - run: pnpm --dir tooling check
+      - name: Upload Pages artifact
+        if: steps.deployment.outputs.enabled == 'true'
+        uses: actions/upload-pages-artifact@v5
+        with:
+          path: dist
+
+  deploy:
+    if: needs.build.outputs.deploy == 'true'
+    needs: build
+    runs-on: ubuntu-latest
+    timeout-minutes: 10
+    permissions:
+      pages: write
+      id-token: write
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - uses: actions/configure-pages@v6
+      - name: Deploy GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v5

@@ -1,0 +1,43 @@
+site:
+  title: jmnote · 발표 자료
+  description: Kubernetes, Cloud Native, Go, AI Agent를 주제로 나눈 발표를 모았습니다.
+  origin: https://jmnote.github.io
+  base: /slides/
+  repository: https://github.com/jmnote/slides
+
+talks:
+  - id: cloud-native
+    date: 2023-07-12
+    title: Cloud Native와 Samsung Cloud Platform
+    event: Open Cloud Platform Summit 2023
+
+  - id: go-tests
+    date: 2023-08-05
+    title: Go 테스트의 거의 모든 것
+    event: GopherCon Korea 2023
+
+  - id: venti-stack
+    date: 2024-09-24
+    title: K8s LMA venti-stack 개발기
+    event: Cloud Native Korea Community Day 2024
+
+  - id: venti-stack-2
+    date: 2024-10-12
+    title: "K8s LMA venti-stack 개발기: 파트 2"
+    event: GopherCon Korea 2024
+
+  - id: helm-chart
+    date: 2025-05-22
+    title: Helm Chart 개발과 GitHub · ArtifactHub 사용기
+    event: KCD Seoul 2025
+
+  - id: ingress-annotator
+    date: 2025-09-16
+    title: Ingress Annotator 개발기
+    event: Cloud Native Korea Community Day 2025
+
+  - id: k8s-ai-agent
+    date: 2026-10-28
+    title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
+    event: Kubernetes Korea Group Meetup 26.10
+    slides: true
