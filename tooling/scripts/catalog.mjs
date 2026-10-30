@@ -1,5 +1,5 @@
 import { readFileSync, realpathSync, statSync } from 'node:fs';
-import { resolve, relative, sep, posix } from 'node:path';
+import { resolve, relative, sep } from 'node:path';
 import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
 
@@ -8,7 +8,7 @@ const required = (condition, message) => { if (!condition) throw new Error(messa
 const text = value => typeof value === 'string' && value.trim().length > 0;
 export const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 export const encodePath = path => path.split('/').map(encodeURIComponent).join('/');
-export const deckPath = talk => posix.dirname(talk.slides) + '/';
+export const deckPath = talk => talk.id + '/';
 
 export function validateCatalog(data, directory = root) {
   required(data?.site && Array.isArray(data.talks) && data.talks.length, 'site and talks must be defined in tooling/site/talks.yaml');
@@ -16,34 +16,30 @@ export function validateCatalog(data, directory = root) {
   required(text(site.title) && text(site.description), 'site.title and site.description are required');
   required(typeof site.base === 'string' && /^\/(?:[a-zA-Z0-9_-]+\/)*$/.test(site.base), 'site.base must be a path starting and ending with /');
   required(typeof site.repository === 'string' && /^https:\/\//.test(site.repository), 'site.repository must be an HTTPS URL');
-  const ids = new Set(), routes = new Set(), pdfs = new Set();
+  const ids = new Set();
   function source(path, extension) {
     required(typeof path === 'string' && /^\d{4}\//.test(path) && !path.includes('\\') && !path.split('/').some(part => !part || part === '.' || part === '..') && path.endsWith(extension), `Invalid source path: ${path}`);
     const fullPath = realpathSync(resolve(directory, path));
     const rel = relative(realpathSync(directory), fullPath);
     required(rel !== '..' && !rel.startsWith('..' + sep) && statSync(fullPath).isFile(), `Source must be a file inside the repository: ${path}`);
   }
-  for (const talk of talks) {
+  const resolvedTalks = talks.map(talk => {
     required(typeof talk.id === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(talk.id) && !ids.has(talk.id), `Invalid or duplicate talk id: ${talk.id}`);
     ids.add(talk.id);
     required(text(talk.title), `Missing title: ${talk.id}`);
     required(typeof talk.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(talk.date) && !Number.isNaN(Date.parse(talk.date)) && new Date(talk.date).toISOString().slice(0, 10) === talk.date, `Invalid date: ${talk.id}`);
-    required(talk.event === undefined || text(talk.event), `Invalid event: ${talk.id}`);
-    required(talk.slides || talk.pdf, `No slides or PDF: ${talk.id}`);
-    if (talk.slides) {
-      source(talk.slides, '.md');
-      required(/^\d{4}\/[a-z0-9-]+\/slides\.md$/.test(talk.slides), `Slides must be YYYY/slug/slides.md: ${talk.id}`);
-      const route = deckPath(talk);
-      required(!routes.has(route), `Duplicate slide route: ${route}`);
-      routes.add(route);
+    required(text(talk.event), `Invalid event: ${talk.id}`);
+    required(talk.slides === undefined || typeof talk.slides === 'boolean', `slides must be a boolean: ${talk.id}`);
+    const stem = `${talk.date.slice(0, 4)}/${talk.date}-${talk.id}`;
+    const pdf = `${stem}.pdf`;
+    const slides = talk.slides === true ? `${stem}/slides.md` : undefined;
+    if (slides) {
+      source(slides, '.md');
     }
-    if (talk.pdf) {
-      source(talk.pdf, '.pdf');
-      required(!pdfs.has(talk.pdf), `Duplicate PDF: ${talk.pdf}`);
-      pdfs.add(talk.pdf);
-    }
-  }
-  return { site, talks: [...talks].sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id)) };
+    source(pdf, '.pdf');
+    return { ...talk, pdf, slides };
+  });
+  return { site, talks: resolvedTalks.sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id)) };
 }
 
 export function loadCatalog(directory = root) {

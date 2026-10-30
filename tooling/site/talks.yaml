@@ -5,39 +5,38 @@ site:
   repository: https://github.com/jmnote/slides
 
 talks:
-  - id: 2026-10-28-k8s-ai-agent
-    date: '2026-10-28'
-    title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
-    event: 쿠버네티스 코리아 유저 그룹 밋업
-    slides: 2026/2026-10-28-k8s-ai-agent/slides.md
-    pdf: 2026/2026-10-28-k8s-ai-agent.pdf
-
-  - id: 2025-09-16-ingress-annotator
-    date: '2025-09-16'
-    title: Ingress Annotator 개발기
-    pdf: 2025/2025-09-16-ingress-annotator.pdf
-
-  - id: 2025-05-22-helm-chart
-    date: '2025-05-22'
-    title: Helm Chart 개발과 GitHub · ArtifactHub 사용기
-    pdf: 2025/2025-05-22-helm-chart.pdf
-
-  - id: 2024-10-12-venti-stack-2
-    date: '2024-10-12'
-    title: "K8s LMA venti-stack 개발기: 파트 2"
-    pdf: 2024/2024-10-12-venti-stack-2.pdf
-
-  - id: 2024-09-24-venti-stack
-    date: '2024-09-24'
-    title: K8s LMA venti-stack 개발기
-    pdf: 2024/2024-09-24-venti-stack.pdf
-
-  - id: 2023-08-05-go-tests
-    date: '2023-08-05'
-    title: Go 테스트의 거의 모든 것
-    pdf: 2023/2023-08-05-go-tests.pdf
-
-  - id: 2023-07-12-cloud-native
-    date: '2023-07-12'
+  - id: cloud-native
+    date: 2023-07-12
     title: Cloud Native와 Samsung Cloud Platform
-    pdf: 2023/2023-07-12-cloud-native.pdf
+    event: Open Cloud Platform Summit 2023
+
+  - id: go-tests
+    date: 2023-08-05
+    title: Go 테스트의 거의 모든 것
+    event: GopherCon Korea 2023
+
+  - id: venti-stack
+    date: 2024-09-24
+    title: K8s LMA venti-stack 개발기
+    event: Cloud Native Korea Community Day 2024
+
+  - id: venti-stack-2
+    date: 2024-10-12
+    title: "K8s LMA venti-stack 개발기: 파트 2"
+    event: GopherCon Korea 2024
+
+  - id: helm-chart
+    date: 2025-05-22
+    title: Helm Chart 개발과 GitHub · ArtifactHub 사용기
+    event: KCD Seoul 2025
+
+  - id: ingress-annotator
+    date: 2025-09-16
+    title: Ingress Annotator 개발기
+    event: Cloud Native Korea Community Day 2025
+
+  - id: k8s-ai-agent
+    date: 2026-10-28
+    title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
+    event: Kubernetes Korea Group Meetup 26.10
+    slides: true
