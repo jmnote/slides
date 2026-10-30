@@ -37,13 +37,11 @@ test('multiple decks and derived PDF paths keep independent URLs under a shared 
   assert.ok(renderReadmeTable(catalog).includes('[Slidev 원본](2026/2026-02-01-second/slides.md)'));
 });
 
-test('duplicate IDs or deployment paths fail before a build', t => {
+test('duplicate IDs fail before a build', t => {
   const { directory, data } = fixture(t);
-
   const duplicateId = structuredClone(data);
   duplicateId.talks[1].id = 'older';
   assert.throws(() => validateCatalog(duplicateId, directory), /duplicate talk id/);
-
 });
 
 test('invalid dates, escaping source paths, and malformed base paths are rejected', t => {
@@ -72,7 +70,6 @@ test('the real catalog resolves all registered sources', () => {
   assert.ok(catalog.talks.some(talk => talk.slides));
   assert.ok(catalog.talks.some(talk => talk.pdf));
 });
-
 
 test('all talks require a PDF derived from date and ID without mutating input', t => {
   const { directory, data } = fixture(t);
@@ -117,5 +114,20 @@ test('omitted or false slides is PDF-only and other values are rejected', t => {
   for (const slides of ['true', '2026/example/slides.md', 1, null]) {
     data.talks[1].slides = slides;
     assert.throws(() => validateCatalog(data, directory), /slides must be a boolean/);
+  }
+});
+
+
+test('year-directory IDs and site filenames cannot become presentation routes', t => {
+  const { directory, data } = fixture(t);
+  for (const id of ['2025', '2026', '2099']) {
+    const invalid = structuredClone(data);
+    invalid.talks[1].id = id;
+    assert.throws(() => validateCatalog(invalid, directory), /Reserved talk id/);
+  }
+  for (const id of ['site.css', 'index.html', '.nojekyll']) {
+    const invalid = structuredClone(data);
+    invalid.talks[1].id = id;
+    assert.throws(() => validateCatalog(invalid, directory), /Invalid or duplicate talk id/);
   }
 });

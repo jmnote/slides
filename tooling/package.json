@@ -10,7 +10,7 @@
     "build": "node scripts/build.mjs",
     "preview": "node scripts/preview.mjs",
     "docs:check": "node scripts/readme.mjs --check",
-    "test": "node --test scripts/catalog.test.mjs",
+    "test": "node --test scripts/*.test.mjs",
     "check": "pnpm test && pnpm docs:check && pnpm build",
     "docs:update": "node scripts/readme.mjs"
   },

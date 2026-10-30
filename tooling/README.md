@@ -36,7 +36,7 @@ Makefile은 `pnpm --dir tooling …` 명령을 호출합니다. 패키지 스크
    PDF는 `연도/YYYY-MM-DD-id.pdf` 형식으로 이름을 짓습니다.
 2. `tooling/site/talks.yaml`에 항목을 추가합니다. `id`, `date`, `title`, `event`는 필수이고,
    `slides`는 선택 사항입니다. `id`는 영문 소문자·숫자·하이픈으로 작성하고 전체 발표에서 고유해야 합니다.
-   공개 URL은 `/slides/<id>/`이므로 공개 후에는 ID를 유지합니다.
+   공개 URL은 `/slides/<id>/`이므로 공개 후에는 ID를 유지합니다. 연도별 PDF 디렉터리와 충돌하는 네 자리 숫자 ID는 사용할 수 없습니다.
    PDF는 모든 발표에 필수이며 `연도/날짜-id.pdf` 경로로 자동 계산하므로 `pdf` 필드는 작성하지 않습니다.
    Slidev가 있으면 `slides: true`를 지정합니다. `연도/날짜-id/slides.md`가 없으면 검증에 실패합니다.
    `slides`를 생략하거나 `false`로 지정하면 PDF만 제공합니다.

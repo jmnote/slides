@@ -25,6 +25,7 @@ export function validateCatalog(data, directory = root) {
   }
   const resolvedTalks = talks.map(talk => {
     required(typeof talk.id === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(talk.id) && !ids.has(talk.id), `Invalid or duplicate talk id: ${talk.id}`);
+    required(!/^\d{4}$/.test(talk.id), `Reserved talk id (year directory): ${talk.id}`);
     ids.add(talk.id);
     required(text(talk.title), `Missing title: ${talk.id}`);
     required(typeof talk.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(talk.date) && !Number.isNaN(Date.parse(talk.date)) && new Date(talk.date).toISOString().slice(0, 10) === talk.date, `Invalid date: ${talk.id}`);
