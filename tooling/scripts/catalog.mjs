@@ -95,11 +95,11 @@ export function renderIndex({ site, talks }) {
 
 export function renderReadmeTable({ site, talks }) {
   const cell = value => String(value).replaceAll('|', '\\|').replaceAll('\n', ' ');
-  return ['| 날짜 | 제목 | 행사 | 웹 | PDF |', '|---|---|---|:---:|:---:|', ...talks.map(talk => {
+  return ['| 제목 | 웹 | PDF | 날짜 | 행사 |', '|---|:---:|:---:|---|---|', ...talks.map(talk => {
     const web = talk.slides
       ? `[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](${site.origin}${site.base}${encodePath(deckPath(talk))})`
       : '—';
     const pdf = `[<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](${encodePath(talk.pdf)}?raw=true)`;
-    return `| ${talk.date} | ${cell(talk.title)} | ${cell(talk.event)} | ${web} | ${pdf} |`;
+    return `| ${cell(talk.title)} | ${web} | ${pdf} | ${talk.date} | ${cell(talk.event)} |`;
   })].join('\n');
 }
