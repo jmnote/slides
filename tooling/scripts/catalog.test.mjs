@@ -14,7 +14,7 @@ function fixture(t) {
     writeFileSync(full, path.endsWith('.pdf') ? '%PDF-1.7' : '# Example');
   }
   const data = {
-    site: { title: 'Talks', description: 'Archive', base: '/slides/', repository: 'https://github.com/example/slides' },
+    site: { title: 'Talks', description: 'Archive', base: '/slides/', origin: 'https://example.github.io', repository: 'https://github.com/example/slides' },
     talks: [
       { id: 'older', date: '2025-01-01', event: 'Community Meetup', title: '지난 발표' },
       { id: 'first', date: '2026-01-01', event: 'Community Meetup', title: '첫 발표', slides: true },
@@ -32,9 +32,12 @@ test('multiple decks and derived PDF paths keep independent URLs under a shared 
   assert.ok(html.includes('href="/slides/first/"'));
   assert.ok(html.includes('href="/slides/second/"'));
   assert.ok(html.includes('/slides/2025/2025-01-01-older.pdf'));
+  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://example.github.io/slides/second/)'));
+  assert.ok(renderReadmeTable(catalog).startsWith('| 날짜 | 제목 | 행사 | 웹에서 보기 | PDF 다운로드 |'));
+  assert.ok(renderReadmeTable(catalog).includes('| Community Meetup |'));
   data.site.base = '/';
   assert.ok(renderIndex(validateCatalog(data, directory)).includes('href="/second/"'));
-  assert.ok(renderReadmeTable(catalog).includes('[Slidev 원본](2026/2026-02-01-second/slides.md)'));
+  assert.ok(renderReadmeTable(validateCatalog(data, directory)).includes('https://example.github.io/second/'));
 });
 
 test('duplicate IDs fail before a build', t => {
@@ -78,7 +81,7 @@ test('all talks require a PDF derived from date and ID without mutating input', 
   assert.equal(catalog.talks.find(talk => talk.id === 'older').pdf, '2025/2025-01-01-older.pdf');
   assert.deepEqual(data, before);
   rmSync(resolve(directory, '2026/2026-01-01-first.pdf'));
-  assert.throws(() => validateCatalog(data, directory), /ENOENT/);
+  assert.throws(() => validateCatalog(data, directory), /Talk "first" \(2026-01-01\): missing PDF: 2026\/2026-01-01-first\.pdf/);
 });
 
 test('invalid or duplicate string IDs and missing events are rejected', t => {
@@ -100,7 +103,7 @@ test('slides true derives the source path and requires an existing file', t => {
   const catalog = validateCatalog(data, directory);
   assert.equal(catalog.talks.find(talk => talk.id === 'first').slides, '2026/2026-01-01-first/slides.md');
   rmSync(resolve(directory, '2026/2026-01-01-first/slides.md'));
-  assert.throws(() => validateCatalog(data, directory), /ENOENT/);
+  assert.throws(() => validateCatalog(data, directory), /Talk "first" \(2026-01-01\): missing Slidev source: 2026\/2026-01-01-first\/slides\.md/);
 });
 
 test('omitted or false slides is PDF-only and other values are rejected', t => {
@@ -110,13 +113,12 @@ test('omitted or false slides is PDF-only and other values are rejected', t => {
   assert.equal(catalog.talks.find(talk => talk.id === 'older').slides, undefined);
   assert.equal(catalog.talks.find(talk => talk.id === 'first').slides, undefined);
   assert.ok(!renderIndex(catalog).includes('href="/slides/first/"'));
-  assert.ok(renderReadmeTable(catalog).includes('[PDF](2026/2026-01-01-first.pdf)'));
+  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2026/2026-01-01-first.pdf?raw=true)'));
   for (const slides of ['true', '2026/example/slides.md', 1, null]) {
     data.talks[1].slides = slides;
     assert.throws(() => validateCatalog(data, directory), /slides must be a boolean/);
   }
 });
-
 
 test('year-directory IDs and site filenames cannot become presentation routes', t => {
   const { directory, data } = fixture(t);

@@ -21,6 +21,9 @@ make docs                               # README 발표 목록 갱신
 make check                              # 테스트·README 동기화·전체 빌드 검증
 ```
 
+발표 ID는 옵션보다 먼저 지정합니다: `pnpm --dir tooling dev k8s-ai-agent --port 3030`.
+ID를 생략하고 옵션만 주면 최신 발표를 엽니다.
+
 Makefile은 `pnpm --dir tooling …` 명령을 호출합니다. 패키지 스크립트를 직접 실행해도 됩니다.
 
 목록: http://localhost:4173/slides/
@@ -54,7 +57,8 @@ Makefile은 `pnpm --dir tooling …` 명령을 호출합니다. 패키지 스크
 `tooling/site/talks.yaml`에 등록한 발표만 배포합니다. 파일 누락이나 ID·발표 경로 중복은 빌드 전에 오류로 처리합니다.
 목록 페이지와 README는 같은 메타데이터를 사용합니다. 발표 파일 경로는 저장소 루트 기준입니다.
 운영 스크립트는 `tooling/scripts/`, 목록 페이지 스타일은 `tooling/site/`에서 관리합니다.
-공통 빌드는 `dist/`를 매번 새로 생성하며, 빌드 산출물은 커밋하지 않습니다.
+공통 빌드는 임시 디렉터리에서 완료한 뒤 `dist/`를 교체합니다. 빌드 실패 시 마지막 성공 결과를 유지하며, 빌드 산출물은 커밋하지 않습니다.
+처음 미리보기를 실행하기 전에는 `make build`가 필요합니다.
 PDF는 날짜와 id로 계산한 경로로 복사합니다. 새 PDF 자동 생성은 아직 포함하지 않습니다.
 
 `2026-10-28-k8s-ai-agent`는 `kcd2026/_final/*.md` 본문을 가져왔으며 발표자 노트를 제외했습니다.
@@ -66,13 +70,14 @@ PDF는 날짜와 id로 계산한 경로로 복사합니다. 새 PDF 자동 생�
 
 - PR: 의존성 설치, 검사, 전체 빌드. 배포 권한을 부여하지 않으며 배포하지 않습니다.
 - `main` 반영: 같은 검사를 통과한 `dist/` 전체를 하나의 Pages artifact로 배포합니다.
-- 수동 실행: `main`에서 실행할 때만 배포합니다.
+- 수동 실행: `main`에서 실행할 때만 배포합니다. 다른 브랜치는 검증만 하며 실행 요약에 표시합니다.
 
 실제 배포를 시작할 때 저장소 **Settings → Pages → Source → GitHub Actions**로 설정합니다.
 예상 주소는 https://jmnote.github.io/slides/ 입니다.
 
 `tooling/site/talks.yaml`의 `site.base`가 목록·발표·PDF·미리보기의 공통 기준 경로입니다.
-커스텀 도메인 루트로 옮기는 경우 `/`로 변경하고 다시 빌드합니다.
+`site.origin`은 README의 웹 발표 링크에 사용하는 공개 도메인입니다.
+커스텀 도메인 루트로 옮기는 경우 `site.origin`을 해당 도메인으로, `site.base`를 `/`로 변경한 뒤 `make docs`와 `make build`를 실행합니다.
 
 ## 의존성 참고
 

@@ -16,10 +16,19 @@ export function validateCatalog(data, directory = root) {
   required(text(site.title) && text(site.description), 'site.title and site.description are required');
   required(typeof site.base === 'string' && /^\/(?:[a-zA-Z0-9_-]+\/)*$/.test(site.base), 'site.base must be a path starting and ending with /');
   required(typeof site.repository === 'string' && /^https:\/\//.test(site.repository), 'site.repository must be an HTTPS URL');
+  required(typeof site.origin === 'string' && /^https:\/\/[^/\s?#]+$/.test(site.origin), 'site.origin must be an HTTPS origin without a trailing slash');
   const ids = new Set();
-  function source(path, extension) {
+  function source(path, extension, talk) {
     required(typeof path === 'string' && /^\d{4}\//.test(path) && !path.includes('\\') && !path.split('/').some(part => !part || part === '.' || part === '..') && path.endsWith(extension), `Invalid source path: ${path}`);
-    const fullPath = realpathSync(resolve(directory, path));
+    let fullPath;
+    try {
+      fullPath = realpathSync(resolve(directory, path));
+    } catch (error) {
+      if (error.code === 'ENOENT' || error.code === 'ENOTDIR') {
+        throw new Error(`Talk "${talk.id}" (${talk.date}): missing ${extension === '.pdf' ? 'PDF' : 'Slidev source'}: ${path}`, { cause: error });
+      }
+      throw error;
+    }
     const rel = relative(realpathSync(directory), fullPath);
     required(rel !== '..' && !rel.startsWith('..' + sep) && statSync(fullPath).isFile(), `Source must be a file inside the repository: ${path}`);
   }
@@ -35,9 +44,9 @@ export function validateCatalog(data, directory = root) {
     const pdf = `${stem}.pdf`;
     const slides = talk.slides === true ? `${stem}/slides.md` : undefined;
     if (slides) {
-      source(slides, '.md');
+      source(slides, '.md', talk);
     }
-    source(pdf, '.pdf');
+    source(pdf, '.pdf', talk);
     return { ...talk, pdf, slides };
   });
   return { site, talks: resolvedTalks.sort((a, b) => b.date.localeCompare(a.date) || a.id.localeCompare(b.id)) };
@@ -56,8 +65,8 @@ export function renderIndex({ site, talks }) {
       <div class="year-heading"><h2 id="year-${year}">${year}</h2><span>${entries.length}개 발표</span></div>
       <ul class="talks">${entries.map(talk => `<li class="talk">
         <time datetime="${talk.date}">${talk.date.slice(5).replace('-', '.')}</time>
-        <div class="talk-content"><h3>${e(talk.title)}</h3>${talk.event ? `<p>${e(talk.event)}</p>` : ''}</div>
-        <div class="links">${talk.slides ? `<a class="primary" href="${site.base}${encodePath(deckPath(talk))}" aria-label="${e(talk.title)} 슬라이드 보기">슬라이드 보기 <span aria-hidden="true">↗</span></a>` : ''}${talk.pdf ? `<a href="${site.base}${encodePath(talk.pdf)}" aria-label="${e(talk.title)} PDF">PDF <span aria-hidden="true">↗</span></a>` : ''}</div>
+        <div class="talk-content"><h3>${e(talk.title)}</h3><p>${e(talk.event)}</p></div>
+        <div class="links">${talk.slides ? `<a class="primary" href="${site.base}${encodePath(deckPath(talk))}" aria-label="${e(talk.title)} 슬라이드 보기">슬라이드 보기 <span aria-hidden="true">↗</span></a>` : ''}<a href="${site.base}${encodePath(talk.pdf)}" aria-label="${e(talk.title)} PDF">PDF <span aria-hidden="true">↗</span></a></div>
       </li>`).join('\n')}</ul>
     </section>`;
   }).join('\n');
@@ -84,12 +93,13 @@ export function renderIndex({ site, talks }) {
 `;
 }
 
-export function renderReadmeTable({ talks }) {
+export function renderReadmeTable({ site, talks }) {
   const cell = value => String(value).replaceAll('|', '\\|').replaceAll('\n', ' ');
-  return ['| 날짜 | 발표 | 자료 |', '|---|---|---|', ...talks.map(talk => {
-    const links = [];
-    if (talk.slides) links.push(`[Slidev 원본](${encodePath(talk.slides)})`);
-    if (talk.pdf) links.push(`[PDF](${encodePath(talk.pdf)})`);
-    return `| ${talk.date} | ${cell(talk.title)} | ${links.join(' · ')} |`;
+  return ['| 날짜 | 제목 | 행사 | 웹에서 보기 | PDF 다운로드 |', '|---|---|---|:---:|:---:|', ...talks.map(talk => {
+    const web = talk.slides
+      ? `[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](${site.origin}${site.base}${encodePath(deckPath(talk))})`
+      : '—';
+    const pdf = `[<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](${encodePath(talk.pdf)}?raw=true)`;
+    return `| ${talk.date} | ${cell(talk.title)} | ${cell(talk.event)} | ${web} | ${pdf} |`;
   })].join('\n');
 }
