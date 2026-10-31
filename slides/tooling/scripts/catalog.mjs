@@ -4,6 +4,7 @@ import { fileURLToPath } from 'node:url';
 import { parse } from 'yaml';
 
 export const root = fileURLToPath(new URL('../../', import.meta.url));
+export const repoRoot = fileURLToPath(new URL('../../../', import.meta.url));
 const required = (condition, message) => { if (!condition) throw new Error(message); };
 const text = value => typeof value === 'string' && value.trim().length > 0;
 export const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
@@ -19,7 +20,7 @@ export function validateCatalog(data, directory = root) {
   required(typeof site.origin === 'string' && /^https:\/\/[^/\s?#]+$/.test(site.origin), 'site.origin must be an HTTPS origin without a trailing slash');
   const ids = new Set();
   function source(path, extension, talk) {
-    required(typeof path === 'string' && /^\d{4}\//.test(path) && !path.includes('\\') && !path.split('/').some(part => !part || part === '.' || part === '..') && path.endsWith(extension), `Invalid source path: ${path}`);
+    required(typeof path === 'string' && /^(?:pdf\/)?\d{4}-\d{2}-\d{2}-/.test(path) && !path.includes('\\') && !path.split('/').some(part => !part || part === '.' || part === '..') && path.endsWith(extension), `Invalid source path: ${path}`);
     let fullPath;
     try {
       fullPath = realpathSync(resolve(directory, path));
@@ -34,14 +35,14 @@ export function validateCatalog(data, directory = root) {
   }
   const resolvedTalks = talks.map(talk => {
     required(typeof talk.id === 'string' && /^[a-z0-9]+(?:-[a-z0-9]+)*$/.test(talk.id) && !ids.has(talk.id), `Invalid or duplicate talk id: ${talk.id}`);
-    required(!/^\d{4}$/.test(talk.id), `Reserved talk id (year directory): ${talk.id}`);
+    required(talk.id !== 'pdf', `Reserved talk id (PDF directory): ${talk.id}`);
     ids.add(talk.id);
     required(text(talk.title), `Missing title: ${talk.id}`);
     required(typeof talk.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(talk.date) && !Number.isNaN(Date.parse(talk.date)) && new Date(talk.date).toISOString().slice(0, 10) === talk.date, `Invalid date: ${talk.id}`);
     required(text(talk.event), `Invalid event: ${talk.id}`);
     required(talk.slides === undefined || typeof talk.slides === 'boolean', `slides must be a boolean: ${talk.id}`);
-    const stem = `${talk.date.slice(0, 4)}/${talk.date}-${talk.id}`;
-    const pdf = `${stem}.pdf`;
+    const stem = `${talk.date}-${talk.id}`;
+    const pdf = `pdf/${stem}.pdf`;
     const slides = talk.slides === true ? `${stem}/slides.md` : undefined;
     if (slides) {
       source(slides, '.md', talk);

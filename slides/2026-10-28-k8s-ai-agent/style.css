@@ -1,4 +1,4 @@
-@import '../../tooling/site/fonts.css';
+@import '../tooling/site/fonts.css';
 
 .slidev-layout { font-family: 'Noto Sans KR', sans-serif; color: #182c43; background: #f7f9fc; padding: 44px 54px 48px; font-size: 22px; line-height: 1.5; border-top: 7px solid #3274e6; }
 .slidev-layout h1 { font-size: 38px; line-height: 1.3; font-weight: 700; margin-bottom: 24px; letter-spacing: -1px; }

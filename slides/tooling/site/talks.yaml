@@ -1,9 +1,9 @@
 site:
   title: jmnote · 발표 자료
   description: Kubernetes, Cloud Native, Go, AI Agent를 주제로 나눈 발표를 모았습니다.
-  origin: https://jmnote.github.io
+  origin: https://jmnote.com
   base: /slides/
-  repository: https://github.com/jmnote/slides
+  repository: https://github.com/jmnote/jmnote.github.io
 
 talks:
   - id: cloud-native

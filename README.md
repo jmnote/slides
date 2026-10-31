@@ -28,21 +28,25 @@ Then open `http://localhost:3000`.
 
 ```text
 .
-├── .github/workflows/ci.yml # PR validation workflow
+├── .github/workflows/ # CI, Pages deployment, release
 ├── index.html   # Profile page content and metadata
 ├── assets/      # CSS, JavaScript, and SVG assets
 ├── scripts/     # Repository validation scripts
+├── CNAME        # Custom domain (jmnote.com)
+├── slides/      # Presentations: decks, pdf/, tooling/ (see slides/README.md)
 ├── README.md    # Repository documentation
 ├── .stylelintrc.json # CSS validation rules
 ├── package.json  # Release version
-├── Makefile     # Local checks and preview commands
+├── Makefile     # Local checks, preview, and slides build commands
 └── LICENSE      # Apache License 2.0
 ```
 
 ## Deployment
 
-Push changes to the repository and publish the site through GitHub Pages.
-The live page is available at [jmnote.github.io](https://jmnote.github.io).
+Pushing to `main` runs the Pages workflow, which builds one artifact: the profile
+site at the root and the presentations under `/slides/`. The live site is
+available at [jmnote.com](https://jmnote.com). See
+[`slides/tooling/README.md`](slides/tooling/README.md) for the slides build.
 
 ## Releases
 
@@ -54,6 +58,7 @@ Release automatically.
 
 Pull requests are checked for valid links, HTML, CSS, and Markdown style, and
 alphabetical Repo ordering. Run `make checks` locally to run the same checks.
+The slides tests, README sync, and full site build run with `make slides-check`.
 
 ## License
 

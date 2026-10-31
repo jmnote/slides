@@ -9,5 +9,5 @@
 
 ## Deployment
 
-- GitHub Pages serves the `main` branch root directly.
-- Do not add a deployment workflow unless the Pages deployment method changes.
+- GitHub Pages is deployed by `.github/workflows/pages.yml` (Source: GitHub Actions). It builds `dist/` with the profile site at the root and the presentations under `/slides/`.
+- Presentations live in `slides/`: decks in `slides/YYYY-MM-DD-id/`, PDFs in `slides/pdf/`, tooling in `slides/tooling/` (see `slides/tooling/README.md`).
