@@ -1,6 +1,6 @@
 # jmnote.github.io
 
-Source repository for [jmnote.github.io](https://jmnote.github.io), a small
+Source repository for [jmnote.com](https://jmnote.com), a small
 static profile page hosted on GitHub Pages.
 
 The page content lives in [`index.html`](index.html). This README is intended
