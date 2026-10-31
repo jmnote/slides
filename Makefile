@@ -2,7 +2,7 @@
 
 export TALK
 
-.PHONY: help install dev build preview docs check
+.PHONY: help install dev build preview docs check sync-upstream
 
 help:
 	@printf '%s\n' \
@@ -12,7 +12,8 @@ help:
 	  'make build            사이트 전체 빌드' \
 	  'make preview          빌드 결과 미리보기' \
 	  'make docs             README 발표 목록 갱신' \
-	  'make check            테스트·README 동기화·전체 빌드 검증'
+	  'make check            테스트·README 동기화·전체 빌드 검증' \
+	  'make sync-upstream    업스트림(jmnote.github.io) 공통 자산 동기화'
 
 install:
 	pnpm --dir tooling install --frozen-lockfile
@@ -31,3 +32,7 @@ docs:
 
 check:
 	pnpm --dir tooling check
+
+sync-upstream:
+	node tooling/scripts/sync-upstream.mjs
+

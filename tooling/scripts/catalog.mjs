@@ -56,38 +56,93 @@ export function loadCatalog(directory = root) {
   return validateCatalog(parse(readFileSync(resolve(directory, 'tooling/site/talks.yaml'), 'utf8')), directory);
 }
 
-export function renderIndex({ site, talks }) {
+export function renderIndex({ site, talks }, lang = 'en') {
   const e = escapeHtml;
+  const isKo = lang === 'ko';
+  const pageTitle = isKo ? (site.title_ko || site.title) : site.title;
+  const pageDesc = isKo ? (site.description_ko || site.description) : site.description;
   const years = [...new Set(talks.map(talk => talk.date.slice(0, 4)))];
+
   const sections = years.map(year => {
     const entries = talks.filter(talk => talk.date.startsWith(year));
-    return `<section class="year" aria-labelledby="year-${year}">
-      <div class="year-heading"><h2 id="year-${year}">${year}</h2><span>${entries.length}개 발표</span></div>
-      <ul class="talks">${entries.map(talk => `<li class="talk">
-        <time datetime="${talk.date}">${talk.date.slice(5).replace('-', '.')}</time>
-        <div class="talk-content"><h3>${e(talk.title)}</h3><p>${e(talk.event)}</p></div>
-        <div class="links">${talk.slides ? `<a class="primary" href="${site.base}${encodePath(deckPath(talk))}" aria-label="${e(talk.title)} 슬라이드 보기">슬라이드 보기 <span aria-hidden="true">↗</span></a>` : ''}<a href="${site.base}${encodePath(talk.pdf)}" aria-label="${e(talk.title)} PDF">PDF <span aria-hidden="true">↗</span></a></div>
-      </li>`).join('\n')}</ul>
-    </section>`;
+    return `
+      <h3 class="section-title" id="year-${year}">${year}</h3>
+      <div class="table-wrapper">
+        <table>
+          <thead>
+            <tr>
+              <th scope="col" style="width: 100px;">${isKo ? '일자' : 'Date'}</th>
+              <th scope="col">${isKo ? '발표 제목' : 'Title'}</th>
+              <th scope="col" style="width: 220px;">${isKo ? '행사' : 'Event'}</th>
+              <th scope="col" style="width: 140px; text-align: right;">${isKo ? '자료' : 'Links'}</th>
+            </tr>
+          </thead>
+          <tbody>
+            ${entries.map(talk => `<tr>
+              <td style="color: var(--text-muted); font-family: var(--font-mono); font-size: 13px;">${talk.date.slice(5).replace('-', '.')}</td>
+              <td style="font-weight: 600;">${e(talk.title)}</td>
+              <td style="color: var(--text-muted); font-size: 13.5px;">${e(talk.event)}</td>
+              <td style="text-align: right; white-space: nowrap;">
+                ${talk.slides ? `<a href="${site.base}${encodePath(deckPath(talk))}" style="margin-right: 8px;">${isKo ? '슬라이드' : 'Slides'} ↗</a>` : ''}
+                <a href="${site.base}${encodePath(talk.pdf)}">PDF ↗</a>
+              </td>
+            </tr>`).join('\n')}
+          </tbody>
+        </table>
+      </div>
+    `;
   }).join('\n');
+
+  const navHome = isKo ? '<a href="/ko/">홈</a>' : '<a href="/">Home</a>';
+  const navSlides = isKo ? `<a href="${site.base}ko/" aria-current="page">발표자료</a>` : `<a href="${site.base}" aria-current="page">Slides</a>`;
+  const langSwitch = isKo
+    ? `<div class="lang-switch"><a href="${site.base}">EN</a><span class="sep">/</span><span class="active">KO</span></div>`
+    : `<div class="lang-switch"><span class="active">EN</span><span class="sep">/</span><a href="${site.base}ko/">KO</a></div>`;
+  const themeTitle = isKo ? '테마 전환' : 'Switch theme';
+
   return `<!doctype html>
-<html lang="ko">
+<html lang="${isKo ? 'ko' : 'en'}">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="${e(site.description)}">
-  <meta name="theme-color" content="#142d49">
-  <title>${e(site.title)}</title>
-  <link rel="stylesheet" href="${site.base}site.css">
+  <meta name="description" content="${e(pageDesc)}">
+  <title>${e(pageTitle)}</title>
+  <link rel="icon" href="https://github.com/jmnote.png" type="image/png">
+  <link rel="stylesheet" href="${site.base}assets/style.css">
+  <script src="${site.base}assets/theme.js"></script>
 </head>
 <body>
-  <a class="skip" href="#talks">발표 목록으로 이동</a>
-  <header class="masthead"><div class="wrap"><a class="brand" href="${site.base}">jmnote<span> / talks</span></a><a href="${e(site.repository)}">GitHub ↗</a></div></header>
-  <main class="wrap">
-    <div class="intro"><p class="eyebrow">발표 아카이브 · ${talks.length}개 발표</p><h1>발표 자료</h1><p>${e(site.description)}</p></div>
-    <div id="talks">${sections}</div>
-  </main>
-  <footer class="wrap footer">발표 슬라이드와 PDF 아카이브.<a href="${e(site.repository)}">원본 저장소 ↗</a></footer>
+  <div class="container">
+    <header class="site-header">
+      <nav class="site-nav" aria-label="${isKo ? '사이트' : 'Site'}">
+        ${navHome}
+        ${navSlides}
+      </nav>
+      <div class="site-controls">
+        ${langSwitch}
+        <button id="theme-toggle" type="button" aria-label="${themeTitle}" title="${themeTitle}">
+          <img id="theme-icon" src="${site.base}assets/sun.svg" alt="">
+        </button>
+      </div>
+    </header>
+
+    <main>
+      <div class="hero">
+        <div class="hero-bio">
+          <h1>${isKo ? '발표 자료' : 'Slides'}</h1>
+          <p>${e(pageDesc)}</p>
+        </div>
+      </div>
+
+      <section id="talks">
+        ${sections}
+      </section>
+    </main>
+
+    <footer class="site-footer">
+      <p>&copy; Jmnote &middot; <a href="${e(site.repository)}" target="_blank" rel="noopener">GitHub</a></p>
+    </footer>
+  </div>
 </body>
 </html>
 `;

@@ -24,8 +24,10 @@ await runCli(async () => {
       await mkdir(dirname(target), { recursive: true });
       await cp(resolve(root, talk.pdf), target);
     }
-    await cp(resolve(root, 'tooling/site/style.css'), resolve(out, 'site.css'));
-    await writeFile(resolve(out, 'index.html'), renderIndex(catalog));
+    await cp(resolve(root, 'tooling/site/assets'), resolve(out, 'assets'), { recursive: true });
+    await writeFile(resolve(out, 'index.html'), renderIndex(catalog, 'en'));
+    await mkdir(resolve(out, 'ko'), { recursive: true });
+    await writeFile(resolve(out, 'ko/index.html'), renderIndex(catalog, 'ko'));
     await writeFile(resolve(out, '.nojekyll'), '');
   });
   console.log(`Built ${catalog.talks.length} talks into dist/ (base: ${catalog.site.base})`);
