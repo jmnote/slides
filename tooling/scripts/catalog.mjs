@@ -10,9 +10,20 @@ export const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ 
 export const encodePath = path => path.split('/').map(encodeURIComponent).join('/');
 export const deckPath = talk => talk.id + '/';
 
+export const DEFAULT_SITE = {
+  title: 'Slides · Jmnote',
+  title_ko: '슬라이드 · Jmnote',
+  description: 'Slide decks and PDFs from conference talks and public presentations on Kubernetes, Cloud Native, Go, and AI Agent.',
+  description_ko: 'Kubernetes, Cloud Native, Go, AI Agent를 주제로 나눈 컨퍼런스 발표와 공개 세미나 슬라이드 아카이브입니다.',
+  origin: 'https://jmnote.com',
+  base: '/slides/',
+  repository: 'https://github.com/jmnote/slides',
+};
+
 export function validateCatalog(data, directory = root) {
-  required(data?.site && Array.isArray(data.talks) && data.talks.length, 'site and talks must be defined in tooling/site/talks.yaml');
-  const { site, talks } = data;
+  const talks = Array.isArray(data) ? data : data?.talks;
+  required(Array.isArray(talks) && talks.length, 'talks must be defined in tooling/site/talks.yaml');
+  const site = { ...DEFAULT_SITE, ...data?.site };
   required(text(site.title) && text(site.description), 'site.title and site.description are required');
   required(typeof site.base === 'string' && /^\/(?:[a-zA-Z0-9_-]+\/)*$/.test(site.base), 'site.base must be a path starting and ending with /');
   required(typeof site.repository === 'string' && /^https:\/\//.test(site.repository), 'site.repository must be an HTTPS URL');

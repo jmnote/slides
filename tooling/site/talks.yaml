@@ -1,52 +1,43 @@
-site:
-    title: Slides · Jmnote
-    title_ko: 슬라이드 · Jmnote
-    description: Slide decks and PDFs from conference talks and public presentations on Kubernetes, Cloud Native, Go, and AI Agent.
-    description_ko: Kubernetes, Cloud Native, Go, AI Agent를 주제로 나눈 컨퍼런스 발표와 공개 세미나 슬라이드 아카이브입니다.
-    origin: https://jmnote.com
-    base: /slides/
-    repository: https://github.com/jmnote/slides
-
 talks:
-    - id: cloud-native
-      date: 2023-07-12
-      title: Cloud Native와 Samsung Cloud Platform
-      title_en: Cloud Native & Samsung Cloud Platform
-      event: Open Cloud Platform Summit 2023
+  - id: cloud-native
+    date: 2023-07-12
+    title: Cloud Native와 Samsung Cloud Platform
+    title_en: Cloud Native & Samsung Cloud Platform
+    event: Open Cloud Platform Summit 2023
 
-    - id: go-tests
-      date: 2023-08-05
-      title: Go 테스트의 거의 모든 것
-      title_en: Almost Everything About Testing in Go
-      event: GopherCon Korea 2023
+  - id: go-tests
+    date: 2023-08-05
+    title: Go 테스트의 거의 모든 것
+    title_en: Almost Everything About Testing in Go
+    event: GopherCon Korea 2023
 
-    - id: venti-stack
-      date: 2024-09-24
-      title: K8s LMA venti-stack 개발기
-      title_en: Developing K8s LMA venti-stack
-      event: Cloud Native Korea Community Day 2024
+  - id: venti-stack
+    date: 2024-09-24
+    title: K8s LMA venti-stack 개발기
+    title_en: Developing K8s LMA venti-stack
+    event: Cloud Native Korea Community Day 2024
 
-    - id: venti-stack-2
-      date: 2024-10-12
-      title: "K8s LMA venti-stack 개발기: 파트 2"
-      title_en: "Developing K8s LMA venti-stack: Part 2"
-      event: GopherCon Korea 2024
+  - id: venti-stack-2
+    date: 2024-10-12
+    title: "K8s LMA venti-stack 개발기: 파트 2"
+    title_en: "Developing K8s LMA venti-stack: Part 2"
+    event: GopherCon Korea 2024
 
-    - id: helm-chart
-      date: 2025-05-22
-      title: Helm Chart 개발과 GitHub · ArtifactHub 사용기
-      title_en: Developing Helm Charts and Using GitHub & Artifact Hub
-      event: KCD Seoul 2025
+  - id: helm-chart
+    date: 2025-05-22
+    title: Helm Chart 개발과 GitHub · ArtifactHub 사용기
+    title_en: Developing Helm Charts and Using GitHub & Artifact Hub
+    event: KCD Seoul 2025
 
-    - id: ingress-annotator
-      date: 2025-09-16
-      title: Ingress Annotator 개발기
-      title_en: Developing Ingress Annotator
-      event: Cloud Native Korea Community Day 2025
+  - id: ingress-annotator
+    date: 2025-09-16
+    title: Ingress Annotator 개발기
+    title_en: Developing Ingress Annotator
+    event: Cloud Native Korea Community Day 2025
 
-    - id: k8s-ai-agent
-      date: 2026-10-28
-      title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
-      title_en: Exploring the AI Agent Ecosystem from a Kubernetes Engineer's Perspective
-      event: Kubernetes Korea Group Meetup 26.10
-      slides: true
+  - id: k8s-ai-agent
+    date: 2026-10-28
+    title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
+    title_en: Exploring the AI Agent Ecosystem from a Kubernetes Engineer's Perspective
+    event: Kubernetes Korea Group Meetup 26.10
+    slides: true
