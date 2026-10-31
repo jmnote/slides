@@ -11,7 +11,7 @@ await runCli(async () => {
   if (!pattern.test(before)) throw new Error('README talk-list markers are missing');
   const after = before.replace(pattern, () => `${start}\n${renderReadmeTable(loadCatalog())}\n${end}`);
   if (process.argv.includes('--check')) {
-    if (before !== after) throw new Error('README is out of date. Run make slides-docs.');
+    if (before !== after) throw new Error('README is out of date. Run make docs.');
     console.log('README talk list is up to date.');
   } else {
     await writeFile(path, after);

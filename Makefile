@@ -2,47 +2,32 @@
 
 export TALK
 
-.PHONY: help checks serve slides-install slides-dev slides-build slides-preview slides-docs slides-check check
+.PHONY: help install dev build preview docs check
 
 help:
 	@printf '%s\n' \
-	  'make checks           프로필 사이트 검사 (repo 순서·Markdown·HTML·CSS·링크)' \
-	  'make serve            프로필 사이트 로컬 서버 (live reload)' \
-	  'make slides-install   발표 의존성 설치 (고정된 lockfile)' \
-	  'make slides-dev       최신 Slidev 발표 실행 (TALK=<id>로 선택)' \
-	  'make slides-build     통합 사이트 빌드 (dist/: 프로필 + dist/slides/)' \
-	  'make slides-preview   빌드 결과 미리보기' \
-	  'make slides-docs      slides/README.md 발표 목록 갱신' \
-	  'make slides-check     발표 테스트·README 동기화·전체 빌드 검증' \
-	  'make check            checks + slides-check'
+	  'make install          의존성 설치 (고정된 lockfile)' \
+	  'make dev              최신 Slidev 발표 실행' \
+	  'make dev TALK=<id>    특정 발표 실행' \
+	  'make build            사이트 전체 빌드' \
+	  'make preview          빌드 결과 미리보기' \
+	  'make docs             README 발표 목록 갱신' \
+	  'make check            테스트·README 동기화·전체 빌드 검증'
 
-checks:
-	./scripts/check-repo-order.sh
-	npx --yes markdownlint-cli2 '**/*.md'
-	npx --yes html-validate index.html
-	npx --yes stylelint 'assets/**/*.css'
-	docker run --rm -v "$(CURDIR):/input:ro" lycheeverse/lychee:latest \
-		--verbose --no-progress --root-dir /input /input/index.html /input/README.md
+install:
+	pnpm --dir tooling install --frozen-lockfile
 
-serve:
-	npx --yes live-server . --host=127.0.0.1 --port=3000
+dev:
+	pnpm --dir tooling dev $${TALK:+"$$TALK"}
 
-slides-install:
-	pnpm --dir slides/tooling install --frozen-lockfile
+build:
+	pnpm --dir tooling build
 
-slides-dev:
-	pnpm --dir slides/tooling dev $${TALK:+"$$TALK"}
+preview:
+	pnpm --dir tooling preview
 
-slides-build:
-	pnpm --dir slides/tooling build
+docs:
+	pnpm --dir tooling docs:update
 
-slides-preview:
-	pnpm --dir slides/tooling preview
-
-slides-docs:
-	pnpm --dir slides/tooling docs:update
-
-slides-check:
-	pnpm --dir slides/tooling check
-
-check: checks slides-check
+check:
+	pnpm --dir tooling check

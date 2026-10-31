@@ -1,5 +1,0 @@
-# Slidev decks and the slides subsystem use their own Markdown conventions.
-ignores:
-  - "slides/20*/**"
-  - "slides/tooling/**"
-  - "**/node_modules/**"

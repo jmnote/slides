@@ -34,14 +34,14 @@ jobs:
       - uses: actions/checkout@v7
       - uses: pnpm/action-setup@v6
         with:
-          package_json_file: slides/tooling/package.json
+          package_json_file: tooling/package.json
       - uses: actions/setup-node@v7
         with:
           node-version: '24'
           cache: pnpm
-          cache-dependency-path: slides/tooling/pnpm-lock.yaml
-      - run: pnpm --dir slides/tooling install --frozen-lockfile
-      - run: pnpm --dir slides/tooling check
+          cache-dependency-path: tooling/pnpm-lock.yaml
+      - run: pnpm --dir tooling install --frozen-lockfile
+      - run: pnpm --dir tooling check
       - name: Upload Pages artifact
         if: steps.deployment.outputs.enabled == 'true'
         uses: actions/upload-pages-artifact@v5
