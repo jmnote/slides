@@ -1,5 +1,5 @@
 <template>
-  <footer class="deck-footer">
+  <footer v-if="$slidev.nav.currentPage > 3 && $slidev.nav.currentSlide?.frontmatter?.class !== 'section'" class="deck-footer">
     <span>Kubernetes × AI Agent · 2026.10.28</span>
     <span>{{ $slidev.nav.currentPage }} / {{ $slidev.nav.total }}</span>
   </footer>

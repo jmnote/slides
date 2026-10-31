@@ -1,0 +1,328 @@
+@import '../tooling/site/fonts.css';
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+/* Base layout & typography (Default: >= 22px) */
+.slidev-layout {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #182c43;
+  background: #f7f9fc;
+  padding: 44px 54px 48px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+.slidev-layout h1 { font-size: 38px; line-height: 1.3; font-weight: 700; margin-bottom: 24px; letter-spacing: -1px; }
+.slidev-layout h2 { font-size: 30px; font-weight: 700; color: #1055cc; margin: 16px 0; }
+.slidev-layout h3 { font-size: 25px; color: #2664bf; margin: 20px 0 12px; }
+.slidev-layout p { margin: 12px 0; }
+.slidev-layout li { margin: 8px 0; }
+.slidev-layout strong { font-weight: 700; color: #0c367b; }
+.slidev-layout a { color: #2362b6; text-decoration: none; border-bottom: 1px solid #b2ccef; }
+.slidev-layout pre { font-size: 18px !important; line-height: 1.5 !important; }
+.slidev-layout :not(pre) > code { color: #22599d; background: #e7edf6; font-size: 0.95em; padding: 2px 6px; border-radius: 4px; }
+
+/* Hand-writing style annotation */
+.pen {
+  font-family: 'Nanum Pen Script', cursive;
+  font-weight: normal;
+  color: #8899aa;
+  font-size: 26px;
+}
+
+/* =========================================================
+   T1: COVER LAYOUT
+   ========================================================= */
+.slidev-layout.cover {
+  background: #0d1929 url('./images/cover-bg.png') no-repeat center center / cover;
+  color: #f4f8ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 80px;
+}
+.slidev-layout.cover h1 { font-size: 60px; max-width: 920px; line-height: 1.35; margin-bottom: 20px; font-weight: 700; color: #ffffff; }
+.slidev-layout.cover .author { color: #e2ecf8; font-size: 24px; margin-top: 10px; }
+.slidev-layout.cover .event { color: #abc6e9; font-size: 22px; line-height: 1.4; }
+
+/* =========================================================
+   T2: SPEAKER LAYOUT
+   ========================================================= */
+.slidev-layout.speaker {
+  display: flex;
+  padding: 0;
+  height: 100%;
+  background: #f0f4f9;
+  border-top: none;
+}
+.speaker-sidebar {
+  width: 240px;
+  background: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-right: 1px solid #dce4ee;
+}
+.speaker-sidebar h2 {
+  font-size: 44px;
+  font-weight: 800;
+  color: #1055cc;
+  letter-spacing: -1px;
+}
+.speaker-main {
+  flex: 1;
+  background: #1055cc;
+  color: #ffffff;
+  padding: 54px 64px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  font-size: 22px;
+  line-height: 1.6;
+}
+.speaker-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 50%;
+  border: 4px solid #ffffff;
+  margin: 0 0 24px 0 !important;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  display: block;
+}
+.speaker-title {
+  font-size: 22px;
+  font-weight: normal;
+  color: #ffffff;
+  margin-bottom: 16px;
+}
+.speaker-bio {
+  font-size: 22px;
+  color: #e4eeff;
+  margin-bottom: 24px;
+}
+.speaker-link, .speaker-github {
+  font-size: 22px;
+  color: #bcd4f8;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  margin-top: 8px;
+}
+.speaker-link a, .speaker-github a {
+  color: #ffffff;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.5);
+}
+.speaker-github svg {
+  width: 24px;
+  height: 24px;
+  fill: #ffffff;
+}
+
+/* =========================================================
+   T3: TOC LAYOUT
+   ========================================================= */
+.slidev-layout.toc {
+  display: flex;
+  padding: 0;
+  height: 100%;
+  background: #ffffff;
+  border-top: none;
+}
+.toc-sidebar {
+  width: 240px;
+  background: #1055cc;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+.toc-sidebar h2 {
+  font-size: 44px;
+  font-weight: 800;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+.toc-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 80px;
+}
+.toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 28px;
+}
+.toc-item {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  font-size: 30px;
+  font-weight: 600;
+  color: #1e293b;
+}
+.toc-num {
+  font-size: 32px;
+  font-weight: 800;
+  color: #1055cc;
+  min-width: 50px;
+}
+
+/* =========================================================
+   T4: SECTION DIVIDER LAYOUT
+   ========================================================= */
+.slidev-layout.section {
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  color: #ffffff;
+  border-top: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 100%;
+}
+.slidev-layout.section .section-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.slidev-layout.section .section-badge {
+  background: #ffffff;
+  color: #1055cc;
+  font-size: 46px;
+  font-weight: 800;
+  padding: 8px 24px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+}
+.slidev-layout.section .section-title {
+  font-size: 60px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+/* =========================================================
+   COMMON HEADER BAR
+   ========================================================= */
+.slide-header {
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  margin: -44px -54px 28px -54px;
+  padding: 16px 54px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.slide-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.slide-header h1 small {
+  font-size: 24px;
+  font-weight: 400;
+  color: #e4eeff;
+}
+.header-badge {
+  background: rgba(255, 255, 255, 0.2);
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 16px;
+  font-weight: bold;
+}
+
+/* =========================================================
+   T5: TWO-COLUMN LAYOUT
+   ========================================================= */
+.two-cols {
+  display: flex;
+  gap: 40px;
+  align-items: flex-start;
+}
+.two-cols > div:first-child {
+  flex: 1.1;
+}
+.two-cols > div:last-child {
+  flex: 0.9;
+  display: flex;
+  flex-direction: column;
+}
+
+/* =========================================================
+   T6: THREE CARDS LAYOUT
+   ========================================================= */
+.cards-3 {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+  margin-top: 10px;
+}
+.card {
+  background: #ffffff;
+  border: 1px solid #dce4ee;
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.04);
+  display: flex;
+  flex-direction: column;
+}
+.card h3 {
+  margin: 0 0 12px 0;
+  font-size: 24px;
+  color: #1055cc;
+  border-bottom: 2px solid #eef2f8;
+  padding-bottom: 8px;
+}
+.card p {
+  font-size: 20px;
+  line-height: 1.5;
+  color: #334455;
+  margin: 0 0 12px 0;
+}
+.card img {
+  border-radius: 4px;
+  border: 1px solid #e5e9f0;
+  margin: 8px 0;
+}
+
+/* =========================================================
+   T7: TABLE LAYOUT
+   ========================================================= */
+.table-lg table {
+  width: 100%;
+  font-size: 22px;
+  line-height: 1.5;
+  margin: 16px 0 12px;
+  border-collapse: collapse;
+}
+.table-lg th {
+  background: #1055cc;
+  color: #ffffff;
+  font-weight: 700;
+  padding: 12px 14px;
+  text-align: center;
+}
+.table-lg td {
+  padding: 12px 14px;
+  text-align: center;
+  border-bottom: 1px solid #d5deea;
+  background: #ffffff;
+}
+.table-lg tbody tr:nth-child(even) td {
+  background: #f5f8fc;
+}
+
+/* Metadata tag badge */
+.meta-tag {
+  display: inline-block;
+  background: #e2ecf8;
+  color: #1055cc;
+  font-size: 16px;
+  font-weight: bold;
+  padding: 2px 10px;
+  border-radius: 12px;
+  margin-bottom: 12px;
+}

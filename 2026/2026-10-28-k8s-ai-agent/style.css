@@ -1,31 +1,347 @@
 @import '../../tooling/site/fonts.css';
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
 
-.slidev-layout { font-family: 'Noto Sans KR', sans-serif; color: #182c43; background: #f7f9fc; padding: 44px 54px 48px; font-size: 22px; line-height: 1.5; border-top: 7px solid #3274e6; }
+.slidev-layout { font-family: 'Noto Sans KR', sans-serif; color: #182c43; background: #f7f9fc; padding: 44px 54px 48px; font-size: 22px; line-height: 1.5; }
 .slidev-layout h1 { font-size: 38px; line-height: 1.3; font-weight: 700; margin-bottom: 24px; letter-spacing: -1px; }
 .slidev-layout h3 { font-size: 25px; color: #2664bf; margin: 22px 0 12px; }
 .slidev-layout p { margin: 12px 0; }
 .slidev-layout li { margin: 7px 0; }
 .slidev-layout strong { font-weight: 700; }
 .slidev-layout a { color: #2362b6; text-decoration: none; border-bottom: 1px solid #b2ccef; }
-.slidev-layout table { width: 100%; font-size: 18px; line-height: 1.55; margin: 18px 0; }
+.slidev-layout table { width: 100%; font-size: 20px; line-height: 1.55; margin: 16px 0; }
 .slidev-layout th { background: #e4ecf8; color: #1e497d; font-weight: 700; }
 .slidev-layout td, .slidev-layout th { padding: 10px 12px; border-bottom: 1px solid #d5deea; vertical-align: top; }
 .slidev-layout tbody tr:nth-child(even) { background: #edf2f8; }
-.slidev-layout img { max-width: 100%; max-height: 220px; object-fit: contain; margin: 12px auto; }
+.slidev-layout img { max-width: 100%; max-height: 260px; object-fit: contain; margin: 12px auto; }
 .slidev-layout td img { max-height: 290px; }
-.slidev-layout pre { font-size: 17px !important; line-height: 1.5 !important; }
-.slidev-layout :not(pre) > code { color: #22599d; background: #e7edf6; font-size: .9em; }
+.slidev-layout pre { font-size: 18px !important; line-height: 1.5 !important; border-radius: 8px; }
+.slidev-layout :not(pre) > code { color: #22599d; background: #e7edf6; font-size: .9em; padding: 2px 6px; border-radius: 4px; }
 .slidev-layout.compact { font-size: 20px; }
-.slidev-layout.compact table { font-size: 17px; }
+.slidev-layout.compact table { font-size: 18px; }
 .slidev-layout.compact td, .slidev-layout.compact th { padding: 8px 10px; }
-.slidev-layout.visual img { max-height: 440px; }
+.slidev-layout.visual { display: flex; flex-direction: column; }
+.slidev-layout.visual img { max-height: 520px; max-width: 100%; object-fit: contain; margin: auto; border-radius: 6px; box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08); }
 .slidev-layout.llm-example > p:has(img) { float: right; width: 38%; margin-left: 30px; }
 .slidev-layout.llm-example img { max-height: 320px; }
-.slidev-layout.cover, .slidev-layout.section { background: linear-gradient(120deg, #0e2037, #163c68); color: #f4f8ff; border-top-color: #64b8ef; display: flex; flex-direction: column; justify-content: center; }
-.slidev-layout.cover h1 { font-size: 60px; max-width: 1100px; line-height: 1.4; }
-.slidev-layout.cover p { color: #abc6e9; font-size: 24px; }
-.slidev-layout.section h1 { font-size: 58px; }
-.slidev-layout.section p { color: #81b9ee; font-size: 26px; }
+.slidev-layout.cover {
+  background: #0d1929 url('./images/cover-bg.png') no-repeat center center / cover;
+  color: #f4f8ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 80px;
+}
+.slidev-layout.cover h1 { font-size: 64px; max-width: 900px; line-height: 1.35; margin-bottom: 20px; font-weight: 700; color: #ffffff; }
+.slidev-layout.cover .author { color: #e2ecf8; font-size: 22px; margin-top: 10px; }
+.slidev-layout.cover .event { color: #abc6e9; font-size: 22px; line-height: 1.4; }
+.slidev-layout.section {
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  color: #ffffff;
+  border-top: none;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 100%;
+}
+.slidev-layout.section .section-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.slidev-layout.section .section-badge {
+  background: #ffffff;
+  color: #1055cc;
+  font-size: 46px;
+  font-weight: 800;
+  padding: 8px 24px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+.slidev-layout.section .section-title {
+  font-size: 60px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+.pen {
+  font-family: 'Nanum Pen Script', cursive;
+  font-weight: normal;
+  color: #bbb;
+}
+
+/* Slide header bar (automated for standard `# Title` and `<header class="slide-header">`) */
+.slide-header,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child {
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  margin: -44px -54px 28px -54px;
+  padding: 16px 54px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.slide-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.slide-header h1 small,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child small {
+  font-size: 24px;
+  font-weight: 400;
+  color: #e4eeff;
+}
+.slide-header img,
+.slide-header .header-badge,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child img,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child .header-badge {
+  margin-left: auto;
+}
+.header-badge {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* Clean centered table with min 22px text */
+.table-lg table {
+  font-size: 22px;
+  line-height: 1.5;
+  margin: 16px 0 12px;
+}
+.table-lg th, .table-lg td {
+  padding: 12px 14px;
+  text-align: center;
+  vertical-align: middle;
+}
+.table-lg code {
+  font-size: 21px;
+}
+
+/* Gallery 3-column screenshots */
+.gallery-3 table {
+  background: transparent;
+  border-collapse: separate;
+  border-spacing: 16px 0;
+  margin: 12px 0 0;
+}
+.gallery-3 th {
+  background: transparent;
+  color: #1055cc;
+  font-size: 20px;
+  font-weight: 700;
+  padding: 0 0 8px 0;
+  border-bottom: 2px solid #cbd8e8;
+  text-align: center;
+}
+.gallery-3 td {
+  background: #ffffff;
+  border-radius: 8px;
+  padding: 10px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  border: 1px solid #e2e8f0;
+  text-align: center;
+}
+.gallery-3 td img {
+  max-height: 275px;
+  border-radius: 4px;
+  margin: 0 auto;
+}
+
+/* Two-column split layout */
+.two-cols {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+}
+.two-cols > div:first-child {
+  flex: 1.1;
+}
+.two-cols > div:last-child {
+  flex: 0.9;
+  display: flex;
+  flex-direction: column;
+}
+.two-cols h3 {
+  margin: 0 0 12px 0;
+}
+.two-cols ul {
+  padding-left: 24px;
+  margin-bottom: 24px;
+}
+.two-cols li {
+  margin-bottom: 8px;
+}
+.two-cols .source {
+  margin-top: 4px;
+}
+.two-cols .notes {
+  margin-top: 24px;
+  line-height: 1.5;
+  text-align: right;
+  align-self: flex-end;
+}
+.highlight-blue {
+  color: #1055cc;
+  font-weight: 500;
+}
+
+/* Speaker split layout */
+.slidev-layout.speaker {
+  padding: 0;
+  display: flex;
+  height: 100%;
+  background: #ffffff;
+  border-top: none;
+}
+.slidev-layout.speaker .speaker-sidebar {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: #ffffff;
+  border-top: 7px solid #3274e6;
+}
+.slidev-layout.speaker .speaker-sidebar h2 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #1e293b;
+  letter-spacing: -1px;
+}
+.slidev-layout.speaker .speaker-main {
+  width: 75%;
+  height: 100%;
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  color: #ffffff;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 72px;
+  box-sizing: border-box;
+}
+.slidev-layout.speaker .speaker-avatar {
+  width: 140px;
+  height: 140px;
+  border-radius: 12px;
+  object-fit: cover;
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
+  margin: 0 0 24px 0;
+}
+.slidev-layout.speaker .speaker-title {
+  font-size: 22px;
+  font-weight: normal;
+  margin-bottom: 18px;
+  color: #ffffff;
+}
+.slidev-layout.speaker .speaker-bio {
+  font-size: 22px;
+  line-height: 1.6;
+  color: #e4eeff;
+  margin-bottom: 24px;
+}
+.slidev-layout.speaker .speaker-link {
+  font-size: 22px;
+  color: #ffffff;
+  margin-bottom: 14px;
+}
+.slidev-layout.speaker .speaker-link a {
+  color: #ffffff;
+  text-decoration: underline;
+  text-underline-offset: 4px;
+  border-bottom: none;
+}
+.slidev-layout.speaker .speaker-github {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  font-size: 22px;
+  color: #ffffff;
+}
+.slidev-layout.speaker .speaker-github a {
+  color: #ffffff;
+  text-decoration: none;
+  border-bottom: none;
+}
+.slidev-layout.speaker .speaker-github svg {
+  width: 24px;
+  height: 24px;
+  fill: currentColor;
+}
+
+/* Table of Contents split layout */
+.slidev-layout.toc {
+  padding: 0;
+  display: flex;
+  height: 100%;
+  background: #ffffff;
+  border-top: none;
+}
+.slidev-layout.toc .toc-sidebar {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  color: #ffffff;
+}
+.slidev-layout.toc .toc-sidebar h2 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+.slidev-layout.toc .toc-main {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 96px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-top: 7px solid #3274e6;
+}
+.slidev-layout.toc .toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.slidev-layout.toc .toc-item {
+  display: flex;
+  align-items: baseline;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1e293b;
+  letter-spacing: -0.5px;
+}
+.slidev-layout.toc .toc-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1055cc;
+  min-width: 64px;
+}
+.slidev-layout.toc .toc-text {
+  color: #1e293b;
+}
 
 .slidev-layout.dense { font-size: 18px; }
 .slidev-layout.dense table { font-size: 16px; line-height: 1.45; margin: 14px 0; }
