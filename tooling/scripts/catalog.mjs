@@ -114,8 +114,8 @@ export function renderIndex({ site, talks }, lang = 'en') {
   const navHome = isKo ? '<a href="/ko/">홈</a>' : '<a href="/">Home</a>';
   const navSlides = isKo ? `<a href="${site.base}ko/" aria-current="page">슬라이드</a>` : `<a href="${site.base}" aria-current="page">Slides</a>`;
   const langSwitch = isKo
-    ? `<div class="lang-switch"><a href="${site.base}">en</a><span class="sep">/</span><span class="active">ko</span></div>`
-    : `<div class="lang-switch"><span class="active">en</span><span class="sep">/</span><a href="${site.base}ko/">ko</a></div>`;
+    ? `<div class="lang-switch"><a href="${site.base}">English</a><span class="sep">/</span><span class="active">한국어</span></div>`
+    : `<div class="lang-switch"><span class="active">English</span><span class="sep">/</span><a href="${site.base}ko/">한국어</a></div>`;
   const themeTitle = isKo ? '테마 전환' : 'Switch theme';
 
   return `<!doctype html>
@@ -164,7 +164,7 @@ export function renderIndex({ site, talks }, lang = 'en') {
     </main>
 
     <footer class="site-footer">
-      <p>&copy; Jmnote &middot; <a href="${e(site.repository)}" target="_blank" rel="noopener">GitHub</a></p>
+      <p><a href="${e(site.repository)}/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a> &middot; <a href="${e(site.repository)}" target="_blank" rel="noopener">GitHub</a></p>
     </footer>
   </div>
 </body>

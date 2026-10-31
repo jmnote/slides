@@ -298,14 +298,14 @@ td a:hover {
 }
 
 .talk-link {
-  color: var(--text);
+  color: var(--accent);
   font-weight: 500;
   text-decoration: none;
   transition: color 0.15s ease;
 }
 
 .talk-link:hover {
-  color: var(--accent);
+  color: var(--accent-hover);
   text-decoration: underline;
 }
 
