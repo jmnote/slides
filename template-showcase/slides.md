@@ -40,39 +40,47 @@ class: speaker
     발표자료 <a href="https://github.com/jmnote/slides" target="_blank" rel="noopener">https://github.com/jmnote/slides</a>
   </div>
   <div class="speaker-github">
-    <svg viewBox="0 0 24 24"><path fill-rule="evenodd" clip-rule="evenodd" d="M12 2C6.477 2 2 6.484 2 12.017c0 4.425 2.865 8.18 6.839 9.504.5.092.682-.217.682-.483 0-.237-.008-.868-.013-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.53 1.032 1.53 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.029-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.379.202 2.398.1 2.651.64.7 1.028 1.595 1.028 2.688 0 3.848-2.339 4.695-4.566 4.943.359.309.678.92.678 1.855 0 1.338-.012 2.419-.012 2.747 0 .268.18.58.688.482A10.019 10.019 0 0022 12.017C22 6.484 17.522 2 12 2z"/></svg>
+    <div class="i-carbon-logo-github" />
     <a href="https://github.com/jmnote" target="_blank" rel="noopener">jmnote</a>
   </div>
+</div>
+
+---
+class: timeline
+---
+
+<img src="./images/history-1.png" alt="2024.09" class="card-img c1" />
+<div class="card-desc d1">
+  <strong>'24.09</strong>
+  Cloud Native Korea<br>Community Day 2024
+</div>
+
+<img src="./images/history-2.png" alt="2025.05" class="card-img c2" />
+<div class="card-desc d2">
+  <strong>'25.05</strong>
+  KCD Seoul 2025
+</div>
+
+<img src="./images/history-3.png" alt="2025.10" class="card-img c3" />
+<div class="card-desc d3">
+  <strong>'25.10</strong>
+  Cloud Native Korea<br>Community Day 2025
+</div>
+
+<div class="card-highlight">
+  <div class="tag">'26.10 밋업</div>
+  <div class="pen">AI 관련 주제는 처음!</div>
 </div>
 
 ---
 class: toc
 ---
 
-<div class="toc-sidebar">
-  <h2>목차</h2>
-</div>
-
-<div class="toc-main">
-  <div class="toc-list">
-    <div class="toc-item">
-      <span class="toc-num">Ⅰ.</span>
-      <span class="toc-text">배경 및 실감</span>
-    </div>
-    <div class="toc-item">
-      <span class="toc-num">Ⅱ.</span>
-      <span class="toc-text">분류 체계</span>
-    </div>
-    <div class="toc-item">
-      <span class="toc-num">Ⅲ.</span>
-      <span class="toc-text">관심 프로젝트 비교</span>
-    </div>
-    <div class="toc-item">
-      <span class="toc-num">Ⅳ.</span>
-      <span class="toc-text">도입 시 고려사항 및 결론</span>
-    </div>
-  </div>
-</div>
+# 목차
+## 배경
+## 분류 체계
+## 관심 프로젝트 비교
+## 마무리
 
 ---
 class: section
@@ -106,34 +114,42 @@ class: section
 
 ---
 
-<header class="slide-header">
-  <h1>T6. 2열 분할형 <small>Left Text + Right Visual</small></h1>
-  <span class="header-badge">추천: 30% 비중</span>
-</header>
+---
+class: hero-visual
+---
 
-<div class="meta-tag">용도: 텍스트 설명 + 스크린샷 / 밈 / 아키텍처 / 비교 대조</div>
+<div class="hero-left">
+  <h1>2026년 <small>AI 시대 실감</small></h1>
+  <div class="meta-tag" style="width: fit-content;">T6: 그림 하나가 65% 영역을 과감하게 장악하는 비대칭 매거진형</div>
 
-<div class="two-cols">
-<div>
-
-### 텍스트 영역 (왼쪽)
-
-- **상황 설명**: 핵심 포인트 2~4개
-- 복잡한 설치 과정이나 인터페이스 설명
-- 우측 이미지와 1:1로 대응되는 명확한 문장 구성
-- 불릿 사이에 자연스러운 여백 유지
-
-</div>
-<div>
-
-<img src="./images/life-of-an-engineer.png" alt="엔지니어의 삶" style="max-height: 240px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<div class="pen" style="font-size: 24px; text-align: right; margin-top: 16px; line-height: 1.5;">
-  우측에는 캡처 이미지나 다이어그램을 배치하고,<br>
-  하단에 손글씨 코멘트를 덧붙이는 구조!
+  <h3>작년과는 다르다…</h3>
+  <ul>
+    <li>코드를 직접 보는 일 대폭 감소</li>
+    <li>Markdown 문서 중심 <span class="pen">(가끔 테스트 코드)</span></li>
+    <li>기업 코딩테스트 폐지 추세 <span class="pen">(AI 활용 평가 대체)</span></li>
+  </ul>
 </div>
 
+<div class="hero-graphic">
+  <img src="./images/life-of-an-engineer.png" alt="엔지니어의 삶" />
+  <div class="pen source">Claude Community - Facebook 2026-09-18</div>
 </div>
+
+<div class="hero-bottom">
+  <div class="hero-bottom-left">
+    <h3>Agent가 잘하는 것</h3>
+    <p>코딩, 코드 리뷰, 테스트 코드 작성, 문서 작성, 설계, 로그 분석, 문의 대응, 신기술 탐색…</p>
+    <div class="highlight-blue">언어/도구 go, gh, kubectl, openstack cli… 그냥 다 잘함</div>
+    <p class="pen">아직 못하는 것? 내 마음에 드는 PPT 작성 ㅎ</p>
+  </div>
+  <div class="hero-bottom-right pen">
+    <ul>
+      <li>- 수학/물리학 난제 해결</li>
+      <li>- 보안 취약점 발견</li>
+      <li>- 'AI 블루' / 'Claude Blue'</li>
+    </ul>
+    <div class="punchline">약간의 허탈감과 위기의식?</div>
+  </div>
 </div>
 
 ---
