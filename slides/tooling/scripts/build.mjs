@@ -30,7 +30,6 @@ await runCli(async () => {
       await mkdir(dirname(target), { recursive: true });
       await cp(resolve(root, talk.pdf), target);
     }
-    await cp(resolve(root, 'tooling/site/style.css'), resolve(slidesOut, 'site.css'));
     await writeFile(resolve(slidesOut, 'index.html'), renderIndex(catalog));
     await writeFile(resolve(out, '.nojekyll'), '');
   });

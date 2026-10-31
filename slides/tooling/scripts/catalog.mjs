@@ -57,46 +57,75 @@ export function loadCatalog(directory = root) {
   return validateCatalog(parse(readFileSync(resolve(directory, 'tooling/site/talks.yaml'), 'utf8')), directory);
 }
 
+// Shares assets/style.css, assets/theme.js and the nav with the profile page (index.html at the repo root).
 export function renderIndex({ site, talks }) {
   const e = escapeHtml;
   const years = [...new Set(talks.map(talk => talk.date.slice(0, 4)))];
   const sections = years.map(year => {
     const entries = talks.filter(talk => talk.date.startsWith(year));
-    return `<section class="year" aria-labelledby="year-${year}">
-      <div class="year-heading"><h2 id="year-${year}">${year}</h2><span>${entries.length}개 발표</span></div>
-      <ul class="talks">${entries.map(talk => `<li class="talk">
-        <time datetime="${talk.date}">${talk.date.slice(5).replace('-', '.')}</time>
-        <div class="talk-content"><h3>${e(talk.title)}</h3><p>${e(talk.event)}</p></div>
-        <div class="links">${talk.slides ? `<a class="primary" href="${site.base}${encodePath(deckPath(talk))}" aria-label="${e(talk.title)} 슬라이드 보기">슬라이드 보기 <span aria-hidden="true">↗</span></a>` : ''}<a href="${site.base}${encodePath(talk.pdf)}" aria-label="${e(talk.title)} PDF">PDF <span aria-hidden="true">↗</span></a></div>
-      </li>`).join('\n')}</ul>
-    </section>`;
-  }).join('\n');
-  return `<!doctype html>
+    return `    <h2 id="year-${year}">${year}</h2>
+    <table class="talks-table">
+      <thead>
+        <tr><th scope="col">Title</th><th scope="col">Event</th><th scope="col">Date</th><th scope="col">Links</th></tr>
+      </thead>
+      <tbody>
+${entries.map(talk => `        <tr><td>${e(talk.title)}</td><td>${e(talk.event)}</td><td><time datetime="${talk.date}">${talk.date}</time></td><td>${talk.slides ? `<a href="${site.base}${encodePath(deckPath(talk))}" aria-label="${e(talk.title)} slides">Slides</a> · ` : ''}<a href="${site.base}${encodePath(talk.pdf)}" aria-label="${e(talk.title)} PDF">PDF</a></td></tr>`).join('\n')}
+      </tbody>
+    </table>`;
+  }).join('\n\n');
+  return `<!DOCTYPE html>
 <html lang="ko">
+
 <head>
-  <meta charset="utf-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="${e(site.description)}">
-  <meta name="theme-color" content="#142d49">
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>${e(site.title)}</title>
-  <link rel="stylesheet" href="${site.base}site.css">
+  <meta name="description" content="${e(site.description)}">
+  <link rel="canonical" href="${e(site.origin)}${site.base}">
+  <link rel="icon" href="https://github.com/jmnote.png" type="image/png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link rel="stylesheet" href="https://fonts.googleapis.com/css?family=PT+Sans&family=Source+Sans+Pro&family=Roboto+Mono&display=swap">
+  <script>
+    const savedTheme = localStorage.getItem('DARK_LIGHT_THEME');
+    const preferredTheme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    document.documentElement.dataset.theme = savedTheme || preferredTheme;
+  </script>
+  <link rel="stylesheet" href="/assets/style.css">
 </head>
+
 <body>
-  <a class="skip" href="#talks">발표 목록으로 이동</a>
-  <header class="masthead"><div class="wrap"><a class="brand" href="${site.base}">jmnote<span> / talks</span></a><a href="${e(site.repository)}">GitHub ↗</a></div></header>
-  <main class="wrap">
-    <div class="intro"><p class="eyebrow">발표 아카이브 · ${talks.length}개 발표</p><h1>발표 자료</h1><p>${e(site.description)}</p></div>
-    <div id="talks">${sections}</div>
+  <main class="markdown-section">
+    <button id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
+      <img id="theme-icon" src="/assets/sun.svg" alt="">
+    </button>
+    <nav class="site-nav" aria-label="Site">
+      <a href="/">Home</a>
+      <a href="${site.base}" aria-current="page">Slides</a>
+      <a href="https://github.com/jmnote">GitHub</a>
+    </nav>
+    <h1>Slides</h1>
+    <p>${e(site.description)}</p>
+
+${sections}
   </main>
-  <footer class="wrap footer">발표 슬라이드와 PDF 아카이브.<a href="${e(site.repository)}">원본 저장소 ↗</a></footer>
+
+  <footer class="site-footer">
+    Design adapted from
+    <a href="https://github.com/boopathikumar018/docsify-darklight-theme" target="_blank" rel="noopener">docsify-darklight-theme</a>.
+    <a href="${e(site.repository)}">Source</a>.
+  </footer>
+
+  <script src="/assets/theme.js"></script>
 </body>
+
 </html>
 `;
 }
 
 export function renderReadmeTable({ site, talks }) {
   const cell = value => String(value).replaceAll('|', '\\|').replaceAll('\n', ' ');
-  return ['| 제목 | 웹 | PDF | 날짜 | 행사 |', '|---|:---:|:---:|---|---|', ...talks.map(talk => {
+  return ['| 제목 | 웹 | PDF | 날짜 | 행사 |', '| --- | :---: | :---: | --- | --- |', ...talks.map(talk => {
     const web = talk.slides
       ? `[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](${site.origin}${site.base}${encodePath(deckPath(talk))})`
       : '—';

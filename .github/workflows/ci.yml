@@ -47,7 +47,7 @@ jobs:
       - name: Check links
         uses: lycheeverse/lychee-action@v2
         with:
-          args: --verbose --no-progress 'index.html' 'README.md'
+          args: --verbose --no-progress --root-dir . 'index.html' 'README.md'
           fail: true
 
   repo-order:

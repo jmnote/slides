@@ -212,6 +212,34 @@ a:hover {
   opacity: 0.65;
 }
 
+/* Shared site navigation (profile and slides pages). */
+
+.site-nav {
+  display: flex;
+  gap: 1.4rem;
+  margin: 0 0 2rem;
+  font-size: 0.95rem;
+}
+
+.site-nav a[aria-current="page"] {
+  color: var(--text-color);
+  border-bottom: 2px solid var(--accent);
+}
+
+/* Slides list table: Title | Event | Date | Links. */
+
+.markdown-section table.talks-table th:nth-child(1),
+.markdown-section table.talks-table td:nth-child(1) { width: 38%; }
+
+.markdown-section table.talks-table th:nth-child(2),
+.markdown-section table.talks-table td:nth-child(2) { width: 30%; }
+
+.markdown-section table.talks-table th:nth-child(3),
+.markdown-section table.talks-table td:nth-child(3) { width: 14%; white-space: nowrap; }
+
+.markdown-section table.talks-table th:nth-child(4),
+.markdown-section table.talks-table td:nth-child(4) { width: 18%; }
+
 @media (max-width: 640px) {
   #theme-toggle {
     top: 15px;

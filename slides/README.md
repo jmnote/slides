@@ -5,7 +5,7 @@
 <!-- slides/tooling/site/talks.yaml 수정 후 make slides-docs로 갱신 -->
 <!-- talks:start -->
 | 제목 | 웹 | PDF | 날짜 | 행사 |
-|---|:---:|:---:|---|---|
+| --- | :---: | :---: | --- | --- |
 | Kubernetes 엔지니어가 둘러본 AI Agent 생태계 | [<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://jmnote.com/slides/k8s-ai-agent/) | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](pdf/2026-10-28-k8s-ai-agent.pdf?raw=true) | 2026-10-28 | Kubernetes Korea Group Meetup 26.10 |
 | Ingress Annotator 개발기 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](pdf/2025-09-16-ingress-annotator.pdf?raw=true) | 2025-09-16 | Cloud Native Korea Community Day 2025 |
 | Helm Chart 개발과 GitHub · ArtifactHub 사용기 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](pdf/2025-05-22-helm-chart.pdf?raw=true) | 2025-05-22 | KCD Seoul 2025 |

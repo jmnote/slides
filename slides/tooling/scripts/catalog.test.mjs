@@ -64,7 +64,7 @@ test('metadata is escaped in HTML text and link labels', t => {
   const { directory, data } = fixture(t);
   data.talks[1].title = '<script>alert("test")</script>';
   const html = renderIndex(validateCatalog(data, directory));
-  assert.ok(!html.includes('<script>'));
+  assert.ok(!html.includes('<script>alert'));
   assert.ok(html.includes('&lt;script&gt;alert(&quot;test&quot;)'));
 });
 

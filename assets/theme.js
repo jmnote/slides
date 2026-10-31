@@ -8,7 +8,7 @@
     const nextTheme = root.dataset.theme === 'light' ? 'dark' : 'light';
     toggle.setAttribute('aria-label', `Switch to ${nextTheme} theme`);
     toggle.setAttribute('title', `Switch to ${nextTheme} theme`);
-    icon.src = root.dataset.theme === 'light' ? 'assets/moon.svg' : 'assets/sun.svg';
+    icon.src = root.dataset.theme === 'light' ? '/assets/moon.svg' : '/assets/sun.svg';
   };
 
   updateLabel();
