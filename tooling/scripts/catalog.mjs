@@ -125,6 +125,18 @@ export function renderIndex({ site, talks }, lang = 'en') {
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <meta name="description" content="${e(pageDesc)}">
   <title>${e(pageTitle)}</title>
+  <meta property="og:type" content="website">
+  <meta property="og:site_name" content="Jmnote">
+  <meta property="og:title" content="${e(pageTitle)}">
+  <meta property="og:description" content="${e(pageDesc)}">
+  <meta property="og:image" content="https://github.com/jmnote.png?size=512">
+  <meta property="og:url" content="${site.origin}${site.base}${isKo ? 'ko/' : ''}">
+  <meta property="og:locale" content="${isKo ? 'ko_KR' : 'en_US'}">
+  <meta name="twitter:card" content="summary">
+  <meta name="twitter:title" content="${e(pageTitle)}">
+  <meta name="twitter:description" content="${e(pageDesc)}">
+  <meta name="twitter:image" content="https://github.com/jmnote.png?size=512">
+  <link rel="canonical" href="${site.origin}${site.base}${isKo ? 'ko/' : ''}">
   <link rel="icon" href="https://github.com/jmnote.png" type="image/png">
   <link rel="stylesheet" href="${site.base}assets/style.css">
   <script src="${site.base}assets/theme.js"></script>
