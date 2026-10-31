@@ -14,7 +14,7 @@ export const DEFAULT_SITE = {
   title: 'Slides · Jmnote',
   title_ko: '슬라이드 · Jmnote',
   description: 'Slide decks and PDFs from conference talks and public presentations on Kubernetes, Cloud Native, Go, and AI Agent.',
-  description_ko: 'Kubernetes, Cloud Native, Go, AI Agent를 주제로 나눈 컨퍼런스 발표와 공개 세미나 슬라이드 아카이브입니다.',
+  description_ko: 'Kubernetes, Cloud Native, Go, AI Agent를 주제로 컨퍼런스와 세미나에서 발표한 자료를 모았습니다.',
   origin: 'https://jmnote.com',
   base: '/slides/',
   repository: 'https://github.com/jmnote/slides',
