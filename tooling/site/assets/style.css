@@ -114,27 +114,42 @@ a:hover {
 .lang-switch {
   display: inline-flex;
   align-items: center;
-  font-size: 13px;
+  font-size: 12px;
   font-weight: 600;
-  color: var(--text-muted);
-  gap: 6px;
-  padding: 4px 8px;
-  border-radius: 6px;
+  gap: 2px;
+  padding: 2px;
+  border-radius: 8px;
   background-color: var(--surface);
   border: 1px solid var(--border);
+}
+
+.lang-switch a,
+.lang-switch .active {
+  display: inline-block;
+  padding: 4px 8px;
+  border-radius: 6px;
+  line-height: 1.2;
+  text-decoration: none;
+  transition: all 0.15s ease;
 }
 
 .lang-switch a {
   color: var(--text-muted);
 }
 
-.lang-switch a.active {
+.lang-switch a:hover {
+  color: var(--text);
+  background-color: var(--surface-hover);
+}
+
+.lang-switch .active {
   color: var(--accent);
+  background-color: var(--badge-bg);
+  font-weight: 700;
 }
 
 .lang-switch .sep {
-  color: var(--text-faint);
-  user-select: none;
+  display: none;
 }
 
 #theme-toggle {

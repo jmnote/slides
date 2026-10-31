@@ -97,9 +97,9 @@ export function renderIndex({ site, talks }, lang = 'en') {
               const subTitle = (!isKo && talk.title_en && talk.title_en !== talk.title) ? talk.title : null;
               return `<tr>
               <td style="color: var(--text-muted); font-family: var(--font-mono); font-size: 13px;">${talk.date.slice(5).replace('-', '.')}</td>
-              <td style="font-weight: 600;">
+              <td style="font-weight: 500;">
                 <div>${e(mainTitle)}</div>
-                ${subTitle ? `<div style="font-size: 13px; font-weight: 400; color: var(--text-muted); margin-top: 2px;">${e(subTitle)}</div>` : ''}
+                ${subTitle ? `<div style="font-size: 12.5px; font-weight: 400; color: var(--text-muted); margin-top: 3px;">${e(subTitle)}</div>` : ''}
               </td>
               <td style="color: var(--text-muted); font-size: 13.5px;">${e(talk.event)}</td>
               <td style="text-align: right; white-space: nowrap;">
