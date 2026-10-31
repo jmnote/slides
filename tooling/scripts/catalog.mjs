@@ -70,6 +70,8 @@ export function loadCatalog(directory = root) {
   return validateCatalog(parse(readFileSync(resolve(directory, 'tooling/site/talks.yaml'), 'utf8')), directory);
 }
 
+const PDF_ICON_SVG = '<svg viewBox="0 0 24 24" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M4 1h10l7 7v13a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V3a2 2 0 0 1 2-2Zm0 2v18h15V9h-6V3Zm11 1v3h3Z" fill-rule="evenodd"/><g transform="translate(-.5 9) scale(.75)"><path d="M5 3h4a3 3 0 0 1 0 6H7v4H5zm2 2v2h2a1 1 0 0 0 0-2z" fill-rule="evenodd"/><path d="M13 3h3c3 0 4 2 4 5s-1 5-4 5h-3zm2 2v6h1c1.5 0 2-1 2-3s-.5-3-2-3z" fill-rule="evenodd"/><path d="M22 3h6v2h-4v2h3v2h-3v4h-2z"/></g></svg>';
+
 export function renderIndex({ site, talks }, lang = 'en') {
   const e = escapeHtml;
   const isKo = lang === 'ko';
@@ -85,27 +87,30 @@ export function renderIndex({ site, talks }, lang = 'en') {
         <table>
           <thead>
             <tr>
-              <th scope="col" style="width: 100px;">${isKo ? '일자' : 'Date'}</th>
+              <th scope="col" style="width: 90px;">${isKo ? '일자' : 'Date'}</th>
               <th scope="col">${isKo ? '제목' : 'Title'}</th>
-              <th scope="col" style="width: 220px;">${isKo ? '행사' : 'Event'}</th>
-              <th scope="col" style="width: 140px; text-align: right;">${isKo ? '자료' : 'Links'}</th>
+              <th scope="col" style="width: 240px;">${isKo ? '행사' : 'Event'}</th>
             </tr>
           </thead>
           <tbody>
             ${entries.map(talk => {
               const mainTitle = isKo ? talk.title : (talk.title_en || talk.title);
               const subTitle = (!isKo && talk.title_en && talk.title_en !== talk.title) ? talk.title : null;
+              const titleHtml = talk.slides
+                ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link">${e(mainTitle)}</a>`
+                : `<span class="talk-title">${e(mainTitle)}</span>`;
+              const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
+
               return `<tr>
               <td style="color: var(--text-muted); font-family: var(--font-mono); font-size: 13px;">${talk.date.slice(5).replace('-', '.')}</td>
-              <td style="font-weight: 500;">
-                <div>${e(mainTitle)}</div>
-                ${subTitle ? `<div style="font-size: 12.5px; font-weight: 400; color: var(--text-muted); margin-top: 3px;">${e(subTitle)}</div>` : ''}
+              <td>
+                <div class="talk-heading">
+                  ${titleHtml}
+                  ${pdfBtn}
+                </div>
+                ${subTitle ? `<div class="talk-subtitle">${e(subTitle)}</div>` : ''}
               </td>
               <td style="color: var(--text-muted); font-size: 13.5px;">${e(talk.event)}</td>
-              <td style="text-align: right; white-space: nowrap;">
-                ${talk.slides ? `<a href="${site.base}${encodePath(deckPath(talk))}" style="margin-right: 8px;">${isKo ? '슬라이드' : 'Slides'} ↗</a>` : ''}
-                <a href="${site.base}${encodePath(talk.pdf)}">PDF ↗</a>
-              </td>
             </tr>`;
             }).join('\n')}
           </tbody>
@@ -117,8 +122,8 @@ export function renderIndex({ site, talks }, lang = 'en') {
   const navHome = isKo ? '<a href="/ko/">홈</a>' : '<a href="/">Home</a>';
   const navSlides = isKo ? `<a href="${site.base}ko/" aria-current="page">슬라이드</a>` : `<a href="${site.base}" aria-current="page">Slides</a>`;
   const langSwitch = isKo
-    ? `<div class="lang-switch"><a href="${site.base}">EN</a><span class="sep">/</span><span class="active">KO</span></div>`
-    : `<div class="lang-switch"><span class="active">EN</span><span class="sep">/</span><a href="${site.base}ko/">KO</a></div>`;
+    ? `<div class="lang-switch"><a href="${site.base}">en</a><span class="sep">/</span><span class="active">ko</span></div>`
+    : `<div class="lang-switch"><span class="active">en</span><span class="sep">/</span><a href="${site.base}ko/">ko</a></div>`;
   const themeTitle = isKo ? '테마 전환' : 'Switch theme';
 
   return `<!doctype html>

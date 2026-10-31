@@ -47,11 +47,11 @@ test('title_en is rendered as main title in en mode with original title as subte
   const catalog = validateCatalog(data, directory);
 
   const htmlEn = renderIndex(catalog, 'en');
-  assert.ok(htmlEn.includes('<div>First Presentation</div>'));
-  assert.ok(htmlEn.includes('>첫 발표</div>'));
+  assert.ok(htmlEn.includes('First Presentation'));
+  assert.ok(htmlEn.includes('class="talk-subtitle">첫 발표</div>'));
 
   const htmlKo = renderIndex(catalog, 'ko');
-  assert.ok(htmlKo.includes('<div>첫 발표</div>'));
+  assert.ok(htmlKo.includes('첫 발표'));
   assert.ok(!htmlKo.includes('First Presentation'));
 });
 
