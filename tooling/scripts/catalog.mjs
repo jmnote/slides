@@ -37,6 +37,9 @@ export function validateCatalog(data, directory = root) {
     required(!/^\d{4}$/.test(talk.id), `Reserved talk id (year directory): ${talk.id}`);
     ids.add(talk.id);
     required(text(talk.title), `Missing title: ${talk.id}`);
+    if (talk.title_en !== undefined) {
+      required(text(talk.title_en), `Invalid title_en: ${talk.id}`);
+    }
     required(typeof talk.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(talk.date) && !Number.isNaN(Date.parse(talk.date)) && new Date(talk.date).toISOString().slice(0, 10) === talk.date, `Invalid date: ${talk.id}`);
     required(text(talk.event), `Invalid event: ${talk.id}`);
     required(talk.slides === undefined || typeof talk.slides === 'boolean', `slides must be a boolean: ${talk.id}`);
@@ -78,15 +81,22 @@ export function renderIndex({ site, talks }, lang = 'en') {
             </tr>
           </thead>
           <tbody>
-            ${entries.map(talk => `<tr>
+            ${entries.map(talk => {
+              const mainTitle = isKo ? talk.title : (talk.title_en || talk.title);
+              const subTitle = (!isKo && talk.title_en && talk.title_en !== talk.title) ? talk.title : null;
+              return `<tr>
               <td style="color: var(--text-muted); font-family: var(--font-mono); font-size: 13px;">${talk.date.slice(5).replace('-', '.')}</td>
-              <td style="font-weight: 600;">${e(talk.title)}</td>
+              <td style="font-weight: 600;">
+                <div>${e(mainTitle)}</div>
+                ${subTitle ? `<div style="font-size: 13px; font-weight: 400; color: var(--text-muted); margin-top: 2px;">${e(subTitle)}</div>` : ''}
+              </td>
               <td style="color: var(--text-muted); font-size: 13.5px;">${e(talk.event)}</td>
               <td style="text-align: right; white-space: nowrap;">
                 ${talk.slides ? `<a href="${site.base}${encodePath(deckPath(talk))}" style="margin-right: 8px;">${isKo ? '슬라이드' : 'Slides'} ↗</a>` : ''}
                 <a href="${site.base}${encodePath(talk.pdf)}">PDF ↗</a>
               </td>
-            </tr>`).join('\n')}
+            </tr>`;
+            }).join('\n')}
           </tbody>
         </table>
       </div>

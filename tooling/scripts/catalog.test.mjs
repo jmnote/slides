@@ -40,6 +40,21 @@ test('multiple decks and derived PDF paths keep independent URLs under a shared 
   assert.ok(renderReadmeTable(validateCatalog(data, directory)).includes('https://example.github.io/second/'));
 });
 
+test('title_en is rendered as main title in en mode with original title as subtext', t => {
+  const { directory, data } = fixture(t);
+  data.talks[1].title = '첫 발표';
+  data.talks[1].title_en = 'First Presentation';
+  const catalog = validateCatalog(data, directory);
+
+  const htmlEn = renderIndex(catalog, 'en');
+  assert.ok(htmlEn.includes('<div>First Presentation</div>'));
+  assert.ok(htmlEn.includes('>첫 발표</div>'));
+
+  const htmlKo = renderIndex(catalog, 'ko');
+  assert.ok(htmlKo.includes('<div>첫 발표</div>'));
+  assert.ok(!htmlKo.includes('First Presentation'));
+});
+
 test('duplicate IDs fail before a build', t => {
   const { directory, data } = fixture(t);
   const duplicateId = structuredClone(data);
