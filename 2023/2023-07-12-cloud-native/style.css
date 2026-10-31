@@ -1,0 +1,204 @@
+@import '../../tooling/site/fonts.css';
+@import url('https://fonts.googleapis.com/css2?family=Nanum+Pen+Script&display=swap');
+
+.slidev-layout {
+  font-family: 'Noto Sans KR', sans-serif;
+  color: #182c43;
+  background: #f7f9fc;
+  padding: 44px 54px 48px;
+  font-size: 22px;
+  line-height: 1.5;
+}
+.slidev-layout h1 { font-size: 38px; line-height: 1.3; font-weight: 700; margin-bottom: 24px; letter-spacing: -1px; }
+.slidev-layout h3 { font-size: 25px; color: #2664bf; margin: 22px 0 12px; }
+.slidev-layout p { margin: 12px 0; }
+.slidev-layout li { margin: 7px 0; }
+.slidev-layout strong { font-weight: 700; }
+.slidev-layout a { color: #2362b6; text-decoration: none; border-bottom: 1px solid #b2ccef; }
+.slidev-layout table { width: 100%; font-size: 20px; line-height: 1.55; margin: 16px 0; }
+.slidev-layout th { background: #e4ecf8; color: #1e497d; font-weight: 700; }
+.slidev-layout td, .slidev-layout th { padding: 10px 12px; border-bottom: 1px solid #d5deea; vertical-align: top; }
+.slidev-layout tbody tr:nth-child(even) { background: #edf2f8; }
+.slidev-layout img { max-width: 100%; max-height: 260px; object-fit: contain; margin: 12px auto; }
+.slidev-layout td img { max-height: 290px; }
+.slidev-layout pre { font-size: 18px !important; line-height: 1.5 !important; border-radius: 8px; }
+.slidev-layout :not(pre) > code { color: #22599d; background: #e7edf6; font-size: .9em; padding: 2px 6px; border-radius: 4px; }
+
+/* Slide header bar (automated for standard `# Title` or `<header class="slide-header">`) */
+.slide-header,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child {
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  margin: -44px -54px 28px -54px;
+  padding: 16px 54px;
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  gap: 14px;
+  font-size: 32px;
+  font-weight: 700;
+  letter-spacing: -0.5px;
+}
+.slide-header h1 {
+  font-size: 32px;
+  font-weight: 700;
+  color: #ffffff;
+  margin: 0;
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+}
+.slide-header h1 small,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child small {
+  font-size: 24px;
+  font-weight: 400;
+  color: #e4eeff;
+}
+.slide-header img,
+.slide-header .header-badge,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child img,
+.slidev-layout:not(.cover):not(.speaker):not(.toc):not(.section) > h1:first-child .header-badge {
+  margin-left: auto;
+}
+.header-badge {
+  background: rgba(255, 255, 255, 0.2);
+  border: 1px solid rgba(255, 255, 255, 0.35);
+  color: #ffffff;
+  font-size: 16px;
+  font-weight: 600;
+  padding: 4px 12px;
+  border-radius: 12px;
+}
+
+/* Cover layout */
+.slidev-layout.cover {
+  background: linear-gradient(135deg, #091932 0%, #0d2c60 100%);
+  color: #f4f8ff;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  padding: 60px 80px;
+}
+.slidev-layout.cover h1 { font-size: 60px; max-width: 900px; line-height: 1.35; margin-bottom: 20px; font-weight: 700; color: #ffffff; }
+.slidev-layout.cover .author { color: #e2ecf8; font-size: 22px; margin-top: 10px; }
+.slidev-layout.cover .event { color: #abc6e9; font-size: 22px; line-height: 1.4; }
+
+/* Section divider */
+.slidev-layout.section {
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  color: #ffffff;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  padding: 0;
+  height: 100%;
+}
+.slidev-layout.section .section-content {
+  display: flex;
+  align-items: center;
+  gap: 24px;
+}
+.slidev-layout.section .section-badge {
+  background: #ffffff;
+  color: #1055cc;
+  font-size: 46px;
+  font-weight: 800;
+  padding: 8px 24px;
+  border-radius: 8px;
+  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.2);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 1.1;
+}
+.slidev-layout.section .section-title {
+  font-size: 56px;
+  font-weight: 700;
+  color: #ffffff;
+  letter-spacing: -1px;
+}
+
+/* Agenda / TOC split layout */
+.slidev-layout.toc {
+  padding: 0;
+  display: flex;
+  height: 100%;
+  background: #ffffff;
+}
+.slidev-layout.toc .toc-sidebar {
+  width: 25%;
+  height: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: linear-gradient(135deg, #1055cc 0%, #0c43a4 100%);
+  color: #ffffff;
+}
+.slidev-layout.toc .toc-sidebar h2 {
+  font-size: 44px;
+  font-weight: 700;
+  color: #ffffff;
+}
+.slidev-layout.toc .toc-main {
+  width: 75%;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  padding: 60px 96px;
+  box-sizing: border-box;
+  background: #ffffff;
+  border-top: 7px solid #3274e6;
+}
+.slidev-layout.toc .toc-list {
+  display: flex;
+  flex-direction: column;
+  gap: 32px;
+}
+.slidev-layout.toc .toc-item {
+  display: flex;
+  align-items: baseline;
+  font-size: 32px;
+  font-weight: 600;
+  color: #1e293b;
+}
+.slidev-layout.toc .toc-num {
+  font-size: 32px;
+  font-weight: 700;
+  color: #1055cc;
+  min-width: 64px;
+}
+.slidev-layout.toc .toc-text {
+  color: #1e293b;
+}
+
+/* Two-column split layout */
+.two-cols {
+  display: flex;
+  gap: 36px;
+  align-items: flex-start;
+}
+.two-cols > div:first-child { flex: 1.1; }
+.two-cols > div:last-child { flex: 0.9; display: flex; flex-direction: column; }
+.two-cols h3 { margin: 0 0 12px 0; }
+.two-cols ul { padding-left: 24px; margin-bottom: 24px; }
+.two-cols li { margin-bottom: 8px; }
+
+/* Table styling */
+.table-lg table { font-size: 22px; line-height: 1.5; margin: 16px 0 12px; }
+.table-lg th, .table-lg td { padding: 12px 14px; text-align: center; vertical-align: middle; }
+.table-lg code { font-size: 21px; }
+
+/* Visual diagrams */
+.slidev-layout.visual { display: flex; flex-direction: column; }
+.slidev-layout.visual img {
+  max-height: 520px;
+  max-width: 100%;
+  object-fit: contain;
+  margin: auto;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+}
+
+.highlight-blue { color: #1055cc; font-weight: 500; }
+.pen { font-family: 'Nanum Pen Script', cursive; font-weight: normal; color: #8899aa; font-size: 26px; }

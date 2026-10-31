@@ -4,6 +4,7 @@ talks:
     title: Cloud Native와 Samsung Cloud Platform
     title_en: Cloud Native & Samsung Cloud Platform
     event: Open Cloud Platform Summit 2023
+    slides: true
 
   - id: go-tests
     date: 2023-08-05
