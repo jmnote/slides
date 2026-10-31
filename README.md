@@ -13,4 +13,4 @@
 | Cloud Native와 Samsung Cloud Platform | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2023/2023-07-12-cloud-native.pdf?raw=true) | 2023-07-12 | Open Cloud Platform Summit 2023 |
 <!-- talks:end -->
 
-[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt=""> 발표 사이트 보기](https://jmnote.github.io/slides/)
+[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt=""> 슬라이드 사이트 보기](https://jmnote.com/slides/)

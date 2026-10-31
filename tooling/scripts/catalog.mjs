@@ -86,7 +86,7 @@ export function renderIndex({ site, talks }, lang = 'en') {
           <thead>
             <tr>
               <th scope="col" style="width: 100px;">${isKo ? '일자' : 'Date'}</th>
-              <th scope="col">${isKo ? '발표 제목' : 'Title'}</th>
+              <th scope="col">${isKo ? '제목' : 'Title'}</th>
               <th scope="col" style="width: 220px;">${isKo ? '행사' : 'Event'}</th>
               <th scope="col" style="width: 140px; text-align: right;">${isKo ? '자료' : 'Links'}</th>
             </tr>
@@ -115,7 +115,7 @@ export function renderIndex({ site, talks }, lang = 'en') {
   }).join('\n');
 
   const navHome = isKo ? '<a href="/ko/">홈</a>' : '<a href="/">Home</a>';
-  const navSlides = isKo ? `<a href="${site.base}ko/" aria-current="page">발표자료</a>` : `<a href="${site.base}" aria-current="page">Slides</a>`;
+  const navSlides = isKo ? `<a href="${site.base}ko/" aria-current="page">슬라이드</a>` : `<a href="${site.base}" aria-current="page">Slides</a>`;
   const langSwitch = isKo
     ? `<div class="lang-switch"><a href="${site.base}">EN</a><span class="sep">/</span><span class="active">KO</span></div>`
     : `<div class="lang-switch"><span class="active">EN</span><span class="sep">/</span><a href="${site.base}ko/">KO</a></div>`;
@@ -150,7 +150,7 @@ export function renderIndex({ site, talks }, lang = 'en') {
     <main>
       <div class="hero">
         <div class="hero-bio">
-          <h1>${isKo ? '발표 자료' : 'Slides'}</h1>
+          <h1>${isKo ? '슬라이드' : 'Slides'}</h1>
           <p>${e(pageDesc)}</p>
         </div>
       </div>
