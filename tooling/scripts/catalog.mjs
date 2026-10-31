@@ -48,8 +48,10 @@ export function validateCatalog(data, directory = root) {
     required(!/^\d{4}$/.test(talk.id), `Reserved talk id (year directory): ${talk.id}`);
     ids.add(talk.id);
     required(text(talk.title), `Missing title: ${talk.id}`);
-    if (talk.title_en !== undefined) {
-      required(text(talk.title_en), `Invalid title_en: ${talk.id}`);
+    for (const key of Object.keys(talk)) {
+      if (key.startsWith('title_')) {
+        required(text(talk[key]), `Invalid ${key}: ${talk.id}`);
+      }
     }
     required(typeof talk.date === 'string' && /^\d{4}-\d{2}-\d{2}$/.test(talk.date) && !Number.isNaN(Date.parse(talk.date)) && new Date(talk.date).toISOString().slice(0, 10) === talk.date, `Invalid date: ${talk.id}`);
     required(text(talk.event), `Invalid event: ${talk.id}`);
@@ -86,14 +88,15 @@ export function renderIndex({ site, talks }, lang = 'en') {
     </tr>`;
 
     const talkRows = entries.map(talk => {
-      const mainTitle = isKo ? talk.title : (talk.title_en || talk.title);
-      const subTitle = (!isKo && talk.title_en && talk.title_en !== talk.title) ? talk.title : null;
+      const mainTitle = talk.title;
+      const langTitle = talk[`title_${lang}`];
+      const subTitle = (langTitle && langTitle !== talk.title) ? langTitle : null;
       const titleHtml = talk.slides
         ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link">${e(mainTitle)}</a>`
         : `<span class="talk-title">${e(mainTitle)}</span>`;
       const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
 
-      return `<tr>
+      return `<tr class="talk-row">
         <td>
           <div class="talk-heading">${titleHtml}${pdfBtn}</div>
           ${subTitle ? `<div class="talk-subtitle">${e(subTitle)}</div>` : ''}
@@ -150,14 +153,8 @@ export function renderIndex({ site, talks }, lang = 'en') {
       </div>
 
       <section id="talks">
-        <div class="table-wrapper">
-          <table>
-            <thead>
-              <tr>
-                <th scope="col">${isKo ? '제목' : 'Title'}</th>
-                <th scope="col" class="col-event">${isKo ? '행사' : 'Event'}</th>
-              </tr>
-            </thead>
+        <div class="table-wrapper talks-wrapper">
+          <table class="talks-table">
             <tbody>
               ${tableRows}
             </tbody>

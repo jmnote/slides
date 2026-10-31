@@ -340,10 +340,6 @@ td a:hover {
   margin-top: 3px;
 }
 
-.col-event {
-  min-width: 160px;
-}
-
 .talk-date {
   font-family: var(--font-mono);
   font-size: 12px;
@@ -359,19 +355,66 @@ td a:hover {
   line-height: 1.4;
 }
 
-.year-header {
-  background-color: var(--surface);
-  color: var(--text);
-  font-size: 13px;
-  font-weight: 700;
-  padding: 8px 16px;
-  border-top: 1px solid var(--border);
-  border-bottom: 1px solid var(--border);
-  letter-spacing: 0.05em;
+.talks-wrapper {
+  border: none;
+  background: transparent;
+  border-radius: 0;
+  overflow-x: visible;
 }
 
-tbody tr.year-row:hover {
-  background-color: var(--surface);
+.talks-table {
+  width: 100%;
+  border-collapse: separate;
+  border-spacing: 0;
+  table-layout: auto;
+}
+
+.talks-table .year-header {
+  background: transparent;
+  color: var(--text);
+  font-size: 18px;
+  font-weight: 700;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  text-align: left;
+  padding: 40px 10px 12px;
+  border-top: none;
+  border-bottom: 1px solid var(--border);
+}
+
+.talks-table tr:first-child .year-header {
+  padding-top: 8px;
+}
+
+.talks-table tbody tr.year-row:hover {
+  background: transparent;
+}
+
+.talks-table tr.talk-row td {
+  padding: 14px 10px;
+  border-bottom: 1px solid var(--border);
+  vertical-align: top;
+  background: transparent;
+  transition: background-color 0.15s ease;
+}
+
+.talks-table tr.talk-row:hover td {
+  background-color: var(--surface-hover);
+}
+
+.talks-table tr.talk-row:hover td:first-child {
+  border-top-left-radius: 6px;
+  border-bottom-left-radius: 6px;
+}
+
+.talks-table tr.talk-row:hover td:last-child {
+  border-top-right-radius: 6px;
+  border-bottom-right-radius: 6px;
+}
+
+.talks-table .col-event {
+  width: 32%;
+  min-width: 180px;
 }
 
 /* Footer */
@@ -401,5 +444,48 @@ tbody tr.year-row:hover {
   }
   .col-repo {
     width: auto;
+  }
+  .talks-table,
+  .talks-table tbody,
+  .talks-table tr,
+  .talks-table td,
+  .talks-table th {
+    display: block;
+  }
+  .talks-table .year-header {
+    padding: 32px 0 10px;
+  }
+  .talks-table tr:first-child .year-header {
+    padding-top: 8px;
+  }
+  .talks-table tr.talk-row {
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+  }
+  .talks-table tr.talk-row:hover {
+    background: transparent;
+  }
+  .talks-table tr.talk-row td {
+    padding: 0;
+    border-bottom: none;
+  }
+  .talks-table tr.talk-row:hover td {
+    background: transparent;
+  }
+  .talks-table .col-event {
+    width: 100%;
+    min-width: 0;
+    margin-top: 6px;
+  }
+  .talks-table .talk-date {
+    display: inline-block;
+    margin-right: 6px;
+    margin-bottom: 0;
+  }
+  .talks-table .talk-date::after {
+    content: " · ";
+  }
+  .talks-table .talk-event {
+    display: inline;
   }
 }
