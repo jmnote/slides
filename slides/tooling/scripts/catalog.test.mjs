@@ -8,7 +8,7 @@ import { validateCatalog, renderIndex, renderReadmeTable, loadCatalog } from './
 function fixture(t) {
   const directory = mkdtempSync(resolve(tmpdir(), 'slides-catalog-'));
   t.after(() => rmSync(directory, { recursive: true, force: true }));
-  for (const path of ['2026/2026-01-01-first/slides.md', '2026/2026-02-01-second/slides.md', '2025/2025-01-01-older.pdf', '2026/2026-01-01-first.pdf', '2026/2026-02-01-second.pdf']) {
+  for (const path of ['2026-01-01-first/slides.md', '2026-02-01-second/slides.md', 'pdf/2025-01-01-older.pdf', 'pdf/2026-01-01-first.pdf', 'pdf/2026-02-01-second.pdf']) {
     const full = resolve(directory, path);
     mkdirSync(resolve(full, '..'), { recursive: true });
     writeFileSync(full, path.endsWith('.pdf') ? '%PDF-1.7' : '# Example');
@@ -31,7 +31,7 @@ test('multiple decks and derived PDF paths keep independent URLs under a shared 
   const html = renderIndex(catalog);
   assert.ok(html.includes('href="/slides/first/"'));
   assert.ok(html.includes('href="/slides/second/"'));
-  assert.ok(html.includes('/slides/2025/2025-01-01-older.pdf'));
+  assert.ok(html.includes('/slides/pdf/2025-01-01-older.pdf'));
   assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://example.github.io/slides/second/)'));
   assert.ok(renderReadmeTable(catalog).startsWith('| 제목 | 웹 | PDF | 날짜 | 행사 |'));
   assert.ok(renderReadmeTable(catalog).includes('| Community Meetup |'));
@@ -78,10 +78,10 @@ test('all talks require a PDF derived from date and ID without mutating input', 
   const { directory, data } = fixture(t);
   const before = structuredClone(data);
   const catalog = validateCatalog(data, directory);
-  assert.equal(catalog.talks.find(talk => talk.id === 'older').pdf, '2025/2025-01-01-older.pdf');
+  assert.equal(catalog.talks.find(talk => talk.id === 'older').pdf, 'pdf/2025-01-01-older.pdf');
   assert.deepEqual(data, before);
-  rmSync(resolve(directory, '2026/2026-01-01-first.pdf'));
-  assert.throws(() => validateCatalog(data, directory), /Talk "first" \(2026-01-01\): missing PDF: 2026\/2026-01-01-first\.pdf/);
+  rmSync(resolve(directory, 'pdf/2026-01-01-first.pdf'));
+  assert.throws(() => validateCatalog(data, directory), /Talk "first" \(2026-01-01\): missing PDF: pdf\/2026-01-01-first\.pdf/);
 });
 
 test('invalid or duplicate string IDs and missing events are rejected', t => {
@@ -101,9 +101,9 @@ test('invalid or duplicate string IDs and missing events are rejected', t => {
 test('slides true derives the source path and requires an existing file', t => {
   const { directory, data } = fixture(t);
   const catalog = validateCatalog(data, directory);
-  assert.equal(catalog.talks.find(talk => talk.id === 'first').slides, '2026/2026-01-01-first/slides.md');
-  rmSync(resolve(directory, '2026/2026-01-01-first/slides.md'));
-  assert.throws(() => validateCatalog(data, directory), /Talk "first" \(2026-01-01\): missing Slidev source: 2026\/2026-01-01-first\/slides\.md/);
+  assert.equal(catalog.talks.find(talk => talk.id === 'first').slides, '2026-01-01-first/slides.md');
+  rmSync(resolve(directory, '2026-01-01-first/slides.md'));
+  assert.throws(() => validateCatalog(data, directory), /Talk "first" \(2026-01-01\): missing Slidev source: 2026-01-01-first\/slides\.md/);
 });
 
 test('omitted or false slides is PDF-only and other values are rejected', t => {
@@ -113,16 +113,16 @@ test('omitted or false slides is PDF-only and other values are rejected', t => {
   assert.equal(catalog.talks.find(talk => talk.id === 'older').slides, undefined);
   assert.equal(catalog.talks.find(talk => talk.id === 'first').slides, undefined);
   assert.ok(!renderIndex(catalog).includes('href="/slides/first/"'));
-  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2026/2026-01-01-first.pdf?raw=true)'));
+  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](pdf/2026-01-01-first.pdf?raw=true)'));
   for (const slides of ['true', '2026/example/slides.md', 1, null]) {
     data.talks[1].slides = slides;
     assert.throws(() => validateCatalog(data, directory), /slides must be a boolean/);
   }
 });
 
-test('year-directory IDs and site filenames cannot become presentation routes', t => {
+test('reserved IDs and site filenames cannot become presentation routes', t => {
   const { directory, data } = fixture(t);
-  for (const id of ['2025', '2026', '2099']) {
+  for (const id of ['pdf']) {
     const invalid = structuredClone(data);
     invalid.talks[1].id = id;
     assert.throws(() => validateCatalog(invalid, directory), /Reserved talk id/);

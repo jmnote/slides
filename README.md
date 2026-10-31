@@ -1,16 +1,65 @@
-# slides
+# jmnote.github.io
 
-<!-- tooling/site/talks.yaml 수정 후 make docs로 갱신 -->
-<!-- talks:start -->
-| 제목 | 웹 | PDF | 날짜 | 행사 |
-|---|:---:|:---:|---|---|
-| Kubernetes 엔지니어가 둘러본 AI Agent 생태계 | [<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://jmnote.github.io/slides/k8s-ai-agent/) | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2026/2026-10-28-k8s-ai-agent.pdf?raw=true) | 2026-10-28 | Kubernetes Korea Group Meetup 26.10 |
-| Ingress Annotator 개발기 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2025/2025-09-16-ingress-annotator.pdf?raw=true) | 2025-09-16 | Cloud Native Korea Community Day 2025 |
-| Helm Chart 개발과 GitHub · ArtifactHub 사용기 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2025/2025-05-22-helm-chart.pdf?raw=true) | 2025-05-22 | KCD Seoul 2025 |
-| K8s LMA venti-stack 개발기: 파트 2 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2024/2024-10-12-venti-stack-2.pdf?raw=true) | 2024-10-12 | GopherCon Korea 2024 |
-| K8s LMA venti-stack 개발기 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2024/2024-09-24-venti-stack.pdf?raw=true) | 2024-09-24 | Cloud Native Korea Community Day 2024 |
-| Go 테스트의 거의 모든 것 | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2023/2023-08-05-go-tests.pdf?raw=true) | 2023-08-05 | GopherCon Korea 2023 |
-| Cloud Native와 Samsung Cloud Platform | — | [<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2023/2023-07-12-cloud-native.pdf?raw=true) | 2023-07-12 | Open Cloud Platform Summit 2023 |
-<!-- talks:end -->
+Source repository for [jmnote.github.io](https://jmnote.github.io), a small
+static profile page hosted on GitHub Pages.
 
-[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt=""> 발표 사이트 보기](https://jmnote.github.io/slides/)
+The page content lives in [`index.html`](index.html). This README is intended
+for people working on or deploying the repository.
+
+## Run locally
+
+The page is plain HTML and CSS, with a small JavaScript file for theme
+switching. Run the repo-order, Markdown, HTML, and link checks locally
+with:
+
+```sh
+make checks
+```
+
+To start a local server with live reload:
+
+```sh
+make serve
+```
+
+Then open `http://localhost:3000`.
+
+## Repository structure
+
+```text
+.
+├── .github/workflows/ # CI, Pages deployment, release
+├── index.html   # Profile page content and metadata
+├── assets/      # CSS, JavaScript, and SVG assets
+├── scripts/     # Repository validation scripts
+├── CNAME        # Custom domain (jmnote.com)
+├── slides/      # Presentations: decks, pdf/, tooling/ (see slides/README.md)
+├── README.md    # Repository documentation
+├── .stylelintrc.json # CSS validation rules
+├── package.json  # Release version
+├── Makefile     # Local checks, preview, and slides build commands
+└── LICENSE      # Apache License 2.0
+```
+
+## Deployment
+
+Pushing to `main` runs the Pages workflow, which builds one artifact: the profile
+site at the root and the presentations under `/slides/`. The live site is
+available at [jmnote.com](https://jmnote.com). See
+[`slides/tooling/README.md`](slides/tooling/README.md) for the slides build.
+
+## Releases
+
+Update the version in [`package.json`](package.json) when preparing a release.
+Merging that change into `main` creates the corresponding Git tag and GitHub
+Release automatically.
+
+## Continuous integration
+
+Pull requests are checked for valid links, HTML, CSS, and Markdown style, and
+alphabetical Repo ordering. Run `make checks` locally to run the same checks.
+The slides tests, README sync, and full site build run with `make slides-check`.
+
+## License
+
+This project is licensed under the [Apache License 2.0](LICENSE).
