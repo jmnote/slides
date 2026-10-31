@@ -1,5 +1,8 @@
+# Local dependencies and generated build artifacts
 node_modules/
-dist/
+.astro/
+.vitepress/
 .slidev/
-*.log
+dist/
 .dist-build-*/
+*.log
