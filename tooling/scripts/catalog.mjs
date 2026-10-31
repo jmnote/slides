@@ -87,9 +87,8 @@ export function renderIndex({ site, talks }, lang = 'en') {
         <table>
           <thead>
             <tr>
-              <th scope="col" style="width: 90px;">${isKo ? '일자' : 'Date'}</th>
               <th scope="col">${isKo ? '제목' : 'Title'}</th>
-              <th scope="col" style="width: 240px;">${isKo ? '행사' : 'Event'}</th>
+              <th scope="col" style="width: 260px;">${isKo ? '행사' : 'Event'}</th>
             </tr>
           </thead>
           <tbody>
@@ -102,7 +101,6 @@ export function renderIndex({ site, talks }, lang = 'en') {
               const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
 
               return `<tr>
-              <td style="color: var(--text-muted); font-family: var(--font-mono); font-size: 13px;">${talk.date.slice(5).replace('-', '.')}</td>
               <td>
                 <div class="talk-heading">
                   ${titleHtml}
@@ -110,7 +108,10 @@ export function renderIndex({ site, talks }, lang = 'en') {
                 </div>
                 ${subTitle ? `<div class="talk-subtitle">${e(subTitle)}</div>` : ''}
               </td>
-              <td style="color: var(--text-muted); font-size: 13.5px;">${e(talk.event)}</td>
+              <td class="col-event">
+                <div class="talk-date">${talk.date}</div>
+                <div class="talk-event">${e(talk.event)}</div>
+              </td>
             </tr>`;
             }).join('\n')}
           </tbody>
