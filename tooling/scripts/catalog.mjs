@@ -79,45 +79,36 @@ export function renderIndex({ site, talks }, lang = 'en') {
   const pageDesc = isKo ? (site.description_ko || site.description) : site.description;
   const years = [...new Set(talks.map(talk => talk.date.slice(0, 4)))];
 
-  const sections = years.map(year => {
+  const tableRows = years.map(year => {
     const entries = talks.filter(talk => talk.date.startsWith(year));
-    return `
-      <h3 class="section-title" id="year-${year}">${year}</h3>
-      <div class="table-wrapper">
-        <table>
-          <thead>
-            <tr>
-              <th scope="col">${isKo ? '제목' : 'Title'}</th>
-              <th scope="col" style="width: 260px;">${isKo ? '행사' : 'Event'}</th>
-            </tr>
-          </thead>
-          <tbody>
-            ${entries.map(talk => {
-              const mainTitle = isKo ? talk.title : (talk.title_en || talk.title);
-              const subTitle = (!isKo && talk.title_en && talk.title_en !== talk.title) ? talk.title : null;
-              const titleHtml = talk.slides
-                ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link">${e(mainTitle)}</a>`
-                : `<span class="talk-title">${e(mainTitle)}</span>`;
-              const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
+    const yearRow = `<tr class="year-row" id="year-${year}">
+      <th colspan="2" scope="colgroup" class="year-header">${year}</th>
+    </tr>`;
 
-              return `<tr>
-              <td>
-                <div class="talk-heading">
-                  ${titleHtml}
-                  ${pdfBtn}
-                </div>
-                ${subTitle ? `<div class="talk-subtitle">${e(subTitle)}</div>` : ''}
-              </td>
-              <td class="col-event">
-                <div class="talk-date">${talk.date}</div>
-                <div class="talk-event">${e(talk.event)}</div>
-              </td>
-            </tr>`;
-            }).join('\n')}
-          </tbody>
-        </table>
-      </div>
-    `;
+    const talkRows = entries.map(talk => {
+      const mainTitle = isKo ? talk.title : (talk.title_en || talk.title);
+      const subTitle = (!isKo && talk.title_en && talk.title_en !== talk.title) ? talk.title : null;
+      const titleHtml = talk.slides
+        ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link">${e(mainTitle)}</a>`
+        : `<span class="talk-title">${e(mainTitle)}</span>`;
+      const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
+
+      return `<tr>
+        <td>
+          <div class="talk-heading">
+            ${titleHtml}
+            ${pdfBtn}
+          </div>
+          ${subTitle ? `<div class="talk-subtitle">${e(subTitle)}</div>` : ''}
+        </td>
+        <td class="col-event">
+          <div class="talk-date">${talk.date}</div>
+          <div class="talk-event">${e(talk.event)}</div>
+        </td>
+      </tr>`;
+    }).join('\n');
+
+    return `${yearRow}\n${talkRows}`;
   }).join('\n');
 
   const navHome = isKo ? '<a href="/ko/">홈</a>' : '<a href="/">Home</a>';
@@ -162,7 +153,19 @@ export function renderIndex({ site, talks }, lang = 'en') {
       </div>
 
       <section id="talks">
-        ${sections}
+        <div class="table-wrapper">
+          <table>
+            <thead>
+              <tr>
+                <th scope="col">${isKo ? '제목' : 'Title'}</th>
+                <th scope="col" class="col-event">${isKo ? '행사' : 'Event'}</th>
+              </tr>
+            </thead>
+            <tbody>
+              ${tableRows}
+            </tbody>
+          </table>
+        </div>
       </section>
     </main>
 

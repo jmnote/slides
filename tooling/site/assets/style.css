@@ -342,7 +342,7 @@ td a:hover {
 }
 
 .col-event {
-  width: 260px;
+  min-width: 160px;
 }
 
 .talk-date {
@@ -351,12 +351,28 @@ td a:hover {
   color: var(--text-muted);
   line-height: 1.4;
   margin-bottom: 2px;
+  white-space: nowrap;
 }
 
 .talk-event {
   font-size: 13.5px;
   color: var(--text-muted);
   line-height: 1.4;
+}
+
+.year-header {
+  background-color: var(--surface);
+  color: var(--text);
+  font-size: 13px;
+  font-weight: 700;
+  padding: 8px 16px;
+  border-top: 1px solid var(--border);
+  border-bottom: 1px solid var(--border);
+  letter-spacing: 0.05em;
+}
+
+tbody tr.year-row:hover {
+  background-color: var(--surface);
 }
 
 /* Footer */
