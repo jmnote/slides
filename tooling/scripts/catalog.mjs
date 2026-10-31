@@ -95,10 +95,7 @@ export function renderIndex({ site, talks }, lang = 'en') {
 
       return `<tr>
         <td>
-          <div class="talk-heading">
-            ${titleHtml}
-            ${pdfBtn}
-          </div>
+          <div class="talk-heading">${titleHtml}${pdfBtn}</div>
           ${subTitle ? `<div class="talk-subtitle">${e(subTitle)}</div>` : ''}
         </td>
         <td class="col-event">
