@@ -1,5 +1,7 @@
 # slides
 
+<!-- markdownlint-disable MD033 -->
+
 <!-- slides/tooling/site/talks.yaml 수정 후 make slides-docs로 갱신 -->
 <!-- talks:start -->
 | 제목 | 웹 | PDF | 날짜 | 행사 |
