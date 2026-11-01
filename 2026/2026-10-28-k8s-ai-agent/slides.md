@@ -3,6 +3,8 @@ theme: default
 title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
 info: 쿠버네티스 코리아 유저 그룹 밋업 · 2026-10-28
 class: cover
+browserExporter: true
+sourcePdf: ../2026/2026-10-28-k8s-ai-agent.pdf
 colorSchema: light
 aspectRatio: 16/9
 canvasWidth: 1280
@@ -17,60 +19,31 @@ mdc: false
 
 # Kubernetes 엔지니어가 둘러본<br>AI Agent 생태계
 
-<p class="author">김정민 / 삼성SDS</p>
-
-<p class="event">Kubernetes Korea Group<br>Meetup 26.10</p>
+- 김정민 / 삼성SDS
+- Kubernetes Korea Group<br>Meetup 26.10
 
 ---
 class: speaker
 ---
 
-<div class="speaker-sidebar">
-  <h2>발표자</h2>
-</div>
-
-<div class="speaker-main">
-  <img src="./images/profile.png" alt="김정민" class="speaker-avatar" />
-  <div class="speaker-title">김정민 / 삼성SDS / Cloud Engineer</div>
-  <div class="speaker-bio">
-    Samsung Kubernetes Engine을 개발하는 업무를 하고 있습니다.<br>
-    K8s와 Go 테스트 관련 주제에 관심이 많습니다.
-  </div>
-  <div class="speaker-link">
-    발표자료 <a href="https://github.com/jmnote/slides" target="_blank" rel="noopener">https://github.com/jmnote/slides</a>
-  </div>
-  <div class="speaker-github">
-    <div class="i-carbon-logo-github" />
-    <a href="https://github.com/jmnote" target="_blank" rel="noopener">jmnote</a>
-  </div>
-</div>
+# 발표자
+## 김정민 / 삼성SDS / Cloud Engineer
+- Samsung Kubernetes Engine을 개발하는 업무를 하고 있습니다.
+- K8s와 Go 테스트 관련 주제에 관심이 많습니다.
+- :github: jmnote
 
 ---
-class: timeline
+class: staircase
 ---
 
-<img src="./images/history-1.png" alt="2024.09" class="card-img c1" />
-<div class="card-desc d1">
-  <strong>'24.09</strong>
-  Cloud Native Korea<br>Community Day 2024
-</div>
+# 지난 발표
 
-<img src="./images/history-2.png" alt="2025.05" class="card-img c2" />
-<div class="card-desc d2">
-  <strong>'25.05</strong>
-  KCD Seoul 2025
-</div>
+- ![](./images/history-1.png) **'24.09** Cloud Native Korea Community Day 2024
+- ![](./images/history-2.png) **'25.05** KCD Seoul 2025
+- ![](./images/history-3.png) **'25.10** Cloud Native Korea Community Day 2025
 
-<img src="./images/history-3.png" alt="2025.10" class="card-img c3" />
-<div class="card-desc d3">
-  <strong>'25.10</strong>
-  Cloud Native Korea<br>Community Day 2025
-</div>
-
-<div class="card-highlight">
-  <div class="tag">'26.10 밋업</div>
-  <div class="pen">AI 관련 주제는 처음!</div>
-</div>
+> **'26.10 밋업**
+> _AI 관련 주제는 처음!_
 
 ---
 class: toc
@@ -87,69 +60,43 @@ class: toc
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅰ</span>
-  <span class="section-title">배경 <small class="pen">2026년</small></span>
-</div>
+# 배경 <small>2026년</small>
 
 ---
+class: hero
 ---
 
----
-class: hero-visual
----
+# 2026년 <small>AI 시대 실감</small>
 
-<div class="hero-left">
-  <h1>2026년 <small>AI 시대 실감</small></h1>
-
-  <h3>작년과는 다르다…</h3>
-  <ul>
-    <li>코드를 직접 보는 일 대폭 감소</li>
-    <li>Markdown 문서 중심 <span class="pen">(가끔 테스트 코드)</span></li>
-    <li>기업 코딩테스트 폐지 추세 <span class="pen">(AI 활용 평가 대체)</span></li>
-  </ul>
-</div>
-
-<div class="hero-graphic">
-  <img src="./images/life-of-an-engineer.png" alt="Life of an Engineer" />
-  <div class="pen source">Claude Community - Facebook 2026-09-18</div>
-</div>
-
-<div class="hero-bottom">
-  <div class="hero-bottom-left">
-    <h3>Agent가 잘하는 것</h3>
-    <p>코딩, 코드 리뷰, 테스트 코드 작성, 문서 작성, 설계, 로그 분석, 문의 대응, 신기술 탐색…</p>
-    <div class="highlight-blue">언어/도구 go, gh, kubectl, openstack cli… 그냥 다 잘함</div>
-    <p class="pen">아직 못하는 것? 내 마음에 드는 PPT 작성 ㅎ</p>
-  </div>
-  <div class="hero-bottom-right pen">
-    <ul>
-      <li>- 수학/물리학 난제 해결</li>
-      <li>- 보안 취약점 발견</li>
-      <li>- 'AI 블루' / 'Claude Blue'</li>
-    </ul>
-    <div class="punchline">약간의 허탈감과 위기의식?</div>
-  </div>
-</div>
+- ## 작년과는 다르다…
+  - 코드를 직접 보는 일 대폭 감소
+  - Markdown 문서 중심 <small>가끔 테스트 코드</small>
+  - 코딩 테스트 폐지 추세 <small>AI 활용 평가 대체</small>
+- ![Life of an Engineer](./images/life-of-an-engineer.png)
+  _Claude Community - Facebook 2026.09.18_
+- ## Agent가 잘하는 것
+  - 코딩, 코드 리뷰, 테스트 코드 작성, 문서 작성, 설계, 로그 분석, 문의 대응, 신기술 탐색…
+  - **언어/도구 go, gh, kubectl, openstack cli… 그냥 다 잘함**
+  - _아직 못하는 것? 내 마음에 드는 PPT 작성 ㅎ_
+- ## 그래서...
+  - 수학·물리학 난제 해결, 취약점 발견
+  - AI 블루 <small>Claude Blue</small>
+  - _약간의 허탈감과 위기의식?_
 
 ---
-class: table-lg
----
 
-<header class="slide-header">
-  <h1>Agent 사용환경</h1>
-  <img src="./images/agent-logos.png" alt="Logos" style="height: 36px; max-height: 36px; margin: 0;" />
-</header>
+# Agent 사용환경
+![logo](./images/agent-logos.png)
 
 | 구분 | CLI | Desktop App | IDE |
 |:---:|:---:|:---:|:---:|
-| **Antigravity** | `agy` | Antigravity App | Antigravity IDE<br/>VS Code ext <span class="pen">'26.09</span> |
+| **Antigravity** | `agy` | Antigravity App | Antigravity IDE<br/>VS Code ext _'26.09_ |
 | **Claude** | `claude` | Claude | VS Code extension |
 | **Codex** | `codex` | ChatGPT (codex) | VS Code extension |
-| **기타** | - | OpenClaw | Cursor <span class="pen">'26.06 600억$</span><br/>Zed <span class="pen">경량, ACP 연계</span> |
-| <span class="pen">의견</span> | <span class="pen">가벼움, 터미널의 간결함</span> | <span class="pen">브라우저 통합 등 GUI의 편리함<br/>컴퓨터를 맡기는 느낌</span> | <span class="pen">익숙한 개발환경의 편안함</span> |
+| **기타** | - | OpenClaw | Cursor _'26.06 600억$_<br/>Zed _경량, ACP 연계_ |
+| _의견_ | _가벼움, 터미널의 간결함_ | _브라우저 통합 등 GUI의 편리함<br/>컴퓨터를 맡기는 느낌_ | _익숙한 개발환경의 편안함_ |
 
-<div class="pen" style="margin-top: 12px; font-size: 22px;">※ 간단한 질문/조사는 chat(web) 사용</div>
+_※ 간단한 질문/조사는 chat(web) 사용_
 
 ---
 ---
@@ -205,10 +152,7 @@ class: table-lg
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅱ</span>
-  <span class="section-title">분류 체계</span>
-</div>
+# 분류 체계
 
 ---
 ---
@@ -239,9 +183,7 @@ class: section
 
 <img src="./images/do-you-love-me.png" alt="What if she says yeah?" style="max-height: 400px; width: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);" />
 
-<div class="pen" style="font-size: 24px; text-align: center; margin-top: 8px;">
-  "What if she says 'yeah'?" — 규칙 코딩의 악몽을 LLM이 해결!
-</div>
+_"What if she says 'yeah'?" — 규칙 코딩의 악몽을 LLM이 해결!_
 
 </div>
 </div>
@@ -317,20 +259,14 @@ class: visual
 
 # AI Agent 구성요소 <small>4대 핵심 역할</small>
 
-<div class="table-lg">
-
 | 구성요소 | 핵심 역할 | 설명 |
-|:---:|:---:|---|
+|:---:|:---:|:---:|
 | **Agent runtime** | 실행 흐름 · 상태 관리 | 모델 판단과 애플리케이션 로직에 따라 실행 순서·상태·도구 호출 관리 |
 | **Model runtime** | LLM / VLM 추론 | 에이전트의 두뇌 역할, 프롬프트 수신 및 모델 언어 추론 수행 |
 | **Memory** | 대화 상태 및 장기 기억 | 세션 컨텍스트 유지 및 벡터 DB 기반 장기 지식 베이스 참조 |
 | **Tools** | 외부 API 호출 및 작업 | 웹 검색, 외부 API 연동, CLI/코드 실행 등 실제 액션 수행 |
 
-</div>
-
-<p class="pen" style="margin-top: 24px; text-align: center; font-size: 26px;">
-  👉 Model(두뇌) + Tools(손발) + Memory(기억)을 Agent Runtime(몸체)이 유기적으로 조율
-</p>
+_👉 Model(두뇌) + Tools(손발) + Memory(기억)을 Agent Runtime(몸체)이 유기적으로 조율_
 
 ---
 ---
@@ -387,9 +323,7 @@ class: dense
 | **보안·격리** | ServiceAccount·토큰·접근 권한 판정 | 가속기 접근 격리·중재, 호스트 커널과 강한 실행 격리(권고) |
 | **설정·스토리지·확장** | ConfigMap·Secret·볼륨, CRD·Admission Webhook | 기본 인증에 포함 |
 
-<p class="pen" style="font-size: 20px; margin-top: 10px;">
-  ※ 플랫폼의 기반 인프라 역량을 검증하며, Agent 애플리케이션 전체를 인증하는 것은 아님 (출처: CNCF k8s-conformance)
-</p>
+_※ 플랫폼의 기반 인프라 역량을 검증하며, Agent 애플리케이션 전체를 인증하는 것은 아님 (출처: CNCF k8s-conformance)_
 
 ---
 class: visual
@@ -404,15 +338,11 @@ class: visual
 
 # 재단 (3) LF · CNCF · AAIF <small>역할 및 소속 비교</small>
 
-<div class="table-lg">
-
 | 구분 | **LF**<br/>Linux Foundation | **CNCF**<br/>Cloud Native Computing Foundation | **AAIF**<br/>Agentic AI Foundation |
-|:---:|---|---|---|
+|:---:|:---:|:---:|:---:|
 | **설립** | 2007-01 | 2015-07 | 2025-12 |
 | **목적** | Linux 지원에서 출발한 오픈소스 프로젝트 · 산하 재단의 모체 | 클라우드 네이티브 컴퓨팅 대중화, 컨테이너·인프라 및 AI 네이티브 생태계 육성 | Agentic AI 도구·프로토콜의 중립적 거버넌스, 상호운용성 및 생태계 육성 |
 | **소속 프로젝트** | Linux 커널 · PyTorch · Node.js | **200개 이상**<br/>Kubernetes · Prometheus · Envoy · Kubeflow · kagent · Agent Substrate | **10개**<br/>MCP · A2A · agentgateway · goose · AGENTS.md · Agent Router 등 |
-
-</div>
 
 - **Landscape·회원은 재단별 별도 운영**: 재단별 관심사와 거버넌스 기준 차이
 - **프로젝트 이동**: A2A (LF → AAIF), Agent Router (CNCF → AAIF)
@@ -430,9 +360,7 @@ class: visual
 
 <img src="./images/landscape_cncf.png" alt="CNCF Landscape" style="max-height: 420px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
 
-<div class="pen" style="font-size: 22px; text-align: center; margin-top: 8px;">
-  LangChain, LangGraph (AI Agent / Agent Framework)
-</div>
+_LangChain, LangGraph (AI Agent / Agent Framework)_
 
 </div>
 <div>
@@ -441,9 +369,7 @@ class: visual
 
 <img src="./images/landscape_aaif.png" alt="AAIF Landscape" style="max-height: 420px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
 
-<div class="pen" style="font-size: 22px; text-align: center; margin-top: 8px;">
-  MCP (Data & Knowledge), kagent (Agentic Runtime)
-</div>
+_MCP (Data & Knowledge), kagent (Agentic Runtime)_
 
 </div>
 </div>
@@ -453,17 +379,13 @@ class: visual
 
 # Landscape by CNCF · AAIF <small>분류 체계 비교표</small>
 
-<div class="table-lg">
-
 | 구분 | CNCF Landscape — AI Native | AAIF Landscape |
-|:---:|---|---|
+|:---:|:---:|:---:|
 | **URL** | https://landscape.cncf.io/?group=ai-native | https://landscape.aaif.io/ |
 | **관점·범위** | AI 수명주기(데이터·학습·추론·에이전트)와 클라우드 네이티브 인프라 | Agentic AI 생태계의 오픈소스·개방형 표준 분류 |
 | **대분류** | `AI Agent` · `Inference` · `Training` · `Data` · `AI Native Infra` | `Gateway & Control Plane` · `Agentic Runtime` · `Protocols & Interfaces` · `Data & Knowledge` · `Agentic Development` |
 | **등재 기준** | GitHub ★ 300+ *(상용·폐쇄형 제품도 설명 있으면 포함)* | 오픈소스 한정, GitHub ★ 1,000+ *(폐쇄형·독점 규격 제외)* |
 | **공통 등재** | • **kagent · ADK · LangGraph**: `AI Agent / Framework`<br/>• **KServe · vLLM**: `Inference`<br/>• **MCP · A2A**: `AI Agent / Protocol` | • **kagent · ADK · LangGraph**: `Agentic Runtime`<br/>• **KServe · vLLM**: `Agentic Runtime`<br/>• **MCP**: `Data & Knowledge` / **A2A**: `Protocols` |
-
-</div>
 
 ---
 class: visual
@@ -490,9 +412,7 @@ class: visual
 | **Data** | AI용 데이터 처리·분석 | **Kubeflow Notebooks**, Apache Flink, Trino, Feast |
 | **AI Native Infra** | AI 워크로드의 공통 실행·운영 기반 | **Agent Sandbox**, **Kueue**, **agentgateway**, **gVisor·Kata** |
 
-<p class="pen" style="font-size: 22px; margin-top: 14px;">
-  ※ 인프라뿐 아니라 범용 에이전트 프레임워크·프로토콜(ADK, LangGraph, MCP, A2A 등)을 폭넓게 포함
-</p>
+_※ 인프라뿐 아니라 범용 에이전트 프레임워크·프로토콜(ADK, LangGraph, MCP, A2A 등)을 폭넓게 포함_
 
 ---
 ---
@@ -511,9 +431,7 @@ class: visual
 | **Data & Knowledge** | 데이터 연결·검색·지식·메모리·벡터 DB | **MCP**, LlamaIndex, Mem0, Milvus, pgvector |
 | **Agentic Development** | 에이전트 개발 도구·스킬·평가·관측 | **goose**, **Agent Skills**, Dify, DeepEval, Langfuse |
 
-<p class="pen" style="font-size: 22px; margin-top: 14px;">
-  ※ 분류 ≠ 소프트웨어 계층. Runtime에 프레임워크와 추론 엔진이 함께 포함되며, MCP는 Data & Knowledge에 배치
-</p>
+_※ 분류 ≠ 소프트웨어 계층. Runtime에 프레임워크와 추론 엔진이 함께 포함되며, MCP는 Data & Knowledge에 배치_
 
 ---
 class: dense
@@ -551,9 +469,7 @@ class: dense
 | 5 | **기술 계층** | 무엇을 담당하는가? | 애플리케이션·개발, 실행·운영, 기반 인프라 |
 | 6 | **대상 워크로드** | 어떤 워크로드를 다루는가? | 모델 학습(Training), 모델 추론(Inference), 에이전트(Agent) |
 
-<p class="pen" style="font-size: 22px; margin-top: 16px;">
-  👉 5. 기술 계층(3계층) × 6. 대상 워크로드(2축)를 교차 매트릭스로 정리하면 복잡한 생태계가 한눈에 정리됨!
-</p>
+_👉 5. 기술 계층(3계층) × 6. 대상 워크로드(2축)를 교차 매트릭스로 정리하면 복잡한 생태계가 한눈에 정리됨!_
 
 ---
 class: dense
@@ -575,10 +491,7 @@ class: dense
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅲ</span>
-  <span class="section-title">관심 프로젝트 비교</span>
-</div>
+# 관심 프로젝트 비교
 
 ---
 ---
@@ -667,9 +580,7 @@ class: dense
 | **거버넌스** | CNCF Sandbox | Kubernetes SIG Apps | Google 오픈소스 | CNCF Sandbox ('26.10) |
 | **시작 주체** | Solo.io | Google 엔지니어 | Google | Google |
 
-<p class="pen" style="font-size: 20px; margin-top: 10px;">
-  ※ OpenSandbox: 로컬(Docker)부터 K8s Pod·Firecracker까지 통합 다루는 범용 샌드박스 플랫폼 ('26.10 AAIF 합류)
-</p>
+_※ OpenSandbox: 로컬(Docker)부터 K8s Pod·Firecracker까지 통합 다루는 범용 샌드박스 플랫폼 ('26.10 AAIF 합류)_
 
 ---
 class: visual
@@ -734,9 +645,7 @@ class: visual
 | | **PR마다 임시 검증 환경 기동**: 실패 테스트 재현 및 에이전트 패치 자동 검증 | **파이프라인** |
 | | **영속 볼륨·고정 도메인을 연동한 OpenClaw 구동**: 24시간 개인/팀 AI 비서 상주 | **장기**<br/>*(상시)* |
 
-<p class="pen" style="font-size: 22px; margin-top: 14px;">
-  ※ Sandbox 자체는 LLM 추론을 하지 않으므로 CI/CD·원격 개발 환경처럼 순수 격리 실행용으로도 활용 가능
-</p>
+_※ Sandbox 자체는 LLM 추론을 하지 않으므로 CI/CD·원격 개발 환경처럼 순수 격리 실행용으로도 활용 가능_
 
 ---
 class: visual
@@ -810,11 +719,9 @@ flowchart LR
   end
 ```
 
-<div class="pen" style="font-size: 25px; text-align: center; margin-top: 24px; line-height: 1.5;">
-  "Pod는 훌륭한 실행(Execution) 단위지만,<br>
-  에이전트의 긴 수명주기(Lifecycle) 단위로는 맞지 않는 경우가 많다."
-  <div style="font-size: 18px; color: #71849d; margin-top: 6px;">— CNCF 블로그, 2026.07</div>
-</div>
+_"Pod는 훌륭한 실행(Execution) 단위지만,<br>에이전트의 긴 수명주기(Lifecycle) 단위로는 맞지 않는 경우가 많다."_
+
+<small>— CNCF 블로그, 2026.07</small>
 
 ---
 ---
@@ -835,10 +742,7 @@ flowchart LR
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅳ</span>
-  <span class="section-title">마무리</span>
-</div>
+# 마무리
 
 ---
 ---
@@ -867,9 +771,7 @@ class: section
 - **권한과 책임의 영역**<br>
   구현·실행은 에이전트에 위임하더라도, **아키텍처 설계 · 권한 가드레일 · 최종 책임**은 사람의 영역!
 
-<div class="pen" style="font-size: 26px; text-align: right; margin-top: 36px;">
-  Thank you! 👏
-</div>
+_Thank you! 👏_
 
 </div>
 </div>

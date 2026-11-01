@@ -3,6 +3,8 @@ theme: default
 title: Cloud Native와 Samsung Cloud Platform
 info: Open Cloud Platform Summit 2023 · 2023-07-12
 class: cover
+browserExporter: true
+sourcePdf: ../2023/2023-07-12-cloud-native.pdf
 colorSchema: light
 aspectRatio: 16/9
 canvasWidth: 1280
@@ -17,9 +19,8 @@ mdc: false
 
 # Cloud Native와<br>Samsung Cloud Platform
 
-<p class="author">김정민 / 기술혁신팀 PaaS그룹</p>
-
-<p class="event">Open Cloud Platform Summit 2023<br>2023.07.12 (수)</p>
+- 김정민 / 기술혁신팀 PaaS그룹
+- Open Cloud Platform Summit 2023<br>2023.07.12 (수)
 
 ---
 class: toc
@@ -50,10 +51,7 @@ class: toc
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅰ</span>
-  <span class="section-title">Cloud Native 여정</span>
-</div>
+# Cloud Native 여정
 
 ---
 ---
@@ -116,10 +114,7 @@ class: section
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅱ</span>
-  <span class="section-title">Samsung Cloud Platform</span>
-</div>
+# Samsung Cloud Platform
 
 ---
 ---
@@ -136,9 +131,7 @@ class: section
 | **인프라 역량** | • 확장성 (Scalability)<br/>• 탄력성 (Elasticity)<br/>• 고성능 & 고가용성 (HA) | • Analytics & Data Ops<br/>• AI & MLOps 플랫폼<br/>• Data Science 지원 | • 최고 수준의 보안 인증<br/>• 공공·금융 전용 존 분리<br/>• 24x365 관제 및 신뢰성 |
 | **제공 효과** | 복잡한 인프라 관리 부담을 없애고 비즈니스 로직 개발에 집중 | 데이터 분석과 AI 모델 서빙까지 클라우드 네이티브로 원스톱 구축 | KISA 보안 인증 및 국가 규제 요건을 완벽하게 만족하는 안정성 |
 
-<p class="pen" style="font-size: 24px; text-align: center; margin-top: 24px;">
-  👉 인프라(IaaS)를 넘어 플랫폼(PaaS) 중심의 클라우드 전환을 가속화!
-</p>
+_👉 인프라(IaaS)를 넘어 플랫폼(PaaS) 중심의 클라우드 전환을 가속화!_
 
 ---
 class: visual
@@ -299,10 +292,7 @@ class: visual
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅲ</span>
-  <span class="section-title">Cloud Native 적용 사례</span>
-</div>
+# Cloud Native 적용 사례
 
 ---
 class: visual
@@ -370,9 +360,7 @@ class: visual
 - **풀스택 라인업**: 컨테이너, 데브옵스, DB, 빅데이터부터 MLOps까지 원스톱 제공
 - **지속 가능한 혁신**: 고객사의 디지털 비즈니스 혁신을 가장 빠르고 안전하게 가속화
 
-<div class="pen" style="font-size: 26px; text-align: right; margin-top: 36px;">
-  감사합니다! 👏
-</div>
+_감사합니다! 👏_
 
 </div>
 </div>
