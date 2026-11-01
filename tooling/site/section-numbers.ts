@@ -5,7 +5,7 @@ import { slides } from '#slidev/slides'
 // slide-base.css가 이 번호로 `# 제목` 앞에 로마 숫자 배지를 그린다.
 const ROMAN: [number, string][] = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]
 
-// 원형 배지 안에 들어가도록 로마 숫자 길이에 따라 글자 크기를 줄인다 (1~2글자 46px, 3글자 36px, 4글자 이상 28px)
+// 배지 안에 들어가도록 로마 숫자 길이에 따라 글자 크기를 줄인다 (1~2글자 56px, 3글자 44px, 4글자 이상 34px)
 function badgeFont(n: number) {
   let len = 0
   for (const [value, numeral] of ROMAN) {
@@ -14,7 +14,7 @@ function badgeFont(n: number) {
       len += numeral.length
     }
   }
-  return len <= 2 ? '46px' : len === 3 ? '36px' : '28px'
+  return len <= 2 ? '56px' : len === 3 ? '44px' : '34px'
 }
 
 export default function setupSectionNumbers() {

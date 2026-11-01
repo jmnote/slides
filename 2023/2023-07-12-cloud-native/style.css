@@ -13,12 +13,3 @@
 .slidev-layout.cover h1 { color: #111827; }
 .slidev-layout.cover ul li { color: #475569; }
 
-.slidev-layout.visual { display: flex; flex-direction: column; }
-.slidev-layout.visual img {
-  max-height: 520px;
-  max-width: 100%;
-  object-fit: contain;
-  margin: auto;
-  border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
-}
