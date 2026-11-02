@@ -11,7 +11,7 @@ help:
 	  'make dev TALK=<id>    특정 발표 실행' \
 	  'make site             사이트 전체 개발 서버 (목록·모든 발표·쇼케이스, 실시간 반영)' \
 	  'make build            사이트 전체 빌드' \
-	  'make preview          로컬 미리보기 (템플릿 쇼케이스 포함, 배포 결과물엔 미포함)' \
+	  'make preview          로컬 미리보기 (템플릿 쇼케이스 포함, dist-preview/에 빌드, dist/는 그대로)' \
 	  'make docs             README 발표 목록 갱신' \
 	  'make check            테스트·README 동기화·전체 빌드 검증' \
 	  'make sync-upstream    업스트림(jmnote.github.io) 공통 자산 동기화'
@@ -30,7 +30,7 @@ build:
 
 preview:
 	pnpm --dir tooling build --with-showcase
-	pnpm --dir tooling preview
+	pnpm --dir tooling preview --with-showcase
 
 docs:
 	pnpm --dir tooling docs:update

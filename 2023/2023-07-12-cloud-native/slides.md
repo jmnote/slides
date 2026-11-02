@@ -4,7 +4,7 @@ title: Cloud Native와 Samsung Cloud Platform
 info: Open Cloud Platform Summit 2023 · 2023-07-12
 class: cover
 browserExporter: true
-sourcePdf: ../2023/2023-07-12-cloud-native.pdf
+sourcePdf: 2023/2023-07-12-cloud-native.pdf
 colorSchema: light
 aspectRatio: 16/9
 canvasWidth: 1280

@@ -13,7 +13,7 @@ export default function setupClassLabels() {
     style.textContent = slides.value
       .map(route => ({ no: route.no, name: String(route.meta?.slide?.frontmatter?.class ?? '').trim() }))
       .filter(({ name }) => name)
-      .map(({ no, name }) => `[data-slidev-no="${no}"] .slidev-layout::after { content: "class: ${name.replace(/"/g, '')}"; }`)
+      .map(({ no, name }) => `[data-slidev-no="${no}"] .slidev-layout::after { content: "class: ${name.replace(/["\\\r\n]/g, '')}"; }`)
       .join('\n')
   })
 }

@@ -142,6 +142,7 @@
     border-bottom: 1px solid #b2ccef;
 }
 .slidev-layout pre {
+    /* !important: Slidev 테마/Shiki 코드 블록 스타일이 더 높은 우선순위로 크기를 지정함 */
     font-size: 18px !important;
     line-height: 1.5 !important;
     border: 1px solid #cbd5e1;
@@ -584,6 +585,7 @@
     + .mermaid
     svg {
     display: block;
+    /* !important: Mermaid가 SVG에 인라인 width/max-width를 넣음 */
     width: 100% !important;
     max-width: none !important;
     height: auto;
@@ -895,7 +897,7 @@
     position: relative;
     overflow: hidden;
 }
-/* 카드 장수별 기울기: 위쪽 여백 약 30px까지 퍼지도록 */
+/* 카드 장수별 기울기: 위쪽 여백 약 30px까지 퍼지도록 (3~5장 개별 지정, 6장 이상은 기본값 0.62) */
 .slidev-layout.staircase:has(> ul > li:nth-child(3)):not(
         :has(> ul > li:nth-child(4))
     ) {

@@ -5,12 +5,13 @@ import { root, loadCatalog } from './catalog.mjs';
 import { runCli } from './cli.mjs';
 
 await runCli(async () => {
-  if (!existsSync(resolve(root, 'dist/index.html'))) throw new Error('No built site found. Run make build before make preview.');
+  const dir = process.argv.includes('--with-showcase') ? 'dist-preview' : 'dist';
+  if (!existsSync(resolve(root, dir, 'index.html'))) throw new Error(`No built site found in ${dir}/. Run make ${dir === 'dist' ? 'build' : 'preview'} first.`);
   const server = await preview({
     configFile: false,
     root,
     base: loadCatalog().site.base,
-    build: { outDir: resolve(root, 'dist') },
+    build: { outDir: resolve(root, dir) },
     preview: { host: '127.0.0.1', port: 4173, strictPort: true },
   });
   server.printUrls();

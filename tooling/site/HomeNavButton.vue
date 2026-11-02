@@ -2,9 +2,11 @@
 import { useNav } from '@slidev/client'
 import IconButton from '@slidev/client/internals/IconButton.vue'
 import { isScreenVertical } from '@slidev/client/state/storage.ts'
+import { siteBase } from './site-base'
 
 const { isPresenter, isEmbedded } = useNav()
-const home = import.meta.env.BASE_URL.replace(/[^/]+\/$/, '') + 'ko/'
+// 목록은 한국어 페이지로 고정 (버튼 라벨도 한국어)
+const home = siteBase + 'ko/'
 </script>
 
 <template>
