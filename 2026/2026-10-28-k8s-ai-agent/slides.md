@@ -3,6 +3,8 @@ theme: default
 title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
 info: 쿠버네티스 코리아 유저 그룹 밋업 · 2026-10-28
 class: cover
+browserExporter: true
+sourcePdf: ../2026/2026-10-28-k8s-ai-agent.pdf
 colorSchema: light
 aspectRatio: 16/9
 canvasWidth: 1280
@@ -17,60 +19,32 @@ mdc: false
 
 # Kubernetes 엔지니어가 둘러본<br>AI Agent 생태계
 
-<p class="author">김정민 / 삼성SDS</p>
-
-<p class="event">Kubernetes Korea Group<br>Meetup 26.10</p>
+- 김정민 / 삼성SDS
+- Kubernetes Korea Group<br>Meetup 26.10
 
 ---
 class: speaker
 ---
 
-<div class="speaker-sidebar">
-  <h2>발표자</h2>
-</div>
-
-<div class="speaker-main">
-  <img src="./images/profile.png" alt="김정민" class="speaker-avatar" />
-  <div class="speaker-title">김정민 / 삼성SDS / Cloud Engineer</div>
-  <div class="speaker-bio">
-    Samsung Kubernetes Engine을 개발하는 업무를 하고 있습니다.<br>
-    K8s와 Go 테스트 관련 주제에 관심이 많습니다.
-  </div>
-  <div class="speaker-link">
-    발표자료 <a href="https://github.com/jmnote/slides" target="_blank" rel="noopener">https://github.com/jmnote/slides</a>
-  </div>
-  <div class="speaker-github">
-    <div class="i-carbon-logo-github" />
-    <a href="https://github.com/jmnote" target="_blank" rel="noopener">jmnote</a>
-  </div>
-</div>
+# 발표자
+## 김정민 / 삼성SDS / Cloud Engineer
+- Samsung Kubernetes Engine을 개발하는 업무를 하고 있습니다.
+- K8s와 Go 테스트 관련 주제에 관심이 많습니다.
+- :github: jmnote
 
 ---
-class: timeline
+class: staircase
 ---
 
-<img src="./images/history-1.png" alt="2024.09" class="card-img c1" />
-<div class="card-desc d1">
-  <strong>'24.09</strong>
-  Cloud Native Korea<br>Community Day 2024
-</div>
+# 지난 발표
 
-<img src="./images/history-2.png" alt="2025.05" class="card-img c2" />
-<div class="card-desc d2">
-  <strong>'25.05</strong>
-  KCD Seoul 2025
-</div>
+- ![](./images/history-1.png) **'24.09** Cloud Native Korea Community Day 2024
+- ![](./images/history-2.png) **'25.05** KCD Seoul 2025
+- ![](./images/history-3.png) **'25.10** Cloud Native Korea Community Day 2025
 
-<img src="./images/history-3.png" alt="2025.10" class="card-img c3" />
-<div class="card-desc d3">
-  <strong>'25.10</strong>
-  Cloud Native Korea<br>Community Day 2025
-</div>
-
-<div class="card-highlight">
-  <div class="tag">'26.10 밋업</div>
-  <div class="pen">AI 관련 주제는 처음!</div>
-</div>
+> **26.10**
+> _그동안 개발 주제_
+> _AI 관련은 처음_
 
 ---
 class: toc
@@ -87,272 +61,188 @@ class: toc
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅰ</span>
-  <span class="section-title">배경 <small class="pen">2026년</small></span>
-</div>
+# 배경 <small>2026년</small>
 
 ---
+class: hero
 ---
 
----
-class: hero-visual
----
+# 2026년 <small>AI 시대 실감</small>
 
-<div class="hero-left">
-  <h1>2026년 <small>AI 시대 실감</small></h1>
-
-  <h3>작년과는 다르다…</h3>
-  <ul>
-    <li>코드를 직접 보는 일 대폭 감소</li>
-    <li>Markdown 문서 중심 <span class="pen">(가끔 테스트 코드)</span></li>
-    <li>기업 코딩테스트 폐지 추세 <span class="pen">(AI 활용 평가 대체)</span></li>
-  </ul>
-</div>
-
-<div class="hero-graphic">
-  <img src="./images/life-of-an-engineer.png" alt="Life of an Engineer" />
-  <div class="pen source">Claude Community - Facebook 2026-09-18</div>
-</div>
-
-<div class="hero-bottom">
-  <div class="hero-bottom-left">
-    <h3>Agent가 잘하는 것</h3>
-    <p>코딩, 코드 리뷰, 테스트 코드 작성, 문서 작성, 설계, 로그 분석, 문의 대응, 신기술 탐색…</p>
-    <div class="highlight-blue">언어/도구 go, gh, kubectl, openstack cli… 그냥 다 잘함</div>
-    <p class="pen">아직 못하는 것? 내 마음에 드는 PPT 작성 ㅎ</p>
-  </div>
-  <div class="hero-bottom-right pen">
-    <ul>
-      <li>- 수학/물리학 난제 해결</li>
-      <li>- 보안 취약점 발견</li>
-      <li>- 'AI 블루' / 'Claude Blue'</li>
-    </ul>
-    <div class="punchline">약간의 허탈감과 위기의식?</div>
-  </div>
-</div>
+- ## 작년과는 다르다…
+  - 코드를 직접 보는 일 대폭 감소
+  - Markdown 문서 중심 <small>가끔 테스트 코드</small>
+  - 코딩 테스트 폐지 추세 <small>AI 활용 평가 대체</small>
+- ![Life of an Engineer](./images/life-of-an-engineer.png)
+  _Claude Community<br>FB '26.09_
+- ## Agent가 잘하는 것
+  - 코딩, 코드 리뷰, 테스트 코드 작성, 문서 작성, 설계, 로그 분석, 문의 대응, 신기술 탐색…
+  - **언어/도구 go, gh, kubectl, openstack cli… 그냥 다 잘함**
+  - _아직 못하는 것? 내 마음에 드는 PPT 작성 ㅎ_
+- ## 그래서...
+  - 수학·물리학 난제 해결, 취약점 발견
+  - AI 블루 <small>Claude Blue</small>
+  - _약간의 허탈감과 위기의식?_
 
 ---
-class: table-lg
----
 
-<header class="slide-header">
-  <h1>Agent 사용환경</h1>
-  <img src="./images/agent-logos.png" alt="Logos" style="height: 36px; max-height: 36px; margin: 0;" />
-</header>
+# Agent 사용환경
+![logo](./images/antigravity.png) ![logo](./images/claude.png) ![logo](./images/codex.svg)
 
 | 구분 | CLI | Desktop App | IDE |
 |:---:|:---:|:---:|:---:|
-| **Antigravity** | `agy` | Antigravity App | Antigravity IDE<br/>VS Code ext <span class="pen">'26.09</span> |
+| **Antigravity** | `agy` | Antigravity App | Antigravity IDE<br/>VS Code ext _'26.09_ |
 | **Claude** | `claude` | Claude | VS Code extension |
 | **Codex** | `codex` | ChatGPT (codex) | VS Code extension |
-| **기타** | - | OpenClaw | Cursor <span class="pen">'26.06 600억$</span><br/>Zed <span class="pen">경량, ACP 연계</span> |
-| <span class="pen">의견</span> | <span class="pen">가벼움, 터미널의 간결함</span> | <span class="pen">브라우저 통합 등 GUI의 편리함<br/>컴퓨터를 맡기는 느낌</span> | <span class="pen">익숙한 개발환경의 편안함</span> |
+| **기타** | - | OpenClaw | Cursor _'26.06 600억$_<br/>Zed _경량, ACP 연계_ |
+| _의견_ | _가벼움, 터미널의 간결함_ | _브라우저 통합 등 GUI의 편리함<br/>컴퓨터를 맡기는 느낌_ | _익숙한 개발환경의 편안함_ |
 
-<div class="pen" style="margin-top: 12px; font-size: 22px;">※ 간단한 질문/조사는 chat(web) 사용</div>
-
----
----
-
-# AI Gauge <small>Windows 시스템 트레이 쿼터 모니터링 앱</small>
-
-- **5h / 7d / 월간 사용량, 리셋 시각, 리셋 크레딧 확인** *(Codex, Claude, Antigravity, GitHub Copilot 등)*
-- **Windows용 시스템 트레이 앱**, **Apache-2.0 라이선스** (Microsoft Store 배포)
-- **'26.09 개발** — 당시 찾아본 도구 중 원하는 **윈도우용 × 오픈소스** 조합을 찾지 못해 직접 개발
-
-<div class="gallery-3">
-
-| Microsoft Store | 사용량·쿼터 모니터링 | 프로바이더·알림 설정 |
-|:---:|:---:|:---:|
-| ![AI Gauge Store](./images/ai-gauge-1.png) | ![AI Gauge Main](./images/ai-gauge-2.png) | ![AI Gauge Settings](./images/ai-gauge-3.png) |
-
-</div>
+_※ 간단한 질문/조사는 chat(web) 사용_
 
 ---
+class: hero
+---
+
+# AI Gauge
+
+- ![AI Gauge Store](./images/ai-gauge-1.png)
+- ![AI Gauge Main](./images/ai-gauge-2.png) ![AI Gauge Settings](./images/ai-gauge-3.png)
+- - 5h/7d/월간 사용량, 리셋 시각, 리셋 크레딧
+  - Windows용, Apache-2.0 라이선스
+  - _왜? 윈도우용 × 오픈소스 없어서..._
+
+---
+class: cols
 ---
 
 # 출발점과 접근법 <small>K8s 엔지니어 시선의 조망</small>
 
-<p class="highlight-blue" style="font-size: 24px; margin-bottom: 24px;">
-  급변하는 AI 기술을 K8s 엔지니어 시선으로 폭넓게 탐색·분류·비교
-</p>
+> 급변하는 AI 기술을 K8s 엔지니어 시선으로 폭넓게 탐색·분류·비교
 
-<div class="two-cols">
-<div>
+- ### 출발점 (Why)
 
-### 출발점 (Why)
+  - **쏟아지는 AI 기술**: 개별 도구를 쫓기보다 전체 생태계의 큰 그림 파악
+  - **K8s 엔지니어의 시선**: AI와 K8s가 만나는 생태계 분류, 프로젝트 비교
+  - **선택과 집중**: 상세 분석보다 전체적인 맥락과 조망 중심
+- ### 접근법 (How)
 
-- **쏟아지는 AI 기술**: 개별 도구를 쫓기보다 전체 생태계의 큰 그림 파악
-- **K8s 엔지니어의 시선**: AI와 K8s가 만나는 생태계 분류, 프로젝트 비교
-- **선택과 집중**: 상세 분석보다 전체적인 맥락과 조망 중심
-
-</div>
-<div>
-
-### 접근법 (How)
-
-- **01 개념 정리 · Landscape 탐색**<br>
-  기본 개념 정리, AAIF · CNCF 프로젝트 조사
-- **02 생태계 분류 체계**<br>
-  실행 위치 · 목적 · 기술 계층 × 대상 워크로드
-- **03 Agent on K8s 프로젝트 비교**<br>
-  kagent · Agent Sandbox · AX · Agent Substrate 4종 비교
-
-</div>
-</div>
+  - **01 개념 정리 · Landscape 탐색**<br>
+    기본 개념 정리, AAIF · CNCF 프로젝트 조사
+  - **02 생태계 분류 체계**<br>
+    실행 위치 · 목적 · 기술 계층 × 대상 워크로드
+  - **03 Agent on K8s 프로젝트 비교**<br>
+    kagent · Agent Sandbox · AX · Agent Substrate 4종 비교
 
 ---
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅱ</span>
-  <span class="section-title">분류 체계</span>
-</div>
+# 분류 체계
 
 ---
+class: cols
 ---
 
 # LLM 활용 <small>코드 규칙에서 자연어 추론으로</small>
 
-<div class="two-cols">
-<div>
+- ### 패러다임의 변화
 
-### 패러다임의 변화
+  - **규칙 기반 코딩 (`if/else`)**:
+    - `positives = ["yes", "yeah", "yep", ...]`
+    - 끝없는 예외 처리와 표현의 한계
+  - **전통 머신러닝 (감성 분석)**:
+    - 긍정/부정 분류 모델 학습 및 확률 점수화
+  - **LLM 등장 이후**:
+    - 프롬프트 몇 줄로 복잡한 뉘앙스와 맥락 파악
+    - 원하는 JSON 구조(`{"positive": true}`)로 즉시 추출
 
-- **규칙 기반 코딩 (`if/else`)**:
-  - `positives = ["yes", "yeah", "yep", ...]`
-  - 끝없는 예외 처리와 표현의 한계
-- **전통 머신러닝 (감성 분석)**:
-  - 긍정/부정 분류 모델 학습 및 확률 점수화
-- **LLM 등장 이후**:
-  - 프롬프트 몇 줄로 복잡한 뉘앙스와 맥락 파악
-  - 원하는 JSON 구조(`{"positive": true}`)로 즉시 추출
+  > **프롬프트:** "그녀의 대답이 긍정인지 부정인지 판단해서 JSON으로 응답해줘: {answer}"
+  >
+  > **응답:** `{"positive": true}`
+- ![What if she says yeah?](./images/do-you-love-me.png)
 
-<div style="background: #eaf1fb; border-left: 4px solid #1055cc; padding: 10px 16px; border-radius: 4px; font-size: 19px; margin-top: 16px;">
-  <b>프롬프트:</b> "그녀의 대답이 긍정인지 부정인지 판단해서 JSON으로 응답해줘: {answer}"<br>
-  <b>응답:</b> <code>{"positive": true}</code>
-</div>
-
-</div>
-<div>
-
-<img src="./images/do-you-love-me.png" alt="What if she says yeah?" style="max-height: 400px; width: 100%; object-fit: contain; border-radius: 8px; box-shadow: 0 4px 16px rgba(0,0,0,0.12);" />
-
-<div class="pen" style="font-size: 24px; text-align: center; margin-top: 8px;">
-  "What if she says 'yeah'?" — 규칙 코딩의 악몽을 LLM이 해결!
-</div>
-
-</div>
-</div>
+  _"What if she says 'yeah'?"_
 
 ---
+class: sidebar
 ---
 
-# AI Agent 개발 예시 <small>날씨 조회 에이전트 (LangChain)</small>
-
-- [LangChain 공식 Quickstart](https://docs.langchain.com/oss/python/langchain/quickstart)의 `get_weather` 예제로 본 **에이전트 동작과 프롬프트 구성** *(모의 도구)*
+# Agent 개발
 
 ```python
+# LangChain Quickstart - get_weather 예제
 from langchain.agents import create_agent
 
 def get_weather(city: str) -> str:
-    """Get weather for a given city."""        # 1. 도구 프롬프트 (Docstring + 타입 힌트)
+    """Get weather for a given city."""          # 1. 도구 프롬프트
     return f"It's always sunny in {city}!"
 
 agent = create_agent(
-    model="anthropic:claude-sonnet-4-5",       # 2. 추론 모델 (Model runtime)
-    tools=[get_weather],                       # 3. 사용할 도구 목록 (Tools)
-    system_prompt="You are a helpful assistant", # 4. 시스템 프롬프트 (역할 · 행동 지침)
+    model="anthropic:claude-sonnet-4-5",         # 2. 추론 모델
+    tools=[get_weather],                         # 3. 사용할 도구 목록
+    system_prompt="You are a helpful assistant", # 4. 시스템 프롬프트
 )
-result = agent.invoke({"messages": [{"role": "user", "content": "what is the weather in sf"}]})
 ```
 
----
----
+> _1. 사용자가 "what is the weather in sf" 입력_\
+> _2. 런타임이 system_prompt + get_weather의 Docstring·인자 정보를 LLM에 전송_\
+> _3. LLM이 Docstring을 보고 get_weather("San Francisco") 호출 결정_\
+> _4. 런타임이 함수를 실행하고 그 결과를 LLM에 넘겨 최종 답변 생성_
 
-# AI Agent 개발 예시 <small>실행 흐름과 도구 호출</small>
-
-<div class="two-cols">
-<div>
-
-### 4단계 실행 흐름
-
-1. **사용자 요청 입력**<br>
-   `"what is the weather in sf"`
-2. **프롬프트 합성 & 모델 전송**<br>
-   `system_prompt` + `get_weather`의 Docstring·인자 스키마를 LLM에 전달
-3. **도구 호출 결정**<br>
-   LLM이 스키마를 해석하고 `get_weather("San Francisco")` 호출 결정
-4. **결과 반영 & 최종 답변 생성**<br>
-   런타임이 함수를 실행하고 반환값을 LLM에 넘겨 최종 자연어 응답 생성
-
-</div>
-<div>
-
-### 복합 작업과 확장
-
-- **도구 호출 반복 (ReAct Loop)**<br>
-  단순 조회를 넘어 결과에 따라 추가 도구를 연쇄 호출
-- **실무 설계 예시: CI/CD 실패 분석**<br>
-  - **입력**: commit 내역, CI 로그, 디버그 지침
-  - **작업**: 원인 파악, 코드 수정안 diff 생성, 단위 테스트 검증
-  - **가드레일**: 안전을 위해 자동 머지/배포는 제외하고 제안만 수행
-- **Google ADK Python**<br>
-  에이전트 정의와 로컬 CLI(`adk run` · `adk web`) 제공
-
-</div>
-</div>
+_도구 호출 한 번으로 끝나는 단순한 Agent 작업 (챗봇?)_\
+_- 복합 작업에서는 모델 판단에 따라 도구 호출을 반복할 수 있음_\
+_- 설계 예시: PR의 실패한 테스트 조사·수정안 제안 (입력: commit·CI 로그·지침 / 출력: diff·원인 설명·테스트 기록)_
 
 ---
-class: visual
----
-
-# AI Agent 구성요소 <small>아키텍처</small>
-
-![AI Agent 구성요소](./images/ai-agent.png)
-
----
+class: points
 ---
 
 # AI Agent 구성요소 <small>4대 핵심 역할</small>
 
-<div class="table-lg">
+```mermaid
+%%{init: {"themeVariables": {"fontFamily": "Noto Sans KR", "fontSize": "22px"}}}%%
+flowchart LR
+  U["User<br>Chat · CLI · IDE"] --- A["Agent runtime<br>몸체"] --- M["Model runtime<br>두뇌"]
+  Me["Memory<br>기억"] --- A --- T["Tools<br>손발"]
+  classDef agent fill:#e8f0fe,stroke:#1055cc,color:#0c367b
+  classDef model fill:#e8f5e9,stroke:#34a853,color:#1b5e20
+  classDef memory fill:#fff8e1,stroke:#f4b400,color:#7a5b00
+  classDef tools fill:#fdecea,stroke:#ea4335,color:#8c1d18
+  classDef user fill:#f1f3f4,stroke:#9aa0a6,color:#3c4043
+  class A agent
+  class M model
+  class Me memory
+  class T tools
+  class U user
+```
 
-| 구성요소 | 핵심 역할 | 설명 |
-|:---:|:---:|---|
-| **Agent runtime** | 실행 흐름 · 상태 관리 | 모델 판단과 애플리케이션 로직에 따라 실행 순서·상태·도구 호출 관리 |
-| **Model runtime** | LLM / VLM 추론 | 에이전트의 두뇌 역할, 프롬프트 수신 및 모델 언어 추론 수행 |
-| **Memory** | 대화 상태 및 장기 기억 | 세션 컨텍스트 유지 및 벡터 DB 기반 장기 지식 베이스 참조 |
-| **Tools** | 외부 API 호출 및 작업 | 웹 검색, 외부 API 연동, CLI/코드 실행 등 실제 액션 수행 |
-
-</div>
-
-<p class="pen" style="margin-top: 24px; text-align: center; font-size: 26px;">
-  👉 Model(두뇌) + Tools(손발) + Memory(기억)을 Agent Runtime(몸체)이 유기적으로 조율
-</p>
+1. **Agent runtime**
+   실행 흐름 · 상태 관리: 모델 판단과 애플리케이션 로직에 따라 실행 순서·상태·도구 호출 관리
+2. **Model runtime**
+   LLM / VLM 추론: 에이전트의 두뇌 역할, 프롬프트 수신 및 모델 언어 추론 수행
+3. **Memory**
+   대화 상태 및 장기 기억: 세션 컨텍스트 유지 및 벡터 DB 기반 장기 지식 베이스 참조
+4. **Tools**
+   외부 API 호출 및 작업: 웹 검색, 외부 API 연동, CLI/코드 실행 등 실제 액션 수행
 
 ---
+class: sidebar table-dense table-full
 ---
 
-# AI 모델 학습부터 Agent 운영까지
-
-<div style="margin-bottom: 20px;">
+# AI 모델 학습 ~ Agent 운영 _Lifecycle_
 
 | 1. 모델 학습 | 2. 모델 서빙 | 3. Agent 개발 | 4. Agent 운영 |
 |:---:|:---:|:---:|:---:|
 | • 학습 데이터셋 정제<br/>• 사전학습 (Pre-training)<br/>• 파인튜닝 (SFT / DPO) | • 가중치 호스팅 (vLLM, TGI)<br/>• 추론 최적화 & 가속 (GPU)<br/>• OpenAI 호환 API 엔드포인트 | • 프롬프트 & ReAct 루프<br/>• 도구 연동 (Tools / MCP)<br/>• 멀티에이전트 워크플로우 | • 실행 런타임 샌드박스<br/>• Observability & 추적<br/>• 보안, 게이트웨이, 평가 |
 
-</div>
-
 | 구분 | 장점 | 단점 | 비고 |
 |:---:|---|---|---|
-| **직접 모델 개발**<br/>*(Training)* | • 자체 기술 및 독자 모델 확보<br/>• 특화 도메인 모델 완성 가능 | • 막대한 컴퓨팅 자원 및 인력 필요<br/>• 높은 실패 위험성과 가성비 | • 대규모 분산 학습 인프라 구축<br/>• 고속 네트워크 / Slurm / Kubeflow 활용 |
-| **오픈 웨이트 모델**<br/>*(Open-Weight)* | • 자체 호스팅으로 완벽한 데이터 통제<br/>• 도메인 특화 파인튜닝 가능<br/>• 클라우드 락인 회피 | • GPU 인프라 유지 비용 부담<br/>• 서빙 파이프라인 운영 복잡도 | • Kubernetes(vLLM, Ray) 기반 GPU 스케줄링<br/>• Triton/vLLM 등 서빙 인프라 자동화 필요 |
-| **외부 API 서비스**<br/>*(Commercial API)* | • 모델 인프라 운영 부담 제로<br/>• 최신 최고 성능(SOTA) 모델 즉시 활용<br/>• 빠른 비즈니스 검증 | • 높은 사용량 시 비용 예측 불확실<br/>• 데이터 보안 및 규제 컴플라이언스<br/>• Rate Limit 제약 | • AI Gateway (LiteLLM 등) 구축<br/>• 키 관리, 캐싱, 토큰 쿼터/레이트 리밋 제어 |
+| **직접 모델 개발**<br/>_Training_ | • 자체 기술 및 독자 모델 확보<br/>• 특화 도메인 모델 완성 가능 | • 막대한 컴퓨팅 자원 및 인력 필요<br/>• 높은 실패 위험성과 가성비 | • 대규모 분산 학습 인프라 구축<br/>• 고속 네트워크 / Slurm / Kubeflow 활용 |
+| **오픈 웨이트 모델**<br/>_Open-Weight_ | • 자체 호스팅으로 완벽한 데이터 통제<br/>• 도메인 특화 파인튜닝 가능<br/>• 클라우드 락인 회피 | • GPU 인프라 유지 비용 부담<br/>• 서빙 파이프라인 운영 복잡도 | • Kubernetes(vLLM, Ray) 기반 GPU 스케줄링<br/>• Triton/vLLM 등 서빙 인프라 자동화 필요 |
+| **외부 API 서비스**<br/>_Commercial API_ | • 모델 인프라 운영 부담 제로<br/>• 최신 최고 성능(SOTA) 모델 즉시 활용<br/>• 빠른 비즈니스 검증 | • 높은 사용량 시 비용 예측 불확실<br/>• 데이터 보안 및 규제 컴플라이언스<br/>• Rate Limit 제약 | • AI Gateway (LiteLLM 등) 구축<br/>• 키 관리, 캐싱, 토큰 쿼터/레이트 리밋 제어 |
 
 ---
-class: dense
+class: table-full table-dense
 ---
 
 # K8s × AI <small>실행 위치와 사용 목적</small>
@@ -368,14 +258,12 @@ class: dense
 - **kagent**의 목적은 **Agent on K8s**이지만, 클러스터 운영 자동화(**AI for K8s**) Use case 많음
 
 ---
-class: dense
+class: table-full
 ---
 
 # K8s & AI Conformance <small>CNCF 적합성 인증</small>
 
-<p class="highlight-blue" style="font-size: 21px; margin: 0 0 10px 0;">
-  상호운용성 확보를 위한 CNCF 적합성 인증 · 기본 K8s 인증 위에 AI/ML 실행 역량 추가 확인
-</p>
+> 상호운용성 확보를 위한 CNCF 적합성 인증 · 기본 K8s 인증 위에 AI/ML 실행 역량 추가 확인
 
 | 검증 영역 | Kubernetes Conformance | AI 추가 검증 영역 예시 |
 |:---:|---|---|
@@ -387,100 +275,63 @@ class: dense
 | **보안·격리** | ServiceAccount·토큰·접근 권한 판정 | 가속기 접근 격리·중재, 호스트 커널과 강한 실행 격리(권고) |
 | **설정·스토리지·확장** | ConfigMap·Secret·볼륨, CRD·Admission Webhook | 기본 인증에 포함 |
 
-<p class="pen" style="font-size: 20px; margin-top: 10px;">
-  ※ 플랫폼의 기반 인프라 역량을 검증하며, Agent 애플리케이션 전체를 인증하는 것은 아님 (출처: CNCF k8s-conformance)
-</p>
+_※ 플랫폼의 기반 인프라 역량을 검증하며, Agent 애플리케이션 전체를 인증하는 것은 아님 (출처: CNCF k8s-conformance)_
 
 ---
-class: visual
 ---
 
-# 재단 (3) LF · CNCF · AAIF <small>생태계 관계도</small>
+# 재단 (3) LF · CNCF · AAIF
 
 ![LF · CNCF · AAIF](./images/foundation.png)
 
----
----
-
-# 재단 (3) LF · CNCF · AAIF <small>역할 및 소속 비교</small>
-
-<div class="table-lg">
-
 | 구분 | **LF**<br/>Linux Foundation | **CNCF**<br/>Cloud Native Computing Foundation | **AAIF**<br/>Agentic AI Foundation |
-|:---:|---|---|---|
+|:---:|:---:|:---:|:---:|
 | **설립** | 2007-01 | 2015-07 | 2025-12 |
 | **목적** | Linux 지원에서 출발한 오픈소스 프로젝트 · 산하 재단의 모체 | 클라우드 네이티브 컴퓨팅 대중화, 컨테이너·인프라 및 AI 네이티브 생태계 육성 | Agentic AI 도구·프로토콜의 중립적 거버넌스, 상호운용성 및 생태계 육성 |
 | **소속 프로젝트** | Linux 커널 · PyTorch · Node.js | **200개 이상**<br/>Kubernetes · Prometheus · Envoy · Kubeflow · kagent · Agent Substrate | **10개**<br/>MCP · A2A · agentgateway · goose · AGENTS.md · Agent Router 등 |
 
-</div>
-
-- **Landscape·회원은 재단별 별도 운영**: 재단별 관심사와 거버넌스 기준 차이
-- **프로젝트 이동**: A2A (LF → AAIF), Agent Router (CNCF → AAIF)
-- **Landscape 양쪽 등록**: kagent (소속은 CNCF, AAIF에도 등재) 등 다수
+_- Landscape·회원은 재단별 별도 운영: 재단별 관심사와 거버넌스 기준 차이_\
+_- 프로젝트 이동: A2A (LF → AAIF), Agent Router (CNCF → AAIF)_\
+_- Landscape 양쪽 등록: kagent (소속은 CNCF, AAIF에도 등재) 등 다수_
 
 ---
+class: cols
 ---
 
 # Landscape by CNCF · AAIF <small>관점과 범위의 차이</small>
 
-<div class="two-cols">
-<div>
+- **CNCF Landscape — AI Native**
 
-<div style="font-weight: 700; color: #1055cc; margin-bottom: 8px; text-align: center;">CNCF Landscape — AI Native</div>
+  ![CNCF Landscape](./images/landscape_cncf.png)
 
-<img src="./images/landscape_cncf.png" alt="CNCF Landscape" style="max-height: 420px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
+  _LangChain, LangGraph (AI Agent / Agent Framework)_
+- **AAIF Landscape**
 
-<div class="pen" style="font-size: 22px; text-align: center; margin-top: 8px;">
-  LangChain, LangGraph (AI Agent / Agent Framework)
-</div>
+  ![AAIF Landscape](./images/landscape_aaif.png)
 
-</div>
-<div>
-
-<div style="font-weight: 700; color: #1055cc; margin-bottom: 8px; text-align: center;">AAIF Landscape</div>
-
-<img src="./images/landscape_aaif.png" alt="AAIF Landscape" style="max-height: 420px; border-radius: 6px; box-shadow: 0 4px 12px rgba(0,0,0,0.1);" />
-
-<div class="pen" style="font-size: 22px; text-align: center; margin-top: 8px;">
-  MCP (Data & Knowledge), kagent (Agentic Runtime)
-</div>
-
-</div>
-</div>
+  _MCP (Data & Knowledge), kagent (Agentic Runtime)_
 
 ---
 ---
 
 # Landscape by CNCF · AAIF <small>분류 체계 비교표</small>
 
-<div class="table-lg">
-
 | 구분 | CNCF Landscape — AI Native | AAIF Landscape |
-|:---:|---|---|
+|:---:|:---:|:---:|
 | **URL** | https://landscape.cncf.io/?group=ai-native | https://landscape.aaif.io/ |
 | **관점·범위** | AI 수명주기(데이터·학습·추론·에이전트)와 클라우드 네이티브 인프라 | Agentic AI 생태계의 오픈소스·개방형 표준 분류 |
 | **대분류** | `AI Agent` · `Inference` · `Training` · `Data` · `AI Native Infra` | `Gateway & Control Plane` · `Agentic Runtime` · `Protocols & Interfaces` · `Data & Knowledge` · `Agentic Development` |
 | **등재 기준** | GitHub ★ 300+ *(상용·폐쇄형 제품도 설명 있으면 포함)* | 오픈소스 한정, GitHub ★ 1,000+ *(폐쇄형·독점 규격 제외)* |
 | **공통 등재** | • **kagent · ADK · LangGraph**: `AI Agent / Framework`<br/>• **KServe · vLLM**: `Inference`<br/>• **MCP · A2A**: `AI Agent / Protocol` | • **kagent · ADK · LangGraph**: `Agentic Runtime`<br/>• **KServe · vLLM**: `Agentic Runtime`<br/>• **MCP**: `Data & Knowledge` / **A2A**: `Protocols` |
 
-</div>
-
 ---
-class: visual
 ---
 
-# CNCF Landscape — AI Native <small>구조도</small>
+# CNCF Landscape — AI Native
 
 ![CNCF AI Native Structure](./images/ai-native-structure.png)
 
----
----
-
-# CNCF Landscape — AI Native <small>5대 영역 세부 분류</small>
-
-<p class="highlight-blue" style="font-size: 21px; margin: 0 0 12px 0;">
-  모델 파이프라인(Data → Training → Inference) 위에 <b>AI Agent</b>, 아래에 <b>AI Native Infra</b>
-</p>
+> 모델 파이프라인(Data → Training → Inference) 위에 **AI Agent**, 아래에 **AI Native Infra**
 
 | 대분류 | 주요 영역 | 프로젝트 예시 |
 |:---:|---|---|
@@ -490,18 +341,15 @@ class: visual
 | **Data** | AI용 데이터 처리·분석 | **Kubeflow Notebooks**, Apache Flink, Trino, Feast |
 | **AI Native Infra** | AI 워크로드의 공통 실행·운영 기반 | **Agent Sandbox**, **Kueue**, **agentgateway**, **gVisor·Kata** |
 
-<p class="pen" style="font-size: 22px; margin-top: 14px;">
-  ※ 인프라뿐 아니라 범용 에이전트 프레임워크·프로토콜(ADK, LangGraph, MCP, A2A 등)을 폭넓게 포함
-</p>
+_※ 인프라뿐 아니라 범용 에이전트 프레임워크·프로토콜(ADK, LangGraph, MCP, A2A 등)을 폭넓게 포함_
 
 ---
+class: table-full
 ---
 
 # AAIF Landscape <small>5대 영역 세부 분류</small>
 
-<p class="highlight-blue" style="font-size: 21px; margin: 0 0 12px 0;">
-  Agentic AI 생태계의 오픈소스 및 개방형 표준 분류
-</p>
+> Agentic AI 생태계의 오픈소스 및 개방형 표준 분류
 
 | 분류 | 주요 영역 | 등재 프로젝트 예시 |
 |:---:|---|---|
@@ -511,12 +359,10 @@ class: visual
 | **Data & Knowledge** | 데이터 연결·검색·지식·메모리·벡터 DB | **MCP**, LlamaIndex, Mem0, Milvus, pgvector |
 | **Agentic Development** | 에이전트 개발 도구·스킬·평가·관측 | **goose**, **Agent Skills**, Dify, DeepEval, Langfuse |
 
-<p class="pen" style="font-size: 22px; margin-top: 14px;">
-  ※ 분류 ≠ 소프트웨어 계층. Runtime에 프레임워크와 추론 엔진이 함께 포함되며, MCP는 Data & Knowledge에 배치
-</p>
+_※ 분류 ≠ 소프트웨어 계층. Runtime에 프레임워크와 추론 엔진이 함께 포함되며, MCP는 Data & Knowledge에 배치_
 
 ---
-class: dense
+class: table-full
 ---
 
 # AAIF 소속 프로젝트 (10) <small>개방형 표준과 핵심 프로젝트</small>
@@ -551,19 +397,15 @@ class: dense
 | 5 | **기술 계층** | 무엇을 담당하는가? | 애플리케이션·개발, 실행·운영, 기반 인프라 |
 | 6 | **대상 워크로드** | 어떤 워크로드를 다루는가? | 모델 학습(Training), 모델 추론(Inference), 에이전트(Agent) |
 
-<p class="pen" style="font-size: 22px; margin-top: 16px;">
-  👉 5. 기술 계층(3계층) × 6. 대상 워크로드(2축)를 교차 매트릭스로 정리하면 복잡한 생태계가 한눈에 정리됨!
-</p>
+_👉 5. 기술 계층(3계층) × 6. 대상 워크로드(2축)를 교차 매트릭스로 정리하면 복잡한 생태계가 한눈에 정리됨!_
 
 ---
-class: dense
+class: table-full table-dense
 ---
 
 # 생태계 분류표 <small>기술 계층 × 대상 워크로드</small>
 
-<p class="highlight-blue" style="font-size: 20px; margin: 0 0 10px 0;">
-  기술 계층(앱·실행·인프라) × 대상 워크로드(모델 vs 에이전트) 기준 엔지니어링 역할 배치
-</p>
+> 기술 계층(앱·실행·인프라) × 대상 워크로드(모델 vs 에이전트) 기준 엔지니어링 역할 배치
 
 | 기술 계층 | 모델 학습·추론 | 에이전트 (Agent) |
 |:---:|---|---|
@@ -575,10 +417,7 @@ class: dense
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅲ</span>
-  <span class="section-title">관심 프로젝트 비교</span>
-</div>
+# 관심 프로젝트 비교
 
 ---
 ---
@@ -597,21 +436,13 @@ class: section
 - **조합 활용**: `K8sGPT`를 진단 부품(MCP Server)으로, `HolmesGPT`를 **알림 연동 조사관**으로 구성
 
 ---
-class: visual
 ---
 
-# MCP vs kubectl <small>에이전트의 클러스터 접근 방식</small>
+# kubectl vs MCP <small>에이전트의 클러스터 접근 방식</small>
 
 ![MCP Architecture](./images/mcp.png)
 
----
----
-
-# MCP vs kubectl <small>접근 방식 장단점 비교</small>
-
-<p class="highlight-blue" style="font-size: 21px; margin: 0 0 12px 0;">
-  범용 에이전트에 K8s를 연결할 때: <code>kubectl</code> CLI를 직접 실행할까, <code>MCP</code>로 연결할까?
-</p>
+> 범용 에이전트에 K8s를 연결할 때: `kubectl` CLI를 직접 실행할까, `MCP`로 연결할까?
 
 | 구분 | `kubectl` 직접 실행 | Kubernetes `MCP` |
 |:---:|---|---|
@@ -619,25 +450,17 @@ class: visual
 | **장점** | • 별도 서버 구축 없이 즉시 사용 가능<br/>• 기존 `kubectl` 플러그인·사내 쉘 스크립트 그대로 재사용 | • 여러 에이전트에 일관된 표준 도구 규격 제공<br/>• 허용할 Tool 목록(Read-only 등)과 파라미터 스키마 명시적 통제 |
 | **대표 구현** | `kubectl` *(JSON 출력 모드, 안전 래퍼 스크립트)* | • `containers/kubernetes-mcp-server` *(K8s API 직결)*<br/>• `kubectl-ai` *(MCP Server 모드)* · `K8sGPT` *(Analyzer 노출)* |
 
-- **MCP는 표준 USB 허브에 비유**: 규격화된 포트로 다양한 도구를 간편하게 연결
-- **핵심은 인증과 권한(RBAC)**: `kubectl`이든 `MCP`든 **Read-only 최소 권한**과 **변경 작업 승인 절차**가 필수
+_- MCP는 표준 USB 허브에 비유: 규격화된 포트로 다양한 도구를 간편하게 연결_\
+_- 핵심은 인증과 권한(RBAC): `kubectl`이든 `MCP`든 Read-only 최소 권한과 변경 작업 승인 절차가 필수_
 
 ---
-class: visual
 ---
 
-# agentgateway <small>단일 진입점 아키텍처</small>
+# agentgateway
 
 ![agentgateway](./images/agentgateway.png)
 
----
----
-
-# agentgateway <small>역할 및 주요 기능</small>
-
-<p class="highlight-blue" style="font-size: 21px; margin: 0 0 12px 0;">
-  에이전트의 외부 호출 경로(LLM · MCP 도구 · A2A)를 중계하고 보안·정책·관측을 일괄 적용
-</p>
+> 에이전트의 외부 호출 경로(LLM · MCP 도구 · A2A)를 중계하고 보안·정책·관측을 일괄 적용
 
 | 구분 | 핵심 내용 | 비고 |
 |:---:|---|---|
@@ -645,14 +468,14 @@ class: visual
 | **보안 · 관측** | • **인증·인가**: JWT · API Key · OAuth, 세분화된 권한 및 Rate Limit<br/>• **가드레일 · 관측**: 콘텐츠 필터링, OpenTelemetry 메트릭·트레이싱 | 호출 경로에서 공통 보안 정책 강제 |
 | **배포 방식** | • **독립 실행**: 경량 단일 바이너리 / Docker + YAML 설정<br/>• **Kubernetes**: 전용 컨트롤러 + **K8s Gateway API** 동적 연동 | K8s 환경 필수 아님 (클라우드 네이티브 지원) |
 
-- **일반 AI Gateway와의 차이**: LLM 라우팅을 넘어 **MCP 도구 서버와 A2A 에이전트 간 통신**까지 포괄
-- **Solo.io 시작 ('26.06 AAIF 합류)**: Rust 기반 고성능 런타임 및 K8s Gateway API 네이티브 연동
+_- 일반 AI Gateway와의 차이: LLM 라우팅을 넘어 MCP 도구 서버와 A2A 에이전트 간 통신까지 포괄_\
+_- Solo.io 시작 ('26.06 AAIF 합류): Rust 기반 고성능 런타임 및 K8s Gateway API 네이티브 연동_
 
 ---
-class: dense
+class: table-full table-dense
 ---
 
-# Agent on K8s (4) <small>주요 프로젝트 4종 종합 비교</small>
+# Agent on K8s <small>4종 비교</small>
 
 - 에이전트 정의·실행(**`kagent` · `AX`**) vs 실행환경·자원 관리(**`Agent Sandbox` · `Agent Substrate`**)
 - **`kagent`·`AX`**(상위 플랫폼)는 **`Agent Substrate`**(하위 런타임) 기반
@@ -667,26 +490,16 @@ class: dense
 | **거버넌스** | CNCF Sandbox | Kubernetes SIG Apps | Google 오픈소스 | CNCF Sandbox ('26.10) |
 | **시작 주체** | Solo.io | Google 엔지니어 | Google | Google |
 
-<p class="pen" style="font-size: 20px; margin-top: 10px;">
-  ※ OpenSandbox: 로컬(Docker)부터 K8s Pod·Firecracker까지 통합 다루는 범용 샌드박스 플랫폼 ('26.10 AAIF 합류)
-</p>
+_※ OpenSandbox: 로컬(Docker)부터 K8s Pod·Firecracker까지 통합 다루는 범용 샌드박스 플랫폼 ('26.10 AAIF 합류)_
 
 ---
-class: visual
 ---
 
-# kagent (K8s + agent) <small>아키텍처</small>
+# kagent <small>K8s + agent</small>
 
 ![kagent Architecture](./images/kagent.png)
 
----
----
-
-# kagent (K8s + agent) <small>핵심 구성요소 및 동작 흐름</small>
-
-<p class="highlight-blue" style="font-size: 21px; margin: 0 0 12px 0;">
-  <b>기반 전환</b>: <code>Deployment</code> (0.x) → <b><code>Agent Substrate</code></b> (1.x alpha 기준)
-</p>
+> **기반 전환**: `Deployment` (0.x) → **`Agent Substrate`** (1.x alpha 기준)
 
 | 구성요소 | 역할 | 비고 |
 |:---:|---|---|
@@ -695,19 +508,16 @@ class: visual
 | **Agent** | `AgentTemplate`과 `Harness`를 결합한 호출 대상 | Kubernetes CRD |
 | **Session** | Agent와 사용자가 주고받는 대화 세션 (PostgreSQL 저장) | 자체 API 계층 (CRD 아님) |
 
-- **3단계 실행 흐름**:
-  1. **Agent 구성**: `AgentTemplate`과 `Harness`를 결합해 `Agent` 리소스 선언
-  2. **`ActorTemplate` 생성**: Substrate가 인식할 수 있는 Actor 템플릿으로 변환
-  3. **`Session`별 `Actor` 실행**: 턴 종료 시 상태 스냅샷 저장 후 공유 Worker 반납
+_- ① Agent 구성: `AgentTemplate`과 `Harness`를 결합해 `Agent` 리소스 선언_\
+_- ② `ActorTemplate` 생성: Substrate가 인식할 수 있는 Actor 템플릿으로 변환_\
+_- ③ `Session`별 `Actor` 실행: 턴 종료 시 상태 스냅샷 저장 후 공유 Worker 반납_
 
 ---
 ---
 
 # Agent Sandbox <small>격리 환경 수명주기 관리</small>
 
-<p class="highlight-blue" style="font-size: 21px; margin: 0 0 10px 0;">
-  K8s에서 격리된 작업 환경을 선언하고 Pod·저장소·수명주기를 관리하는 플랫폼 (SIG Apps, v1.0.8)
-</p>
+> K8s에서 격리된 작업 환경을 선언하고 Pod·저장소·수명주기를 관리하는 플랫폼 (SIG Apps, v1.0.8)
 
 <div style="background: #eef4fc; padding: 10px 16px; border-radius: 6px; font-family: monospace; font-size: 18px; margin-bottom: 14px; text-align: center;">
   SandboxTemplate 정의 → SandboxWarmPool 준비 → SandboxClaim 할당 → Sandbox(Pod+볼륨) 실행·정리
@@ -721,6 +531,7 @@ class: visual
 | **표준화 동향** | **KEP-5823** (Pod-Level Checkpoint/Restore, K8s v1.38 Alpha 목표) | 자체 `SnapshotProvider` 추상화 논의 중 |
 
 ---
+class: table-full
 ---
 
 # Agent Sandbox <small>6가지 주요 활용 사례</small>
@@ -734,26 +545,16 @@ class: visual
 | | **PR마다 임시 검증 환경 기동**: 실패 테스트 재현 및 에이전트 패치 자동 검증 | **파이프라인** |
 | | **영속 볼륨·고정 도메인을 연동한 OpenClaw 구동**: 24시간 개인/팀 AI 비서 상주 | **장기**<br/>*(상시)* |
 
-<p class="pen" style="font-size: 22px; margin-top: 14px;">
-  ※ Sandbox 자체는 LLM 추론을 하지 않으므로 CI/CD·원격 개발 환경처럼 순수 격리 실행용으로도 활용 가능
-</p>
+_※ Sandbox 자체는 LLM 추론을 하지 않으므로 CI/CD·원격 개발 환경처럼 순수 격리 실행용으로도 활용 가능_
 
 ---
-class: visual
 ---
 
-# AX (Agent Executor) <small>작업 실행 워크플로우</small>
+# AX <small>Agent Executor</small>
 
 ![AX Architecture Flow](./images/ax-flow.png)
 
----
----
-
-# AX (Agent Executor) <small>에이전트 작업 선언 및 관리</small>
-
-<p class="highlight-blue" style="font-size: 20px; margin: 0 0 10px 0;">
-  ① YAML 작성 (Task·Workspace·Model) → ② <code>ax apply</code> (ax-server·DB) → ③ Substrate Actor 실행
-</p>
+> ① YAML 작성 (Task·Workspace·Model) → ② `ax apply` (ax-server·DB) → ③ Substrate Actor 실행
 
 | 구분 | 역할 | 비고 |
 |:---:|---|---|
@@ -762,25 +563,17 @@ class: visual
 | **Model** | 에이전트가 사용할 LLM 제공자 · 모델명 · API 키 참조 | 모델 연결 및 인증 설정 |
 | **CLI (`ax`)** | `ax apply` · `get` · `watch` · **`suspend`(중단)** · **`resume`(재개)** · `ssh` | K8s 스타일 문법, 자체 서버·DB 저장 |
 
-- **장기 워크로드 지향**: 일반 `Job`으로 다루기 어려운 상태형 에이전트 작업 관리
-- **중단·재개 (v0.3.1)**: `/workspace` 복원 후 프로세스 재시작, 작업 상태는 애플리케이션이 보존
+_- 장기 워크로드 지향: 일반 `Job`으로 다루기 어려운 상태형 에이전트 작업 관리_\
+_- 중단·재개 (v0.3.1): `/workspace` 복원 후 프로세스 재시작, 작업 상태는 애플리케이션이 보존_
 
 ---
-class: visual
 ---
 
-# Agent Substrate <small>상태형 워크로드 런타임</small>
+# Agent Substrate
 
 ![Agent Substrate Flow](./images/agent-substrate-flow.png)
 
----
----
-
-# Agent Substrate <small>핵심 아키텍처 및 자원 공유</small>
-
-<p class="highlight-blue" style="font-size: 20px; margin: 0 0 10px 0;">
-  ① Worker 배정 → ② 초기화·복원 (Snapshot) → ③ 격리 실행 → ④ Snapshot 저장 후 Worker 반납
-</p>
+> ① Worker 배정 → ② 초기화·복원 (Snapshot) → ③ 격리 실행 → ④ Snapshot 저장 후 Worker 반납
 
 | 구성요소 | 핵심 역할 | 비고 |
 |:---:|---|---|
@@ -789,13 +582,13 @@ class: visual
 | **Snapshot** | 설정 범위에 따른 상태 저장 (`Full`: 메모리+파일, `Data`: 영속 데이터) | 저장 후 다른 Worker에서도 즉시 복원 가능 |
 | **격리 환경** | **gVisor** 또는 **Cloud Hypervisor microVM** 기반 격리 실행 | 강력한 보안 경계 제공 |
 
-- **자원 효율 극대화**: 유휴 세션마다 무거운 Pod를 유지하지 않고, 스냅샷 저장 후 Worker 반납
-- **하위 런타임**: `AX`(Task)와 `kagent` 1.x(Session)의 공통 기반 실행 엔진으로 동작
+_- 자원 효율 극대화: 유휴 세션마다 무거운 Pod를 유지하지 않고, 스냅샷 저장 후 Worker 반납_\
+_- 하위 런타임: `AX`(Task)와 `kagent` 1.x(Session)의 공통 기반 실행 엔진으로 동작_
 
 ---
 ---
 
-# Agent 배포 단위 <small>Pod vs Actor 아키텍처 비교</small>
+# Agent 배포 단위 <small>Pod vs Actor</small>
 
 ```mermaid
 flowchart LR
@@ -808,68 +601,46 @@ flowchart LR
     A2["중단된 Actor"] --> S["Snapshot 저장소"]
     S -->|"재개 시 복원"| W
   end
+  dedicated ~~~ shared
 ```
 
-<div class="pen" style="font-size: 25px; text-align: center; margin-top: 24px; line-height: 1.5;">
-  "Pod는 훌륭한 실행(Execution) 단위지만,<br>
-  에이전트의 긴 수명주기(Lifecycle) 단위로는 맞지 않는 경우가 많다."
-  <div style="font-size: 18px; color: #71849d; margin-top: 6px;">— CNCF 블로그, 2026.07</div>
-</div>
-
----
----
-
-# Agent 배포 단위 <small>Pod vs Actor 선택 기준</small>
+> Pod는 훌륭한 실행(Execution) 단위지만, 에이전트의 수명주기(Lifecycle) 단위로는 맞지 않는 경우가 많음 <small>CNCF 블로그, 2026.07</small>
 
 | 구분 | **작업 환경별 전용 Pod 유지** | **Actor 단위 다중화** *(N Actors on Worker Pool)* |
 |:---:|---|---|
-| **동작 방식** | 작업 환경마다 전용 Pod 할당 (`Deployment` 또는 `WarmPool`) | Pod는 **공유 Worker Pool**로 두고, 세션을 **`Actor`**로 관리 |
+| **동작 방식** | 작업 환경마다 전용 Pod 할당 (`Deployment` 또는 `WarmPool`) | Pod는 **공유 Worker Pool**로 두고, 세션을 `Actor`로 관리 |
 | **유휴 시 특징** | 작업 대기 중에도 Pod를 계속 점유 *(직관적이나 비용 증가)* | 대기 시 **Snapshot** 저장 후 Worker 즉시 반납 *(비용 최소화)* |
 | **대표 프로젝트** | **`Agent Sandbox`** (Pod 관리, WarmPool 선택) | **`Agent Substrate`** 기반 **`kagent` 1.x alpha** · **`AX`** |
 | **선택 기준** | 전용 환경을 계속 유지하거나 단순한 수명주기 관리가 적합할 때 | 유휴 비율이 높고, 스냅샷 복원 지연보다 자원 절감 이득이 클 때 |
 
-- **생태계의 발전 방향**: 직관적인 **전용 Pod 격리**와 대규모 유휴 세션을 겨냥한 **Actor 다중화**의 공존
-- **선택 시 고려사항**: 유휴 비율, 보존해야 할 상태의 크기, 스냅샷 복원 지연(Latency)의 종합적 평가
+_- 생태계의 발전 방향: 직관적인 전용 Pod 격리와 대규모 유휴 세션을 겨냥한 Actor 다중화의 공존_\
+_- 선택 시 고려사항: 유휴 비율, 보존해야 할 상태의 크기, 스냅샷 복원 지연(Latency)의 종합적 평가_
 
 ---
 class: section
 ---
 
-<div class="section-content">
-  <span class="section-badge">Ⅳ</span>
-  <span class="section-title">마무리</span>
-</div>
+# 마무리
 
 ---
+class: cols points
 ---
 
 # Wrap-up <small>세 줄 요약 및 제언</small>
 
-<div class="two-cols">
-<div>
+- ### 📌 세 줄 요약
 
-### 📌 세 줄 요약
+  1. **생태계 분류 체계**<br>
+     Landscape를 바탕으로 **실행 위치·사용 목적**과 **기술 계층**별 구조적 조망
+  2. **클러스터 도구와 보안 경계**<br>
+     진단 부품화(`K8sGPT`) / `kubectl`과 `MCP` 모두 **RBAC 최소 권한**이 핵심
+  3. **Agent on K8s의 태동**<br>
+     에이전트 수명주기 격리를 위한 전용 런타임(Substrate, Sandbox) 급부상
+- ### 💡 엔지니어의 몫
 
-1. **생태계 분류 체계**<br>
-   Landscape를 바탕으로 **실행 위치·사용 목적**과 **기술 계층**별 구조적 조망
-2. **클러스터 도구와 보안 경계**<br>
-   진단 부품화(`K8sGPT`) / `kubectl`과 `MCP` 모두 **RBAC 최소 권한**이 핵심
-3. **Agent on K8s의 태동**<br>
-   에이전트 수명주기 격리를 위한 전용 런타임(Substrate, Sandbox) 급부상
+  - **변화의 속도에 대처하기**<br>
+    개별 도구를 쫓기보다 **기술 계층과 목적** 중심의 지도를 먼저 파악
+  - **권한과 책임의 영역**<br>
+    구현·실행은 에이전트에 위임하더라도, **아키텍처 설계 · 권한 가드레일 · 최종 책임**은 사람의 영역!
 
-</div>
-<div>
-
-### 💡 엔지니어의 몫
-
-- **변화의 속도에 대처하기**<br>
-  개별 도구를 쫓기보다 **기술 계층과 목적** 중심의 지도를 먼저 파악
-- **권한과 책임의 영역**<br>
-  구현·실행은 에이전트에 위임하더라도, **아키텍처 설계 · 권한 가드레일 · 최종 책임**은 사람의 영역!
-
-<div class="pen" style="font-size: 26px; text-align: right; margin-top: 36px;">
-  Thank you! 👏
-</div>
-
-</div>
-</div>
+  _Thank you! 👏_

@@ -5,12 +5,11 @@
 @import '../../tooling/site/slide-base.css';
 
 /* Deck-specific custom styles */
-.slidev-layout.visual { display: flex; flex-direction: column; }
-.slidev-layout.visual img {
-  max-height: 520px;
-  max-width: 100%;
-  object-fit: contain;
-  margin: auto;
-  border-radius: 6px;
-  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.08);
+/* Cover: override template background with the original deck artwork */
+.slidev-layout.cover {
+  background: #ffffff url('./images/cover-bg.png') no-repeat center center / cover;
+  color: #111827;
 }
+.slidev-layout.cover h1 { color: #111827; }
+.slidev-layout.cover ul li { color: #475569; }
+

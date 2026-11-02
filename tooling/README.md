@@ -15,8 +15,9 @@ make                                    # 사용법
 make install                            # 의존성 설치
 make dev                                # 가장 최근 Slidev 발표
 make dev TALK=k8s-ai-agent               # ID로 발표 선택
+make site                               # 사이트 전체 개발 서버 (목록·모든 발표·쇼케이스, 실시간 반영)
 make build                              # 목록 + 모든 Slidev 발표 + 기존 PDF
-make preview                            # 빌드 결과 확인
+make preview                            # 로컬 미리보기 (템플릿 쇼케이스 링크 포함, 배포엔 미포함)
 make docs                               # README 발표 목록 갱신
 make check                              # 테스트·README 동기화·전체 빌드 검증
 ```

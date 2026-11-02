@@ -74,7 +74,7 @@ export function loadCatalog(directory = root) {
 
 const PDF_ICON_SVG = '<svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M30 18v-2h-6v10h2v-4h3v-2h-3v-2zm-11 8h-4V16h4a3.003 3.003 0 0 1 3 3v4a3.003 3.003 0 0 1-3 3m-2-2h2a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2Zm-6-8H6v10h2v-3h3a2.003 2.003 0 0 0 2-2v-3a2 2 0 0 0-2-2m-3 5v-3h3l.001 3Z"/><path d="M22 14v-4a.91.91 0 0 0-.3-.7l-7-7A.9.9 0 0 0 14 2H4a2.006 2.006 0 0 0-2 2v24a2 2 0 0 0 2 2h16v-2H4V4h8v6a2.006 2.006 0 0 0 2 2h6v2Zm-8-4V4.4l5.6 5.6Z"/></svg>';
 
-export function renderIndex({ site, talks }, lang = 'en') {
+export function renderIndex({ site, talks }, lang = 'en', { showcase = false } = {}) {
   const e = escapeHtml;
   const isKo = lang === 'ko';
   const pageTitle = isKo ? (site.title_ko || site.title) : site.title;
@@ -176,7 +176,7 @@ export function renderIndex({ site, talks }, lang = 'en') {
     </main>
 
     <footer class="site-footer">
-      <p><a href="${e(site.repository)}/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a> &middot; <a href="${e(site.repository)}" target="_blank" rel="noopener">GitHub</a></p>
+      <p><a href="${e(site.repository)}/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a> &middot; <a href="${e(site.repository)}" target="_blank" rel="noopener">GitHub</a>${showcase ? ` &middot; <a href="${site.base}template-showcase/">Template Showcase</a>` : ''}</p>
     </footer>
   </div>
 </body>

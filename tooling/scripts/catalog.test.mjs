@@ -24,6 +24,15 @@ function fixture(t) {
   return { directory, data };
 }
 
+test('template showcase link appears only when requested', t => {
+  const { directory, data } = fixture(t);
+  const catalog = validateCatalog(data, directory);
+  assert.ok(!renderIndex(catalog).includes('template-showcase'));
+  assert.ok(!renderIndex(catalog, 'ko').includes('template-showcase'));
+  assert.ok(renderIndex(catalog, 'en', { showcase: true }).includes('href="/slides/template-showcase/">Template Showcase</a>'));
+  assert.ok(renderIndex(catalog, 'ko', { showcase: true }).includes('href="/slides/template-showcase/">Template Showcase</a>'));
+});
+
 test('multiple decks and derived PDF paths keep independent URLs under a shared base', t => {
   const { directory, data } = fixture(t);
   const catalog = validateCatalog(data, directory);

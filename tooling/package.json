@@ -9,6 +9,7 @@
     "dev": "node scripts/dev.mjs",
     "build": "node scripts/build.mjs",
     "preview": "node scripts/preview.mjs",
+    "site": "node scripts/site.mjs",
     "docs:check": "node scripts/readme.mjs --check",
     "test": "node --test scripts/*.test.mjs",
     "check": "pnpm test && pnpm docs:check && pnpm build",
