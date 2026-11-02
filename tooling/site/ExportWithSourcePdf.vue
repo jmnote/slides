@@ -2,10 +2,12 @@
 import { onBeforeUnmount, onMounted, ref } from 'vue'
 import { configs } from '@slidev/client'
 import Export from '@slidev/client/pages/export.vue'
+import { siteBase } from './site-base'
 
-// 헤드매터 `sourcePdf`: 발표 원본 PDF 경로 (덱 URL 기준 상대 경로)
-const sourcePdf = (configs as Record<string, unknown>).sourcePdf as string | undefined
-const fileName = sourcePdf?.split('/').pop()
+// 헤드매터 `sourcePdf`: 발표 원본 PDF 경로 (사이트 루트 기준, 예: 2026/2026-10-28-k8s-ai-agent.pdf)
+const sourcePdfPath = (configs as Record<string, unknown>).sourcePdf as string | undefined
+const sourcePdf = sourcePdfPath && siteBase + encodeURI(sourcePdfPath)
+const fileName = sourcePdfPath?.split('/').pop()
 const slot = document.createElement('div')
 const mounted = ref(false)
 let observer: MutationObserver | undefined

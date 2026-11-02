@@ -17,7 +17,7 @@ make dev                                # 가장 최근 Slidev 발표
 make dev TALK=k8s-ai-agent               # ID로 발표 선택
 make site                               # 사이트 전체 개발 서버 (목록·모든 발표·쇼케이스, 실시간 반영)
 make build                              # 목록 + 모든 Slidev 발표 + 기존 PDF
-make preview                            # 로컬 미리보기 (템플릿 쇼케이스 링크 포함, 배포엔 미포함)
+make preview                            # 로컬 미리보기 (템플릿 쇼케이스 포함, dist-preview/에 빌드, 배포엔 미포함)
 make docs                               # README 발표 목록 갱신
 make check                              # 테스트·README 동기화·전체 빌드 검증
 ```
@@ -59,7 +59,8 @@ Makefile은 `pnpm --dir tooling …` 명령을 호출합니다. 패키지 스크
 목록 페이지와 README는 같은 메타데이터를 사용합니다. 발표 파일 경로는 저장소 루트 기준입니다.
 운영 스크립트는 `tooling/scripts/`, 목록 페이지 스타일은 `tooling/site/`에서 관리합니다.
 공통 빌드는 임시 디렉터리에서 완료한 뒤 `dist/`를 교체합니다. 빌드 실패 시 마지막 성공 결과를 유지하며, 빌드 산출물은 커밋하지 않습니다.
-처음 미리보기를 실행하기 전에는 `make build`가 필요합니다.
+`make preview`는 쇼케이스를 포함해 `dist-preview/`에 따로 빌드하므로 `dist/`는 바뀌지 않습니다.
+`make site`는 발표마다 Slidev 개발 서버(Vite)를 하나씩(포트 `DECK_PORT_BASE`부터) 띄우고 게이트웨이(`PORT`)가 한 포트로 묶습니다. 발표가 늘면 프로세스도 같은 수만큼 늘어납니다.
 PDF는 날짜와 id로 계산한 경로로 복사합니다. 새 PDF 자동 생성은 아직 포함하지 않습니다.
 
 `2026-10-28-k8s-ai-agent`는 `kcd2026/_final/*.md` 본문을 가져왔으며 발표자 노트를 제외했습니다.

@@ -1,11 +1,9 @@
 import { cp, mkdir, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { root, loadCatalog, deckPath, renderIndex } from './catalog.mjs';
+import { root, loadCatalog, deckPath, renderIndex, SHOWCASE } from './catalog.mjs';
 import { replaceBuild } from './build-output.mjs';
 import { runCli } from './cli.mjs';
-
-const SHOWCASE = 'template-showcase';
 
 function slidevBuild(entry, base, out) {
   const result = spawnSync(process.execPath, [
@@ -19,7 +17,9 @@ function slidevBuild(entry, base, out) {
 await runCli(async () => {
   const catalog = loadCatalog();
   const showcase = process.argv.includes('--with-showcase');
-  await replaceBuild(resolve(root, 'dist'), async out => {
+  // 쇼케이스 포함 결과물은 배포용 dist/와 섞이지 않게 dist-preview/에 만든다
+  const outDir = resolve(root, showcase ? 'dist-preview' : 'dist');
+  await replaceBuild(outDir, async out => {
     for (const talk of catalog.talks) {
       if (talk.slides) {
         console.log(`Building ${talk.id}`);
@@ -41,5 +41,5 @@ await runCli(async () => {
     await writeFile(resolve(out, 'ko/index.html'), renderIndex(catalog, 'ko', { showcase }));
     await writeFile(resolve(out, '.nojekyll'), '');
   });
-  console.log(`Built ${catalog.talks.length} talks into dist/ (base: ${catalog.site.base})`);
+  console.log(`Built ${catalog.talks.length} talks into ${showcase ? 'dist-preview' : 'dist'}/ (base: ${catalog.site.base})`);
 });

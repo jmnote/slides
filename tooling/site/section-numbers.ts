@@ -6,6 +6,7 @@ import { slides } from '#slidev/slides'
 const ROMAN: [number, string][] = [[1000, 'M'], [900, 'CM'], [500, 'D'], [400, 'CD'], [100, 'C'], [90, 'XC'], [50, 'L'], [40, 'XL'], [10, 'X'], [9, 'IX'], [5, 'V'], [4, 'IV'], [1, 'I']]
 
 // 배지 안에 들어가도록 로마 숫자 길이에 따라 글자 크기를 줄인다 (1~2글자 56px, 3글자 44px, 4글자 이상 34px)
+// 배지 크기를 바꾸면 slide-base.css의 section 배지(`--section-badge-font` 사용처)와 함께 수정한다.
 function badgeFont(n: number) {
   let len = 0
   for (const [value, numeral] of ROMAN) {
@@ -26,6 +27,7 @@ export default function setupSectionNumbers() {
   watchEffect(() => {
     let n = 0
     style.textContent = slides.value
+      .filter(route => !route.meta?.slide?.frontmatter?.hide)
       .filter(route => String(route.meta?.slide?.frontmatter?.class ?? '').split(/\s+/).includes('section'))
       .map((route) => {
         n += 1

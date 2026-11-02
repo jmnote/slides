@@ -9,6 +9,7 @@ const text = value => typeof value === 'string' && value.trim().length > 0;
 export const escapeHtml = value => String(value).replace(/[&<>"']/g, char => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[char]);
 export const encodePath = path => path.split('/').map(encodeURIComponent).join('/');
 export const deckPath = talk => talk.id + '/';
+export const SHOWCASE = 'template-showcase';
 
 export const DEFAULT_SITE = {
   title: 'Slides · Jmnote',
@@ -176,7 +177,7 @@ export function renderIndex({ site, talks }, lang = 'en', { showcase = false } =
     </main>
 
     <footer class="site-footer">
-      <p><a href="${e(site.repository)}/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a> &middot; <a href="${e(site.repository)}" target="_blank" rel="noopener">GitHub</a>${showcase ? ` &middot; <a href="${site.base}template-showcase/">Template Showcase</a>` : ''}</p>
+      <p><a href="${e(site.repository)}/blob/main/LICENSE" target="_blank" rel="noopener">Apache-2.0</a> &middot; <a href="${e(site.repository)}" target="_blank" rel="noopener">GitHub</a>${showcase ? ` &middot; <a href="${e(site.base)}${SHOWCASE}/">Template Showcase</a>` : ''}</p>
     </footer>
   </div>
 </body>
