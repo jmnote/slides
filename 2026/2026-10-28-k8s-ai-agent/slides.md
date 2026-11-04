@@ -436,22 +436,28 @@ class: section
 - **조합 활용**: `K8sGPT`를 진단 부품(MCP Server)으로, `HolmesGPT`를 **알림 연동 조사관**으로 구성
 
 ---
+class: table-full
 ---
 
 # kubectl vs MCP <small>에이전트의 클러스터 접근 방식</small>
 
-![MCP Architecture](./images/mcp.png)
+<figure style="position: absolute; top: 20px; right: 54px; z-index: 10; width: 300px; margin: 0; overflow: hidden; border-radius: 6px; background: #fff; box-shadow: 0 2px 8px rgba(15, 23, 42, 0.16); text-align: center;">
+  <img src="./images/mcp.png" alt="MCP Architecture" style="display: block; width: 100%; margin: 0">
+  <figcaption style="padding: 2px 8px;">
+    <small>MCP를 USB 허브에 비유한 그림</small>
+  </figcaption>
+</figure>
 
-> 범용 에이전트에 K8s를 연결할 때: `kubectl` CLI를 직접 실행할까, `MCP`로 연결할까?
+<blockquote style="max-width: calc(100% - 320px);">
+  <p>에이전트에 K8s를 접근할 때: <code>kubectl</code> CLI 사용? <code>MCP</code>로 연결?</p>
+  <p><code>kubectl</code>이든 <code>MCP</code>든 최소 권한과 작업 승인 절차 중요</p>
+</blockquote>
 
 | 구분 | `kubectl` 직접 실행 | Kubernetes `MCP` |
 |:---:|---|---|
 | **접근 방식** | 에이전트가 쉘(Bash)에서 `kubectl` CLI·스크립트 직접 실행 | 표준화된 Tool 이름으로 클러스터 API 기능 노출 |
-| **장점** | • 별도 서버 구축 없이 즉시 사용 가능<br/>• 기존 `kubectl` 플러그인·사내 쉘 스크립트 그대로 재사용 | • 여러 에이전트에 일관된 표준 도구 규격 제공<br/>• 허용할 Tool 목록(Read-only 등)과 파라미터 스키마 명시적 통제 |
-| **대표 구현** | `kubectl` *(JSON 출력 모드, 안전 래퍼 스크립트)* | • `containers/kubernetes-mcp-server` *(K8s API 직결)*<br/>• `kubectl-ai` *(MCP Server 모드)* · `K8sGPT` *(Analyzer 노출)* |
-
-_- MCP는 표준 USB 허브에 비유: 규격화된 포트로 다양한 도구를 간편하게 연결_\
-_- 핵심은 인증과 권한(RBAC): `kubectl`이든 `MCP`든 Read-only 최소 권한과 변경 작업 승인 절차가 필수_
+| **장점** | • 별도 서버 구축 없이 즉시 사용<br/>• 기존 `kubectl` 플러그인·스크립트 재사용 | • 여러 에이전트에 일관된 표준 도구 제공<br/>• 허용 도구 목록과 파라미터 스키마 통제 |
+| **대표 구현** | `kubectl` *(JSON 출력 모드, 안전 래퍼 스크립트)* | • `containers/kubernetes-mcp-server` *K8s API 직결*<br/>• `kubectl-ai` *MCP Server 모드* · `K8sGPT` *Analyzer 노출* |
 
 ---
 ---
