@@ -155,7 +155,7 @@ test('omitted or false slides is PDF-only and other values are rejected', t => {
   assert.equal(catalog.talks.find(talk => talk.id === 'older').slides, undefined);
   assert.equal(catalog.talks.find(talk => talk.id === 'first').slides, undefined);
   assert.ok(!renderIndex(catalog).includes('href="/slides/first/"'));
-  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/file-pdf.svg" width="20" height="20" alt="PDF 다운로드">](2026/2026-01-01-first.pdf?raw=true)'));
+  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/file-pdf-gray.svg" width="20" height="20" alt="PDF 다운로드">](2026/2026-01-01-first.pdf?raw=true)'));
   for (const slides of ['true', '2026/example/slides.md', 1, null]) {
     data.talks[1].slides = slides;
     assert.throws(() => validateCatalog(data, directory), /slides must be a boolean/);
