@@ -290,7 +290,7 @@
 
 /* =========================================================
    T2: SPEAKER LAYOUT (class: speaker, 순수 마크다운)
-   # 발표자 → 좌측 사이드바, (사진 자동: tooling/site/images/profile.png), ## 직함, - 소개 문장 (- :github: 아이디 포함)
+   # 발표자 → 좌측 사이드바, (사진 자동: tooling/site/images/profile.jpg), ## 직함, - 소개 문장 (- :github: 아이디 포함)
    ========================================================= */
 .slidev-layout.speaker {
     display: grid;
@@ -333,7 +333,7 @@
     margin: 0 64px 24px;
     border-radius: 50%;
     border: 4px solid #ffffff;
-    background: url("./images/profile.png") center / cover;
+    background: url("./images/profile.jpg") center / cover;
     box-shadow: 0 8px 24px rgba(0, 0, 0, 0.25);
 }
 .slidev-layout.speaker > h2 {
@@ -623,6 +623,11 @@
     grid-auto-columns: unset;
     grid-template-columns: minmax(0, 3fr) minmax(0, 2fr);
 }
+/* 그림이 왼쪽 칸이면 글 칸을 넓게 (그림 2 : 글 3) */
+.slidev-layout.cols > ul:has(> li:first-child > p:first-child > img):not(:has(> li:nth-child(3))) {
+    grid-auto-columns: unset;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 3fr);
+}
 .slidev-layout.cols > ul > li > :first-child {
     margin-top: 0;
 }
@@ -642,6 +647,14 @@
     margin: 8px auto;
     border-radius: 6px;
     box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+.slidev-layout.llm-example.cols > ul > li:nth-child(2) {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+}
+.slidev-layout.llm-example.cols > ul > li:nth-child(2) > ul > li {
+    margin: 8px 0;
 }
 
 /* =========================================================
@@ -715,6 +728,17 @@
 /* 꼬리표 뒤 <br>은 꼬리표가 이미 한 줄을 차지하므로 빈 줄이 생기지 않게 숨김 */
 .slidev-layout.points ol > li > strong:first-child + br {
     display: none;
+}
+.slidev-layout.compact-points.points ol > li {
+    padding-left: 54px;
+}
+.slidev-layout.compact-points.points ol > li::before {
+    color: #5b7fac;
+    font-size: 28px;
+    top: 2px;
+}
+.slidev-layout.compact-points.cols > ul > li > ul > li {
+    margin: 18px 0;
 }
 
 /* =========================================================
