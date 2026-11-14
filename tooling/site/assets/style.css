@@ -124,7 +124,8 @@ a:hover {
 }
 
 .lang-switch a,
-.lang-switch .active {
+.lang-switch .active,
+.lang-switch a.active:hover {
   display: inline-block;
   padding: 4px 8px;
   border-radius: 6px;
@@ -142,7 +143,8 @@ a:hover {
   background-color: var(--surface-hover);
 }
 
-.lang-switch .active {
+.lang-switch .active,
+.lang-switch a.active:hover {
   color: var(--accent);
   background-color: var(--badge-bg);
   font-weight: 700;
@@ -333,12 +335,6 @@ td a:hover {
   text-decoration: none;
 }
 
-.talk-subtitle {
-  font-size: 12.5px;
-  font-weight: 400;
-  color: var(--text-muted);
-  margin-top: 3px;
-}
 
 .talk-date {
   font-family: var(--font-mono);

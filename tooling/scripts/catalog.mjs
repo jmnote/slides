@@ -96,7 +96,7 @@ export function renderIndex({ site, talks }, lang = 'en', { showcase = false } =
       const mainTitle = isKo ? koTitle : enTitle;
       const titleAttrs = bilingual(enTitle, koTitle);
       const titleHtml = talk.slides
-        ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link" ${titleAttrs}>${e(mainTitle)}</a>`
+        ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link" data-language-nav ${titleAttrs}>${e(mainTitle)}</a>`
         : `<span class="talk-title" ${titleAttrs}>${e(mainTitle)}</span>`;
       const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
 
@@ -146,7 +146,7 @@ export function renderIndex({ site, talks }, lang = 'en', { showcase = false } =
 <body>
   <div class="container">
     <header class="site-header">
-      <nav class="site-nav" aria-label="${isKo ? '사이트' : 'Site'}">
+      <nav class="site-nav" aria-label="${isKo ? '사이트' : 'Site'}" data-en-aria-label="Site" data-ko-aria-label="사이트">
         ${navHome}
         ${navSlides}
       </nav>
@@ -201,6 +201,7 @@ export function renderLegacyKoreanIndex({ site }) {
   const target = `${site.base}?lang=ko`;
   return `<!doctype html>
 <html lang="ko"><head><meta charset="utf-8"><title>Slides</title>
+<meta http-equiv="refresh" content="0;url=${escapeHtml(target)}">
 <link rel="canonical" href="${escapeHtml(site.origin + target)}">
 <script>const target = new URL(location.href); target.pathname = ${JSON.stringify(site.base)}; target.searchParams.set('lang', 'ko'); location.replace(target.href);</script>
 </head><body><a href="${escapeHtml(target)}">한국어 슬라이드 목록</a></body></html>`;
