@@ -28,10 +28,8 @@ test('template showcase link appears only when requested', t => {
   const { directory, data } = fixture(t);
   const catalog = validateCatalog(data, directory);
   assert.ok(!renderIndex(catalog).includes('template-showcase'));
-  assert.ok(!renderIndex(catalog, 'ko').includes('template-showcase'));
   const link = `href="${catalog.site.base}template-showcase/">Template Showcase</a>`;
-  assert.ok(renderIndex(catalog, 'en', { showcase: true }).includes(link));
-  assert.ok(renderIndex(catalog, 'ko', { showcase: true }).includes(link));
+  assert.ok(renderIndex(catalog, { showcase: true }).includes(link));
 });
 
 test('multiple decks and derived PDF paths keep independent URLs under a shared base', t => {
@@ -53,33 +51,14 @@ test('multiple decks and derived PDF paths keep independent URLs under a shared 
   assert.ok(renderReadmeTable(validateCatalog(data, directory)).includes('https://example.github.io/second/'));
 });
 
-test('title is always main title, and current language title_xx is rendered as subtitle when available', t => {
+test('list localizes the main title', t => {
   const { directory, data } = fixture(t);
-  data.talks[1].title = '첫 발표';
   data.talks[1].title_en = 'First Presentation';
   const catalog = validateCatalog(data, directory);
-
-  const htmlEn = renderIndex(catalog, 'en');
-  assert.ok(htmlEn.includes('href="/slides/first/" class="talk-link">첫 발표</a>'));
-  assert.ok(htmlEn.includes('class="talk-subtitle">First Presentation</div>'));
-
-  const htmlKo = renderIndex(catalog, 'ko');
-  assert.ok(htmlKo.includes('href="/slides/first/" class="talk-link">첫 발표</a>'));
-  assert.ok(!htmlKo.includes('First Presentation'));
-  assert.ok(!htmlKo.includes('class="talk-subtitle"'));
-
-  data.talks[1].title = 'English Talk';
-  data.talks[1].title_ko = '한국어 발표';
-  delete data.talks[1].title_en;
-  const catalog2 = validateCatalog(data, directory);
-
-  const htmlKo2 = renderIndex(catalog2, 'ko');
-  assert.ok(htmlKo2.includes('English Talk'));
-  assert.ok(htmlKo2.includes('class="talk-subtitle">한국어 발표</div>'));
-
-  const htmlEn2 = renderIndex(catalog2, 'en');
-  assert.ok(htmlEn2.includes('English Talk'));
-  assert.ok(!htmlEn2.includes('한국어 발표'));
+  const html = renderIndex(catalog);
+  assert.ok(html.includes('data-en="First Presentation" data-ko="첫 발표">First Presentation</a>'));
+  assert.ok(html.includes('assets/language.js'));
+  assert.ok(!html.includes('href="/slides/ko/"'));
 });
 
 test('duplicate IDs fail before a build', t => {

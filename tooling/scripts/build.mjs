@@ -1,7 +1,7 @@
 import { cp, mkdir, writeFile } from 'node:fs/promises';
 import { resolve, dirname } from 'node:path';
 import { spawnSync } from 'node:child_process';
-import { root, loadCatalog, deckPath, renderIndex, SHOWCASE } from './catalog.mjs';
+import { root, loadCatalog, deckPath, renderIndex, renderLegacyKoreanIndex, SHOWCASE } from './catalog.mjs';
 import { replaceBuild } from './build-output.mjs';
 import { runCli } from './cli.mjs';
 
@@ -36,9 +36,9 @@ await runCli(async () => {
         throw new Error(`Slidev build failed: ${SHOWCASE}`);
     }
     await cp(resolve(root, 'tooling/site/assets'), resolve(out, 'assets'), { recursive: true });
-    await writeFile(resolve(out, 'index.html'), renderIndex(catalog, 'en', { showcase }));
+    await writeFile(resolve(out, 'index.html'), renderIndex(catalog, { showcase }));
     await mkdir(resolve(out, 'ko'), { recursive: true });
-    await writeFile(resolve(out, 'ko/index.html'), renderIndex(catalog, 'ko', { showcase }));
+    await writeFile(resolve(out, 'ko/index.html'), renderLegacyKoreanIndex(catalog));
     await writeFile(resolve(out, '.nojekyll'), '');
   });
   console.log(`Built ${catalog.talks.length} talks into ${showcase ? 'dist-preview' : 'dist'}/ (base: ${catalog.site.base})`);

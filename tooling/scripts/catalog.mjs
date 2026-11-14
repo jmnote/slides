@@ -75,11 +75,10 @@ export function loadCatalog(directory = root) {
 
 const PDF_ICON_SVG = '<svg viewBox="0 0 32 32" width="16" height="16" fill="currentColor" aria-hidden="true"><path d="M30 18v-2h-6v10h2v-4h3v-2h-3v-2zm-11 8h-4V16h4a3.003 3.003 0 0 1 3 3v4a3.003 3.003 0 0 1-3 3m-2-2h2a1 1 0 0 0 1-1v-4a1 1 0 0 0-1-1h-2Zm-6-8H6v10h2v-3h3a2.003 2.003 0 0 0 2-2v-3a2 2 0 0 0-2-2m-3 5v-3h3l.001 3Z"/><path d="M22 14v-4a.91.91 0 0 0-.3-.7l-7-7A.9.9 0 0 0 14 2H4a2.006 2.006 0 0 0-2 2v24a2 2 0 0 0 2 2h16v-2H4V4h8v6a2.006 2.006 0 0 0 2 2h6v2Zm-8-4V4.4l5.6 5.6Z"/></svg>';
 
-export function renderIndex({ site, talks }, lang = 'en', { showcase = false } = {}) {
+export function renderIndex({ site, talks }, { showcase = false } = {}) {
   const e = escapeHtml;
-  const isKo = lang === 'ko';
-  const pageTitle = isKo ? (site.title_ko || site.title) : site.title;
-  const pageDesc = isKo ? (site.description_ko || site.description) : site.description;
+  const bilingual = (en, ko) => `data-en="${e(en)}" data-ko="${e(ko)}"`;
+  const label = (en, ko) => `<span ${bilingual(en, ko)}>${e(en)}</span>`;
   const years = [...new Set(talks.map(talk => talk.date.slice(0, 4)))];
 
   const tableRows = years.map(year => {
@@ -89,18 +88,17 @@ export function renderIndex({ site, talks }, lang = 'en', { showcase = false } =
     </tr>`;
 
     const talkRows = entries.map(talk => {
-      const mainTitle = talk.title;
-      const langTitle = talk[`title_${lang}`];
-      const subTitle = (langTitle && langTitle !== talk.title) ? langTitle : null;
+      const enTitle = talk.title_en || talk.title;
+      const koTitle = talk.title_ko || talk.title;
+      const titleAttrs = bilingual(enTitle, koTitle);
       const titleHtml = talk.slides
-        ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link">${e(mainTitle)}</a>`
-        : `<span class="talk-title">${e(mainTitle)}</span>`;
+        ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link" data-language-nav ${titleAttrs}>${e(enTitle)}</a>`
+        : `<span class="talk-title" ${titleAttrs}>${e(enTitle)}</span>`;
       const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
 
       return `<tr class="talk-row">
         <td>
           <div class="talk-heading">${titleHtml}${pdfBtn}</div>
-          ${subTitle ? `<div class="talk-subtitle">${e(subTitle)}</div>` : ''}
         </td>
         <td class="col-event">
           <div class="talk-date">${talk.date}</div>
@@ -112,46 +110,44 @@ export function renderIndex({ site, talks }, lang = 'en', { showcase = false } =
     return `${yearRow}\n${talkRows}`;
   }).join('\n');
 
-  const navHome = isKo ? '<a href="/ko/">홈</a>' : '<a href="/">Home</a>';
-  const navSlides = isKo ? `<a href="${site.base}ko/" aria-current="page">슬라이드</a>` : `<a href="${site.base}" aria-current="page">Slides</a>`;
-  const langSwitch = isKo
-    ? `<div class="lang-switch"><a href="${site.base}">English</a><span class="sep">/</span><span class="active">한국어</span></div>`
-    : `<div class="lang-switch"><span class="active">English</span><span class="sep">/</span><a href="${site.base}ko/">한국어</a></div>`;
-  const themeTitle = isKo ? '테마 전환' : 'Switch theme';
+  const navHome = `<a href="/" data-language-nav>${label('Home', '홈')}</a>`;
+  const navSlides = `<a href="${site.base}" data-language-nav aria-current="page">${label('Slides', '슬라이드')}</a>`;
+  const langSwitch = `<div class="lang-switch"><a href="?lang=en" data-language="en">English</a><span class="sep">/</span><a href="?lang=ko" data-language="ko">한국어</a></div>`;
 
   return `<!doctype html>
-<html lang="${isKo ? 'ko' : 'en'}">
+<html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="${e(pageDesc)}">
-  <title>${e(pageTitle)}</title>
+  <meta name="description" content="${e(site.description)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
+  <title ${bilingual(site.title, site.title_ko || site.title)}>${e(site.title)}</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Jmnote">
-  <meta property="og:title" content="${e(pageTitle)}">
-  <meta property="og:description" content="${e(pageDesc)}">
+  <meta property="og:title" content="${e(site.title)}">
+  <meta property="og:description" content="${e(site.description)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
   <meta property="og:image" content="https://github.com/jmnote.png?size=512">
-  <meta property="og:url" content="${site.origin}${site.base}${isKo ? 'ko/' : ''}">
-  <meta property="og:locale" content="${isKo ? 'ko_KR' : 'en_US'}">
+  <meta property="og:url" content="${site.origin}${site.base}">
+  <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="${e(pageTitle)}">
-  <meta name="twitter:description" content="${e(pageDesc)}">
+  <meta name="twitter:title" content="${e(site.title)}">
+  <meta name="twitter:description" content="${e(site.description)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
   <meta name="twitter:image" content="https://github.com/jmnote.png?size=512">
-  <link rel="canonical" href="${site.origin}${site.base}${isKo ? 'ko/' : ''}">
+  <link rel="canonical" href="${site.origin}${site.base}">
   <link rel="icon" href="https://github.com/jmnote.png" type="image/png">
   <link rel="stylesheet" href="${site.base}assets/style.css">
+  <script src="${site.base}assets/language.js"></script>
   <script src="${site.base}assets/theme.js"></script>
 </head>
 <body>
   <div class="container">
     <header class="site-header">
-      <nav class="site-nav" aria-label="${isKo ? '사이트' : 'Site'}">
+      <nav class="site-nav" aria-label="Site" data-en-aria-label="Site" data-ko-aria-label="사이트">
         ${navHome}
         ${navSlides}
       </nav>
       <div class="site-controls">
         ${langSwitch}
-        <button id="theme-toggle" type="button" aria-label="${themeTitle}" title="${themeTitle}">
+        <button id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
           <img id="theme-icon" src="${site.base}assets/sun.svg" alt="">
         </button>
       </div>
@@ -160,8 +156,8 @@ export function renderIndex({ site, talks }, lang = 'en', { showcase = false } =
     <main>
       <div class="hero">
         <div class="hero-bio">
-          <h1>${isKo ? '슬라이드' : 'Slides'}</h1>
-          <p>${e(pageDesc)}</p>
+          <h1>${label('Slides', '슬라이드')}</h1>
+          <p ${bilingual(site.description, site.description_ko || site.description)}>${e(site.description)}</p>
         </div>
       </div>
 
@@ -194,4 +190,14 @@ export function renderReadmeTable({ site, talks }) {
     const pdf = `[<img src="tooling/site/icons/file-pdf-gray.svg" width="20" height="20" alt="PDF 다운로드">](${encodePath(talk.pdf)}?raw=true)`;
     return `| ${cell(talk.title)} | ${web} | ${pdf} | ${talk.date} | ${cell(talk.event)} |`;
   })].join('\n');
+}
+
+export function renderLegacyKoreanIndex({ site }) {
+  const target = `${site.base}?lang=ko`;
+  return `<!doctype html>
+<html lang="ko"><head><meta charset="utf-8"><title>Slides</title>
+<meta http-equiv="refresh" content="0;url=${escapeHtml(target)}">
+<link rel="canonical" href="${escapeHtml(site.origin + target)}">
+<script>const target = new URL(location.href); target.pathname = ${JSON.stringify(site.base)}; target.searchParams.set('lang', 'ko'); location.replace(target.href);</script>
+</head><body><a href="${escapeHtml(target)}">한국어 슬라이드 목록</a></body></html>`;
 }
