@@ -11,7 +11,7 @@ function visit({ query = '', saved, languages = ['en'], blocked = false } = {}) 
   const link = { dataset: { language: 'ko' }, classList: { toggle() {} }, setAttribute(k, v) { attrs[k] = v; }, removeAttribute(k) { delete attrs[k]; } };
   const nav = { href: 'https://jmnote.com/' };
   const document = {
-    documentElement: {}, readyState: 'complete',
+    documentElement: { dataset: {} }, readyState: 'complete',
     querySelectorAll(selector) {
       if (selector === '[data-language]') return [link];
       if (selector === 'a[data-language-nav]') return [nav];
@@ -19,7 +19,7 @@ function visit({ query = '', saved, languages = ['en'], blocked = false } = {}) 
     },
   };
   vm.runInNewContext(script, {
-    URL, location, navigator: { languages }, document,
+    URL, location, setTimeout() {}, navigator: { languages }, document,
     localStorage: {
       getItem(k) { if (blocked) throw Error('blocked'); return storage.get(k); },
       setItem(k, v) { if (blocked) throw Error('blocked'); storage.set(k, v); },

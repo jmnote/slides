@@ -12,7 +12,12 @@
     try { localStorage.setItem(key, lang); } catch { /* Storage may be disabled. */ }
   }
   document.documentElement.lang = lang;
+  if (lang !== 'en') {
+    document.documentElement.dataset.languageLoading = 'true';
+    setTimeout(() => { delete document.documentElement.dataset.languageLoading; }, 3000);
+  }
   const apply = () => {
+    try {
     document.querySelectorAll('[data-en][data-ko]').forEach(element => {
       element.textContent = element.getAttribute('data-' + lang);
     });
@@ -35,6 +40,9 @@
       target.searchParams.set('lang', lang);
       link.href = target.href;
     });
+    } finally {
+      delete document.documentElement.dataset.languageLoading;
+    }
   };
   if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
   else apply();

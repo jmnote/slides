@@ -36,7 +36,7 @@ await runCli(async () => {
         throw new Error(`Slidev build failed: ${SHOWCASE}`);
     }
     await cp(resolve(root, 'tooling/site/assets'), resolve(out, 'assets'), { recursive: true });
-    await writeFile(resolve(out, 'index.html'), renderIndex(catalog, 'en', { showcase }));
+    await writeFile(resolve(out, 'index.html'), renderIndex(catalog, { showcase }));
     await mkdir(resolve(out, 'ko'), { recursive: true });
     await writeFile(resolve(out, 'ko/index.html'), renderLegacyKoreanIndex(catalog));
     await writeFile(resolve(out, '.nojekyll'), '');

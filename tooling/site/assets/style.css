@@ -1,3 +1,5 @@
+html[data-language-loading] body { visibility: hidden; }
+
 /* Modern Tech Minimal Styling (v1.2.0) */
 
 :root {

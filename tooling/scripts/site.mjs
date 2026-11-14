@@ -53,7 +53,7 @@ await runCli(async () => {
     if (path === '/') return res.writeHead(302, { location: base }).end();
     if (path === base || path === `${base}ko/`) {
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
-      return res.end(path === base ? renderIndex(catalog, 'en', { showcase: true }) : renderLegacyKoreanIndex(catalog));
+      return res.end(path === base ? renderIndex(catalog, { showcase: true }) : renderLegacyKoreanIndex(catalog));
     }
     const file = files.get(path);
     if (file && existsSync(file)) {

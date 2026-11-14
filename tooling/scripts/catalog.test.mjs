@@ -28,10 +28,9 @@ test('template showcase link appears only when requested', t => {
   const { directory, data } = fixture(t);
   const catalog = validateCatalog(data, directory);
   assert.ok(!renderIndex(catalog).includes('template-showcase'));
-  assert.ok(!renderIndex(catalog, 'ko').includes('template-showcase'));
   const link = `href="${catalog.site.base}template-showcase/">Template Showcase</a>`;
-  assert.ok(renderIndex(catalog, 'en', { showcase: true }).includes(link));
-  assert.ok(renderIndex(catalog, 'ko', { showcase: true }).includes(link));
+  assert.ok(renderIndex(catalog, { showcase: true }).includes(link));
+  assert.ok(renderIndex(catalog, { showcase: true }).includes(link));
 });
 
 test('multiple decks and derived PDF paths keep independent URLs under a shared base', t => {
@@ -59,7 +58,6 @@ test('list localizes the main title', t => {
   const catalog = validateCatalog(data, directory);
   const html = renderIndex(catalog);
   assert.ok(html.includes('data-en="First Presentation" data-ko="첫 발표">First Presentation</a>'));
-  assert.ok(renderIndex(catalog, 'ko').includes('data-ko="첫 발표">첫 발표</a>'));
   assert.ok(html.includes('assets/language.js'));
   assert.ok(!html.includes('href="/slides/ko/"'));
 });
