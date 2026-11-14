@@ -445,3 +445,6 @@
 .slidev-layout.pod-actor > .pa-diagram { position: absolute; top: 132px; right: 54px; width: 40%; margin: 0; padding: 8px 12px; border-radius: 8px; background: #fff; box-shadow: 0 6px 18px rgba(0, 0, 0, .12); z-index: 1; }
 .slidev-layout.pod-actor > .pa-diagram svg { display: block; width: 100%; height: auto; }
 .slidev-layout.pod-actor > .quote-row { min-height: 168px; justify-content: flex-start; }
+
+/* 영어 표지 제목 둘째 줄이 남산타워 안테나에 닿지 않도록 기본 60px에서 약간 줄인다. */
+.slidev-layout.cover-en h1 { font-size: 54px; }

@@ -38,6 +38,7 @@ talks:
   - id: k8s-ai-agent
     date: 2026-10-28
     title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
-    title_en: Exploring the AI Agent Ecosystem from a Kubernetes Engineer's Perspective
+    title_en: A Kubernetes Engineer’s Tour of the AI Agent Ecosystem
     event: Kubernetes Korea Group Meetup 26.10
     slides: true
+    slides_en: true

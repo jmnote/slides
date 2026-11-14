@@ -1,0 +1,64 @@
+# 홈페이지 내용. 저장소는 그룹 안에서 이름순으로 자동 정렬된다(tooling/scripts/pages.mjs).
+title: Jmnote
+greeting:
+  en: "Hi, I'm Jmnote"
+  ko: 안녕하세요, Jmnote입니다
+bio:
+  en: Cloud Engineer building tools and documenting what I learn.
+  ko: 도구를 만들고 배운 것을 기록하는 Cloud Engineer입니다.
+
+groups:
+  - owner: jmnote
+    repos:
+      - name: AI Gauge
+        repo: ai-gauge
+        description:
+          en: Windows system tray widget for monitoring AI service usage.
+          ko: AI 서비스 사용량을 모니터링하는 Windows 시스템 트레이 위젯
+      - name: Black Screen
+        repo: black-screen
+        description:
+          en: Chrome extension for opening a pure black screen in a new tab.
+          ko: 새 탭에서 완전한 검은색 화면을 띄워주는 Chrome 확장 프로그램
+      - name: jmnote.github.io
+        repo: jmnote.github.io
+        description:
+          en: "Source for jmnote.com: this homepage and slide decks from public talks."
+          ko: "jmnote.com 소스: 이 홈페이지와 공개 발표 슬라이드"
+      - name: SimpleMaps
+        repo: SimpleMaps
+        description:
+          en: MediaWiki extension for displaying interactive maps with Leaflet.
+          ko: Leaflet 기반의 반응형 대화형 지도를 표시하는 미디어위키 확장
+      - name: SimpleMarkdown
+        repo: SimpleMarkdown
+        description:
+          en: MediaWiki extension for rendering Markdown with marked and DOMPurify.
+          ko: marked와 DOMPurify를 활용한 미디어위키 마크다운 렌더러 확장
+      - name: SimpleMathJax
+        repo: SimpleMathJax
+        description:
+          en: MediaWiki extension for rendering mathematical notation with MathJax.
+          ko: MathJax를 활용하여 수학 기호와 수식을 렌더링하는 미디어위키 확장
+      - name: SimpleMermaid
+        repo: SimpleMermaid
+        description:
+          en: MediaWiki extension for rendering diagrams with Mermaid.
+          ko: Mermaid 다이어그램을 지원하는 미디어위키 확장
+  - owner: mailapi
+    repos:
+      - name: Mail API
+        repo: mailapi
+        description:
+          en: Vendor-neutral API specification for sending and receiving email.
+          ko: 이메일 발신 및 수신을 위한 벤더 중립적 표준 API 규격
+      - name: MailAPI MediaWiki Extension
+        repo: mediawiki-extensions-MailAPI
+        description:
+          en: MediaWiki integration for the Mail API.
+          ko: Mail API를 미디어위키와 연동하는 통합 확장
+      - name: Resend Mailer
+        repo: resend-mailer
+        description:
+          en: Receives Mail API message requests and forwards them to Resend.
+          ko: Mail API 요청을 수신하여 Resend 서비스로 전달하는 발송 에이전트

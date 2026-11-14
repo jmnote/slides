@@ -1,11 +1,12 @@
-// make site: 배포 사이트와 같은 경로(/slides/...)로 모든 Slidev 덱을 개발 모드로 띄운다.
-// 덱마다 표준 Slidev 개발 서버를 내부 포트로 실행하고, 게이트웨이 하나가 목록·PDF·덱을 한 포트로 묶는다.
+// make site: 배포 사이트와 같은 경로(/<언어>/...)로 홈·목록과 모든 Slidev 덱을 개발 모드로 띄운다.
+// 덱마다 표준 Slidev 개발 서버를 내부 포트로 실행하고, 게이트웨이 하나가 페이지·PDF·덱을 한 포트로 묶는다.
 import http from 'node:http';
 import net from 'node:net';
 import { spawn } from 'node:child_process';
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { extname, resolve } from 'node:path';
-import { root, loadCatalog, deckPath, renderIndex, renderLegacyKoreanIndex, SHOWCASE } from './catalog.mjs';
+import { root, loadCatalog, LANGUAGES, SHOWCASE, slidesPath, deckPath, pdfPath, showcasePath, renderIndex } from './catalog.mjs';
+import { renderHome, renderRoot, renderSitemap, renderRobots } from './pages.mjs';
 import { runCli } from './cli.mjs';
 import { requestPath, refererPath } from './site-request.mjs';
 
@@ -16,17 +17,29 @@ const portFree = port => new Promise(done => {
   probe.listen(port, '127.0.0.1');
 });
 const TYPES = { '.css': 'text/css', '.js': 'text/javascript', '.svg': 'image/svg+xml', '.png': 'image/png', '.pdf': 'application/pdf' };
+const HTML = 'text/html; charset=utf-8';
 
 await runCli(async () => {
   const catalog = loadCatalog();
   const { base } = catalog.site;
   const decks = [
-    ...catalog.talks.filter(talk => talk.slides).map(talk => ({ id: deckPath(talk).replace(/\/$/, ''), entry: talk.slides })),
-    { id: SHOWCASE, entry: `${SHOWCASE}/slides.md` },
+    ...catalog.talks.filter(talk => talk.slides).map(talk => ({ id: deckPath(talk, 'ko').replace(/\/$/, ''), entry: talk.slides })),
+    ...catalog.talks.filter(talk => talk.slidesEn).map(talk => ({ id: deckPath(talk, 'en').replace(/\/$/, ''), entry: talk.slidesEn })),
+    { id: showcasePath.replace(/\/$/, ''), entry: `${SHOWCASE}/slides.md` },
   ].map((deck, i) => ({ ...deck, port: DECK_PORT_BASE + i }));
   const files = new Map([
-    ...catalog.talks.map(talk => [`${base}${talk.pdf}`, resolve(root, talk.pdf)]),
+    ...catalog.talks.map(talk => [`${base}${pdfPath(talk)}`, resolve(root, talk.pdf)]),
     ...['style.css', 'language.js', 'theme.js', 'sun.svg', 'moon.svg'].map(name => [`${base}assets/${name}`, resolve(root, 'tooling/site/assets', name)]),
+  ]);
+  // 홈 원본(home.html)과 카탈로그를 요청마다 다시 읽어 수정이 바로 반영되게 한다.
+  const pages = new Map([
+    [base, [HTML, () => renderRoot(loadCatalog().site)]],
+    [`${base}sitemap.xml`, ['application/xml; charset=utf-8', () => renderSitemap(loadCatalog())]],
+    [`${base}robots.txt`, ['text/plain; charset=utf-8', () => renderRobots(loadCatalog().site)]],
+    ...LANGUAGES.flatMap(language => [
+      [`${base}${language}/`, [HTML, () => renderHome(loadCatalog().site, language)]],
+      [`${base}${slidesPath(language)}`, [HTML, () => renderIndex(loadCatalog(), language, { showcase: true })]],
+    ]),
   ]);
 
   for (const deck of [...decks, { id: 'gateway', port: PORT }])
@@ -50,10 +63,11 @@ await runCli(async () => {
   const server = http.createServer((req, res) => {
     const path = requestPath(req.url);
     if (path === null) return res.writeHead(400, { 'content-type': 'text/plain; charset=utf-8' }).end('Bad request');
-    if (path === '/') return res.writeHead(302, { location: base }).end();
-    if (path === base || path === `${base}ko/`) {
-      res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
-      return res.end(path === base ? renderIndex(catalog, { showcase: true }) : renderLegacyKoreanIndex(catalog));
+    if (path === '/' && base !== '/') return res.writeHead(302, { location: base }).end();
+    if (pages.has(`${path}/`)) return res.writeHead(302, { location: `${path}/` }).end();
+    if (pages.has(path)) {
+      const [type, render] = pages.get(path);
+      return res.writeHead(200, { 'content-type': type }).end(render());
     }
     const file = files.get(path);
     if (file && existsSync(file)) {
@@ -89,7 +103,7 @@ await runCli(async () => {
   });
 
   server.listen(PORT, '127.0.0.1', () => {
-    console.log(`Slides site (dev): http://localhost:${PORT}${base}`);
+    console.log(`Site (dev): http://localhost:${PORT}${base}`);
     for (const deck of decks) console.log(`  ${deck.id.padEnd(20)} http://localhost:${PORT}${base}${deck.id}/`);
   });
 });

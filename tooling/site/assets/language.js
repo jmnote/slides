@@ -1,49 +1,22 @@
-// Shared contract with jmnote.com/slides/: lang query > saved choice > browser > en.
+// Language lives in the URL path (/en/, /ko/). This script remembers explicit choices from
+// language links and picks the entry language on the root page: saved choice > browser > en.
 (() => {
   const key = 'jmnote.language';
   const supported = value => value === 'ko' || value === 'en';
-  let saved;
-  try { saved = localStorage.getItem(key); } catch { /* Storage may be disabled. */ }
-  const explicit = new URL(location.href).searchParams.get('lang');
-  const browser = (navigator.languages || [navigator.language])
-    .map(value => String(value).toLowerCase().split('-')[0]).find(supported);
-  const lang = supported(explicit) ? explicit : supported(saved) ? saved : browser || 'en';
-  if (supported(explicit)) {
-    try { localStorage.setItem(key, lang); } catch { /* Storage may be disabled. */ }
-  }
-  document.documentElement.lang = lang;
-  if (lang !== 'en') {
-    document.documentElement.dataset.languageLoading = 'true';
-    setTimeout(() => { delete document.documentElement.dataset.languageLoading; }, 3000);
-  }
-  const apply = () => {
-    try {
-      document.querySelectorAll('[data-en][data-ko]').forEach(element => {
-        element.textContent = element.getAttribute('data-' + lang);
-      });
-      for (const attr of ['content', 'aria-label', 'title', 'alt']) {
-        document.querySelectorAll('[data-ko-' + attr + ']').forEach(element => {
-          element.setAttribute(attr, element.getAttribute('data-' + lang + '-' + attr));
-        });
-      }
-      document.querySelectorAll('[data-language]').forEach(link => {
-        const target = new URL(location.href);
-        target.searchParams.set('lang', link.dataset.language);
-        link.href = target.href;
-        link.classList.toggle('active', link.dataset.language === lang);
-        if (link.dataset.language === lang) link.setAttribute('aria-current', 'true');
-        else link.removeAttribute('aria-current');
-      });
-      // Carry explicit choices through navigation even when storage is unavailable.
-      if (supported(explicit)) document.querySelectorAll('a[data-language-nav]').forEach(link => {
-        const target = new URL(link.href);
-        target.searchParams.set('lang', lang);
-        link.href = target.href;
-      });
-    } finally {
-      delete document.documentElement.dataset.languageLoading;
-    }
+  const save = language => {
+    try { localStorage.setItem(key, language); } catch { /* Storage may be disabled. */ }
   };
-  if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', apply);
-  else apply();
+  const preferred = () => {
+    let saved;
+    try { saved = localStorage.getItem(key); } catch { /* Storage may be disabled. */ }
+    if (supported(saved)) return saved;
+    const browser = (navigator.languages || [navigator.language])
+      .map(value => String(value).toLowerCase().split('-')[0]).find(supported);
+    return browser || 'en';
+  };
+  window.jmnoteLanguage = { preferred, save };
+  document.addEventListener('click', event => {
+    const link = event.target instanceof Element ? event.target.closest('a[data-language]') : null;
+    if (link && supported(link.dataset.language)) save(link.dataset.language);
+  });
 })();
