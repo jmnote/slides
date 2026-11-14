@@ -14,7 +14,7 @@ function fixture(t) {
     writeFileSync(full, path.endsWith('.pdf') ? '%PDF-1.7' : '# Example');
   }
   const data = {
-    site: { title: 'Talks', description: 'Archive', base: '/slides/', origin: 'https://example.github.io', repository: 'https://github.com/example/slides' },
+    site: { title: 'Talks', description: 'Archive', base: '/', origin: 'https://example.github.io', repository: 'https://github.com/example/site' },
     talks: [
       { id: 'older', date: '2025-01-01', event: 'Community Meetup', title: '지난 발표' },
       { id: 'first', date: '2026-01-01', event: 'Community Meetup', title: '첫 발표', slides: true },
@@ -27,38 +27,47 @@ function fixture(t) {
 test('template showcase link appears only when requested', t => {
   const { directory, data } = fixture(t);
   const catalog = validateCatalog(data, directory);
-  assert.ok(!renderIndex(catalog).includes('template-showcase'));
-  const link = `href="${catalog.site.base}template-showcase/">Template Showcase</a>`;
-  assert.ok(renderIndex(catalog, { showcase: true }).includes(link));
+  assert.ok(!renderIndex(catalog, 'en').includes('template-showcase'));
+  assert.ok(renderIndex(catalog, 'en', { showcase: true }).includes('href="/ko/slides/template-showcase/">Template Showcase</a>'));
 });
 
 test('multiple decks and derived PDF paths keep independent URLs under a shared base', t => {
   const { directory, data } = fixture(t);
   const catalog = validateCatalog(data, directory);
   assert.deepEqual(catalog.talks.map(talk => talk.id), ['second', 'first', 'older']);
-  const html = renderIndex(catalog);
-  assert.ok(html.includes('href="/slides/first/"'));
-  assert.ok(html.includes('href="/slides/second/"'));
-  assert.ok(html.includes('/slides/2025/2025-01-01-older.pdf'));
-  assert.ok(html.includes('<meta property="og:title" content="Talks">'));
+  const html = renderIndex(catalog, 'ko');
+  assert.ok(html.includes('href="/ko/slides/first/"'));
+  assert.ok(html.includes('href="/ko/slides/second/"'));
+  assert.ok(html.includes('href="/ko/slides/2025/2025-01-01-older.pdf"'));
+  assert.ok(renderIndex(catalog, 'en').includes('<meta property="og:title" content="Talks">'));
   assert.ok(html.includes('<meta name="twitter:card" content="summary">'));
-  assert.ok(html.includes('<link rel="canonical" href="https://example.github.io/slides/">'));
-  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://example.github.io/slides/second/)'));
+  assert.ok(html.includes('<link rel="canonical" href="https://example.github.io/ko/slides/">'));
+  assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/globe.svg" width="20" height="20" alt="웹에서 보기">](https://example.github.io/ko/slides/second/)'));
   assert.ok(renderReadmeTable(catalog).startsWith('| 제목 | 웹 | PDF | 날짜 | 행사 |'));
   assert.ok(renderReadmeTable(catalog).includes('| Community Meetup |'));
-  data.site.base = '/';
-  assert.ok(renderIndex(validateCatalog(data, directory)).includes('href="/second/"'));
-  assert.ok(renderReadmeTable(validateCatalog(data, directory)).includes('https://example.github.io/second/'));
+  data.site.base = '/site/';
+  assert.ok(renderIndex(validateCatalog(data, directory), 'ko').includes('href="/site/ko/slides/second/"'));
+  assert.ok(renderReadmeTable(validateCatalog(data, directory)).includes('https://example.github.io/site/ko/slides/second/'));
 });
 
-test('list localizes the main title', t => {
+test('each language gets its own list page with hreflang alternates', t => {
   const { directory, data } = fixture(t);
   data.talks[1].title_en = 'First Presentation';
   const catalog = validateCatalog(data, directory);
-  const html = renderIndex(catalog);
-  assert.ok(html.includes('data-en="First Presentation" data-ko="첫 발표">First Presentation</a>'));
-  assert.ok(html.includes('assets/language.js'));
-  assert.ok(!html.includes('href="/slides/ko/"'));
+  const en = renderIndex(catalog, 'en');
+  const ko = renderIndex(catalog, 'ko');
+  assert.ok(en.includes('<html lang="en">') && ko.includes('<html lang="ko">'));
+  assert.ok(en.includes('hreflang="ko">First Presentation</a>'), 'English list links the Korean deck and marks its language');
+  assert.ok(ko.includes('>첫 발표</a>'));
+  for (const html of [en, ko]) {
+    assert.ok(html.includes('<link rel="alternate" hreflang="en" href="https://example.github.io/en/slides/">'));
+    assert.ok(html.includes('<link rel="alternate" hreflang="ko" href="https://example.github.io/ko/slides/">'));
+    assert.ok(html.includes('<link rel="alternate" hreflang="x-default" href="https://example.github.io/en/slides/">'));
+    assert.ok(!html.includes('data-en') && !html.includes('?lang'));
+  }
+  assert.ok(en.includes('<a href="/ko/slides/" hreflang="ko" lang="ko" data-language="ko">한국어</a>'));
+  assert.ok(en.includes('<a href="/en/slides/" hreflang="en" lang="en" data-language="en" class="active" aria-current="true">English</a>'));
+  assert.ok(en.includes('<a href="/en/">Home</a>') && ko.includes('<a href="/ko/slides/" aria-current="page">슬라이드</a>'));
 });
 
 test('duplicate IDs fail before a build', t => {
@@ -84,7 +93,7 @@ test('invalid dates, escaping source paths, and malformed base paths are rejecte
 test('metadata is escaped in HTML text and link labels', t => {
   const { directory, data } = fixture(t);
   data.talks[1].title = '<script>alert("test")</script>';
-  const html = renderIndex(validateCatalog(data, directory));
+  const html = renderIndex(validateCatalog(data, directory), 'ko');
   assert.ok(!html.includes('<script>'));
   assert.ok(html.includes('&lt;script&gt;alert(&quot;test&quot;)'));
 });
@@ -133,7 +142,7 @@ test('omitted or false slides is PDF-only and other values are rejected', t => {
   const catalog = validateCatalog(data, directory);
   assert.equal(catalog.talks.find(talk => talk.id === 'older').slides, undefined);
   assert.equal(catalog.talks.find(talk => talk.id === 'first').slides, undefined);
-  assert.ok(!renderIndex(catalog).includes('href="/slides/first/"'));
+  assert.ok(!renderIndex(catalog, 'ko').includes('href="/ko/slides/first/"'));
   assert.ok(renderReadmeTable(catalog).includes('[<img src="tooling/site/icons/file-pdf-gray.svg" width="20" height="20" alt="PDF 다운로드">](2026/2026-01-01-first.pdf?raw=true)'));
   for (const slides of ['true', '2026/example/slides.md', 1, null]) {
     data.talks[1].slides = slides;
@@ -143,7 +152,7 @@ test('omitted or false slides is PDF-only and other values are rejected', t => {
 
 test('year-directory IDs and site filenames cannot become presentation routes', t => {
   const { directory, data } = fixture(t);
-  for (const id of ['2025', '2026', '2099']) {
+  for (const id of ['2025', '2026', '2099', 'template-showcase']) {
     const invalid = structuredClone(data);
     invalid.talks[1].id = id;
     assert.throws(() => validateCatalog(invalid, directory), /Reserved talk id/);
@@ -153,4 +162,17 @@ test('year-directory IDs and site filenames cannot become presentation routes', 
     invalid.talks[1].id = id;
     assert.throws(() => validateCatalog(invalid, directory), /Invalid or duplicate talk id/);
   }
+});
+
+test('English slide sources are explicit and must exist', t => {
+  const { directory, data } = fixture(t);
+  data.talks[1].slides_en = true;
+  assert.throws(() => validateCatalog(data, directory), /missing Slidev source/);
+  writeFileSync(resolve(directory, '2026/2026-01-01-first/slides.en.md'), '# English');
+  assert.equal(validateCatalog(data, directory).talks.find(talk => talk.id === 'first').slidesEn, '2026/2026-01-01-first/slides.en.md');
+  const catalog = validateCatalog(data, directory);
+  assert.ok(renderIndex(catalog, 'en').includes('href="/en/slides/first/"'));
+  assert.ok(renderIndex(catalog, 'ko').includes('href="/ko/slides/first/"'));
+  data.talks[1].slides = false;
+  assert.throws(() => validateCatalog(data, directory), /requires slides/);
 });

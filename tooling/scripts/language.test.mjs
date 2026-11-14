@@ -4,52 +4,46 @@ import { readFileSync } from 'node:fs';
 import vm from 'node:vm';
 
 const script = readFileSync(new URL('../site/assets/language.js', import.meta.url), 'utf8');
-function visit({ query = '', saved, languages = ['en'], blocked = false } = {}) {
+
+function load({ saved, languages = ['en'], blocked = false } = {}) {
   const storage = new Map(saved ? [['jmnote.language', saved]] : []);
-  const location = { href: `https://jmnote.com/slides/${query}#/7` };
-  const attrs = {};
-  const link = { dataset: { language: 'ko' }, classList: { toggle() {} }, setAttribute(k, v) { attrs[k] = v; }, removeAttribute(k) { delete attrs[k]; } };
-  const nav = { href: 'https://jmnote.com/' };
-  const document = {
-    documentElement: { dataset: {} }, readyState: 'complete',
-    querySelectorAll(selector) {
-      if (selector === '[data-language]') return [link];
-      if (selector === 'a[data-language-nav]') return [nav];
-      return [];
-    },
-  };
+  const listeners = [];
+  class Element {
+    constructor(language) { this.dataset = { language }; }
+    closest(selector) { return selector === 'a[data-language]' && this.dataset.language ? this : null; }
+  }
+  const window = {};
   vm.runInNewContext(script, {
-    URL, location, setTimeout() {}, navigator: { languages }, document,
+    window, Element, navigator: { languages },
+    document: { addEventListener: (type, listener) => listeners.push(listener) },
     localStorage: {
-      getItem(k) { if (blocked) throw Error('blocked'); return storage.get(k); },
-      setItem(k, v) { if (blocked) throw Error('blocked'); storage.set(k, v); },
+      getItem(key) { if (blocked) throw Error('blocked'); return storage.get(key); },
+      setItem(key, value) { if (blocked) throw Error('blocked'); storage.set(key, value); },
     },
   });
-  return { lang: document.documentElement.lang, dataset: document.documentElement.dataset, storage, link, nav, location };
+  const click = language => listeners.forEach(listener => listener({ target: new Element(language) }));
+  return { language: window.jmnoteLanguage, storage, click };
 }
 
-test('explicit language overrides saved and browser choice and is saved', () => {
-  const result = visit({ query: '?lang=ko', saved: 'en' });
-  assert.equal(result.lang, 'ko');
-  assert.equal(result.dataset.languageLoading, undefined);
-  assert.equal(result.storage.get('jmnote.language'), 'ko');
-  assert.equal(result.nav.href, 'https://jmnote.com/?lang=ko');
+test('root language follows saved choice, then browser, then English', () => {
+  assert.equal(load({ saved: 'ko', languages: ['en-US'] }).language.preferred(), 'ko');
+  assert.equal(load({ languages: ['fr', 'ko-KR', 'en-US'] }).language.preferred(), 'ko');
+  assert.equal(load({ languages: ['fr'] }).language.preferred(), 'en');
+  assert.equal(load({ saved: 'fr', languages: ['en'] }).language.preferred(), 'en');
 });
-test('saved choice overrides browser without adding a query or saving automatic choices', () => {
-  assert.equal(visit({ saved: 'en', languages: ['ko-KR'] }).lang, 'en');
-  const result = visit({ languages: ['fr', 'ko-KR', 'en-US'] });
-  assert.equal(result.lang, 'ko');
-  assert.equal(result.dataset.languageLoading, undefined);
-  assert.equal(result.storage.size, 0);
-  assert.equal(result.location.href, 'https://jmnote.com/slides/#/7');
+
+test('language links save the explicit choice; automatic selection saves nothing', () => {
+  const page = load({ languages: ['ko'] });
+  page.language.preferred();
+  assert.equal(page.storage.size, 0);
+  page.click('en');
+  assert.equal(page.storage.get('jmnote.language'), 'en');
+  page.click(undefined);
+  assert.equal(page.storage.get('jmnote.language'), 'en');
 });
-test('unsupported languages fall back to English; invalid query falls through', () => {
-  assert.equal(visit({ languages: ['fr'] }).lang, 'en');
-  assert.equal(visit({ query: '?lang=fr', saved: 'ko' }).lang, 'ko');
-});
-test('blocked storage still supports browser selection and explicit navigation', () => {
-  assert.equal(visit({ blocked: true, languages: ['ko'] }).lang, 'ko');
-  const result = visit({ query: '?lang=en&foo=bar', blocked: true });
-  assert.equal(result.nav.href, 'https://jmnote.com/?lang=en');
-  assert.equal(result.link.href, 'https://jmnote.com/slides/?lang=ko&foo=bar#/7');
+
+test('blocked storage still falls back to the browser language', () => {
+  const page = load({ blocked: true, languages: ['ko'] });
+  assert.equal(page.language.preferred(), 'ko');
+  assert.doesNotThrow(() => page.click('en'));
 });

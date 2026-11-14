@@ -1,5 +1,7 @@
 ---
 theme: default
+language: ko
+languages: [ko, en]
 title: Kubernetes 엔지니어가 둘러본 AI Agent 생태계
 info: 쿠버네티스 코리아 유저 그룹 밋업 · 2026-10-28
 class: cover
