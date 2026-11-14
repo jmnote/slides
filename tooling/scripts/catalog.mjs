@@ -103,7 +103,7 @@ export function renderIndex({ site, talks }, lang = 'en', { showcase = false } =
       return `<tr class="talk-row">
         <td>
           <div class="talk-heading">${titleHtml}${pdfBtn}</div>
-          <div class="talk-subtitle">${label('Material: Korean', '자료: 한국어')}</div>
+          <div class="talk-subtitle" data-material-language="ko"${isKo ? ' hidden' : ''}>${label('Material: Korean', '자료: 한국어')}</div>
         </td>
         <td class="col-event">
           <div class="talk-date">${talk.date}</div>
