@@ -5,8 +5,9 @@ import { isScreenVertical } from '@slidev/client/state/storage.ts'
 import { siteBase } from './site-base'
 
 const { isPresenter, isEmbedded } = useNav()
-// 목록은 한국어 페이지로 고정 (버튼 라벨도 한국어)
-const home = siteBase + 'ko/'
+// 목록에서 공통 선호 언어를 적용한다.
+const lang = new URLSearchParams(window.location.search).get('lang')
+const home = siteBase + (lang === 'ko' || lang === 'en' ? `?lang=${lang}` : '')
 </script>
 
 <template>

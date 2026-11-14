@@ -5,7 +5,7 @@ import net from 'node:net';
 import { spawn } from 'node:child_process';
 import { createReadStream, existsSync, statSync } from 'node:fs';
 import { extname, resolve } from 'node:path';
-import { root, loadCatalog, deckPath, renderIndex, SHOWCASE } from './catalog.mjs';
+import { root, loadCatalog, deckPath, renderIndex, renderLegacyKoreanIndex, SHOWCASE } from './catalog.mjs';
 import { runCli } from './cli.mjs';
 import { requestPath, refererPath } from './site-request.mjs';
 
@@ -26,7 +26,7 @@ await runCli(async () => {
   ].map((deck, i) => ({ ...deck, port: DECK_PORT_BASE + i }));
   const files = new Map([
     ...catalog.talks.map(talk => [`${base}${talk.pdf}`, resolve(root, talk.pdf)]),
-    ...['style.css', 'theme.js', 'sun.svg', 'moon.svg'].map(name => [`${base}assets/${name}`, resolve(root, 'tooling/site/assets', name)]),
+    ...['style.css', 'language.js', 'theme.js', 'sun.svg', 'moon.svg'].map(name => [`${base}assets/${name}`, resolve(root, 'tooling/site/assets', name)]),
   ]);
 
   for (const deck of [...decks, { id: 'gateway', port: PORT }])
@@ -53,7 +53,7 @@ await runCli(async () => {
     if (path === '/') return res.writeHead(302, { location: base }).end();
     if (path === base || path === `${base}ko/`) {
       res.writeHead(200, { 'content-type': 'text/html; charset=utf-8' });
-      return res.end(renderIndex(catalog, path === base ? 'en' : 'ko', { showcase: true }));
+      return res.end(path === base ? renderIndex(catalog, 'en', { showcase: true }) : renderLegacyKoreanIndex(catalog));
     }
     const file = files.get(path);
     if (file && existsSync(file)) {

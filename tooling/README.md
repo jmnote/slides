@@ -87,3 +87,16 @@ PDF는 날짜와 id로 계산한 경로로 복사합니다. 새 PDF 자동 생�
 Slidev의 Monaco 하위 DOMPurify를 보안 패치 버전으로 고정합니다.
 현재 `pnpm --dir tooling audit`에는 `pptxgenjs`의 `image-size` 관련 high 경고 2건이 남아 있습니다.
 이 발표에서는 PPTX 내보내기를 사용하지 않으며, 해당 기능은 검증 범위에 포함하지 않았습니다.
+
+## 목록 언어 선택
+
+목록 주소는 `/slides/` 하나를 사용합니다. 선택 우선순위는 `?lang=ko|en`,
+저장된 선택(`localStorage`의 `jmnote.language`), 브라우저 선호 언어, 영어입니다.
+자동 선택 시 쿼리를 추가하지 않습니다. 언어 버튼은 다른 쿼리와 해시를 유지하고
+명시적 선택을 저장합니다. 같은 도메인의 홈에서도 같은 저장 키를 사용합니다.
+기존 `/slides/ko/`는 `/slides/?lang=ko`로 연결합니다.
+현재 발표 원문은 한국어이며, 목록에 자료 언어를 별도로 표시합니다.
+개별 발표의 번역 및 언어별 PDF는 후속 작업입니다.
+
+`tooling/site/assets/language.js`는 홈 프로젝트의 `assets/language.js`와 같은
+정책으로 관리합니다. 두 저장소를 변경할 때 선택 규칙과 저장 키를 함께 확인합니다.
