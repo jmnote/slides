@@ -5,6 +5,7 @@
 - 주소는 모두 `/<언어>/`로 시작합니다: `/en/`·`/ko/` 홈, `/en/slides/`·`/ko/slides/` 목록, `/<언어>/slides/<id>/` 덱, `/ko/slides/<연도>/<파일>.pdf` PDF. 루트 `/`는 저장된 선택 → 브라우저 언어 → 영어 순으로 언어를 골라 이동합니다.
 - 홈 내용은 `tooling/site/home.yaml`, 발표 목록은 `tooling/site/talks.yaml`에서 관리합니다. 저장소 목록은 그룹 안에서 이름순으로 자동 정렬됩니다.
 - `make site`로 전체 사이트 개발 서버, `make check`로 테스트·README 동기화·전체 빌드를 확인합니다.
+- 릴리스: `VERSION`을 올려 `main`에 병합하면 `v<버전>` 태그와 GitHub 릴리스가 자동으로 만들어집니다(`.github/workflows/release.yml`).
 
 ## 발표
 

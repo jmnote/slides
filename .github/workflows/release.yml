@@ -1,0 +1,41 @@
+name: Release
+
+# main에 반영된 VERSION의 태그(v<버전>)가 없으면 태그와 GitHub 릴리스를 만든다.
+on:
+  push:
+    branches: [main]
+    paths: [VERSION]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+
+jobs:
+  release:
+    runs-on: ubuntu-latest
+    timeout-minutes: 5
+    steps:
+      - uses: actions/checkout@v7
+        with:
+          fetch-depth: 0
+      - name: Create release when VERSION is new
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+        run: |
+          set -euo pipefail
+          version=$(tr -d '[:space:]' < VERSION)
+          if ! [[ "$version" =~ ^[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "VERSION must be MAJOR.MINOR.PATCH: '$version'" >&2
+            exit 1
+          fi
+          tag="v${version}"
+          if git rev-parse -q --verify "refs/tags/${tag}" >/dev/null; then
+            echo "Tag ${tag} already exists; nothing to release." >> "$GITHUB_STEP_SUMMARY"
+            exit 0
+          fi
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag "${tag}"
+          git push origin "${tag}"
+          gh release create "${tag}" --generate-notes --title "${tag}"
+          echo "Released ${tag}." >> "$GITHUB_STEP_SUMMARY"
