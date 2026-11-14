@@ -21,9 +21,6 @@
         element.setAttribute(attr, element.getAttribute('data-' + lang + '-' + attr));
       });
     }
-    document.querySelectorAll('[data-material-language]').forEach(element => {
-      element.hidden = element.dataset.materialLanguage === lang;
-    });
     document.querySelectorAll('[data-language]').forEach(link => {
       const target = new URL(location.href);
       target.searchParams.set('lang', link.dataset.language);

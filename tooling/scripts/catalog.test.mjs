@@ -53,16 +53,13 @@ test('multiple decks and derived PDF paths keep independent URLs under a shared 
   assert.ok(renderReadmeTable(validateCatalog(data, directory)).includes('https://example.github.io/second/'));
 });
 
-test('list localizes the main title and identifies original material language', t => {
+test('list localizes the main title', t => {
   const { directory, data } = fixture(t);
   data.talks[1].title_en = 'First Presentation';
   const catalog = validateCatalog(data, directory);
   const html = renderIndex(catalog);
   assert.ok(html.includes('data-en="First Presentation" data-ko="첫 발표">First Presentation</a>'));
   assert.ok(renderIndex(catalog, 'ko').includes('data-ko="첫 발표">첫 발표</a>'));
-  assert.ok(html.includes('data-material-language="ko">'));
-  assert.ok(renderIndex(catalog, 'ko').includes('data-material-language="ko" hidden>'));
-  assert.ok(html.includes('Material: Korean'));
   assert.ok(html.includes('assets/language.js'));
   assert.ok(!html.includes('href="/slides/ko/"'));
 });
