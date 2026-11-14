@@ -30,7 +30,6 @@ test('template showcase link appears only when requested', t => {
   assert.ok(!renderIndex(catalog).includes('template-showcase'));
   const link = `href="${catalog.site.base}template-showcase/">Template Showcase</a>`;
   assert.ok(renderIndex(catalog, { showcase: true }).includes(link));
-  assert.ok(renderIndex(catalog, { showcase: true }).includes(link));
 });
 
 test('multiple decks and derived PDF paths keep independent URLs under a shared base', t => {

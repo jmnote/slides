@@ -25,12 +25,13 @@ function visit({ query = '', saved, languages = ['en'], blocked = false } = {}) 
       setItem(k, v) { if (blocked) throw Error('blocked'); storage.set(k, v); },
     },
   });
-  return { lang: document.documentElement.lang, storage, link, nav, location };
+  return { lang: document.documentElement.lang, dataset: document.documentElement.dataset, storage, link, nav, location };
 }
 
 test('explicit language overrides saved and browser choice and is saved', () => {
   const result = visit({ query: '?lang=ko', saved: 'en' });
   assert.equal(result.lang, 'ko');
+  assert.equal(result.dataset.languageLoading, undefined);
   assert.equal(result.storage.get('jmnote.language'), 'ko');
   assert.equal(result.nav.href, 'https://jmnote.com/?lang=ko');
 });
@@ -38,6 +39,7 @@ test('saved choice overrides browser without adding a query or saving automatic 
   assert.equal(visit({ saved: 'en', languages: ['ko-KR'] }).lang, 'en');
   const result = visit({ languages: ['fr', 'ko-KR', 'en-US'] });
   assert.equal(result.lang, 'ko');
+  assert.equal(result.dataset.languageLoading, undefined);
   assert.equal(result.storage.size, 0);
   assert.equal(result.location.href, 'https://jmnote.com/slides/#/7');
 });

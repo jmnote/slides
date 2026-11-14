@@ -79,8 +79,6 @@ export function renderIndex({ site, talks }, { showcase = false } = {}) {
   const e = escapeHtml;
   const bilingual = (en, ko) => `data-en="${e(en)}" data-ko="${e(ko)}"`;
   const label = (en, ko) => `<span ${bilingual(en, ko)}>${e(en)}</span>`;
-  const pageTitle = site.title;
-  const pageDesc = site.description;
   const years = [...new Set(talks.map(talk => talk.date.slice(0, 4)))];
 
   const tableRows = years.map(year => {
@@ -92,11 +90,10 @@ export function renderIndex({ site, talks }, { showcase = false } = {}) {
     const talkRows = entries.map(talk => {
       const enTitle = talk.title_en || talk.title;
       const koTitle = talk.title_ko || talk.title;
-      const mainTitle = enTitle;
       const titleAttrs = bilingual(enTitle, koTitle);
       const titleHtml = talk.slides
-        ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link" data-language-nav ${titleAttrs}>${e(mainTitle)}</a>`
-        : `<span class="talk-title" ${titleAttrs}>${e(mainTitle)}</span>`;
+        ? `<a href="${site.base}${encodePath(deckPath(talk))}" class="talk-link" data-language-nav ${titleAttrs}>${e(enTitle)}</a>`
+        : `<span class="talk-title" ${titleAttrs}>${e(enTitle)}</span>`;
       const pdfBtn = `<a href="${site.base}${encodePath(talk.pdf)}" class="pdf-btn" title="PDF" aria-label="PDF" target="_blank" rel="noopener">${PDF_ICON_SVG}</a>`;
 
       return `<tr class="talk-row">
@@ -116,25 +113,24 @@ export function renderIndex({ site, talks }, { showcase = false } = {}) {
   const navHome = `<a href="/" data-language-nav>${label('Home', '홈')}</a>`;
   const navSlides = `<a href="${site.base}" data-language-nav aria-current="page">${label('Slides', '슬라이드')}</a>`;
   const langSwitch = `<div class="lang-switch"><a href="?lang=en" data-language="en">English</a><span class="sep">/</span><a href="?lang=ko" data-language="ko">한국어</a></div>`;
-  const themeTitle = 'Switch theme';
 
   return `<!doctype html>
 <html lang="en">
 <head>
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <meta name="description" content="${e(pageDesc)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
-  <title ${bilingual(site.title, site.title_ko || site.title)}>${e(pageTitle)}</title>
+  <meta name="description" content="${e(site.description)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
+  <title ${bilingual(site.title, site.title_ko || site.title)}>${e(site.title)}</title>
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="Jmnote">
-  <meta property="og:title" content="${e(pageTitle)}">
-  <meta property="og:description" content="${e(pageDesc)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
+  <meta property="og:title" content="${e(site.title)}">
+  <meta property="og:description" content="${e(site.description)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
   <meta property="og:image" content="https://github.com/jmnote.png?size=512">
   <meta property="og:url" content="${site.origin}${site.base}">
   <meta property="og:locale" content="en_US">
   <meta name="twitter:card" content="summary">
-  <meta name="twitter:title" content="${e(pageTitle)}">
-  <meta name="twitter:description" content="${e(pageDesc)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
+  <meta name="twitter:title" content="${e(site.title)}">
+  <meta name="twitter:description" content="${e(site.description)}" data-en-content="${e(site.description)}" data-ko-content="${e(site.description_ko || site.description)}">
   <meta name="twitter:image" content="https://github.com/jmnote.png?size=512">
   <link rel="canonical" href="${site.origin}${site.base}">
   <link rel="icon" href="https://github.com/jmnote.png" type="image/png">
@@ -151,7 +147,7 @@ export function renderIndex({ site, talks }, { showcase = false } = {}) {
       </nav>
       <div class="site-controls">
         ${langSwitch}
-        <button id="theme-toggle" type="button" aria-label="${themeTitle}" title="${themeTitle}">
+        <button id="theme-toggle" type="button" aria-label="Switch theme" title="Switch theme">
           <img id="theme-icon" src="${site.base}assets/sun.svg" alt="">
         </button>
       </div>
@@ -161,7 +157,7 @@ export function renderIndex({ site, talks }, { showcase = false } = {}) {
       <div class="hero">
         <div class="hero-bio">
           <h1>${label('Slides', '슬라이드')}</h1>
-          <p ${bilingual(site.description, site.description_ko || site.description)}>${e(pageDesc)}</p>
+          <p ${bilingual(site.description, site.description_ko || site.description)}>${e(site.description)}</p>
         </div>
       </div>
 
